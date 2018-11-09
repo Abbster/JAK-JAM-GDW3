@@ -1,7 +1,7 @@
 #include "Character.h"
 
 
-
+//some test stuff
 template<class type>
 void character<type>::setGeneric(type thisvalue, type newval)
 {
