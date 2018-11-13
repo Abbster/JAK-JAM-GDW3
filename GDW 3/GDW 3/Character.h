@@ -1,48 +1,48 @@
 #pragma once
 #include <string>
-	template <class type>
+#include <cstdlib>
+#include<ctime>
+#include "ability.h"
 class character {
 
 public:
 	
 	//test functions with templates for literally anything
-	void setGeneric(type thisvalue, type newval);
-	type getGeneric(type thisvalue);
-
+	typedef double dataValue,resistance;
+	typedef bool passive, DEBUFF,BUFF,abilities;
 	
 
-	class ablity {
-	private:
-		typedef unsigned short rank, target;//can be 1,2,3,4
-		float damageMod, critMod;
-		int accuracy;
-		typedef std::string range;//can be "melee" or "ranged"
-	};
-
-
-	//data members
+	//takes in base values
+	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue accMod, dataValue critt, dataValue dmgmin, dataValue dmgmax);
+	void attack(unsigned short target,character enemy,ability abl);
+	void setAbility1(ability abl);
+	void setPosition(unsigned short pos);
+	//data members...a lot of which are going to be cut (yikes)
 private:
-	typedef float dataValue,resistance;
-	typedef bool passive, debuff,buff,abilities;
 	dataValue
 		maxHP,
+		currentHP,
 		dodge,
 		speed,
+		accuracyMod,
+		protection,
 		crit,
-		damage;
+		damageMin,
+		damageMax;
+		int inBetweenDamage;//this will be the random number between damagemin and damage max
 	resistance
-		stun,
-		poison,
-		bleed,
-		debuff,
-		move,
-		disease,
-		trap;
+		stun_resist,
+		poison_resist,
+		bleed_resist,
+		debuff_resist,
+		move_resist,
+		disease_resist,
+		trap_resist;
 	passive
 		corpseClear,
 		preventAmbush,
 		religious;
-	debuff
+	DEBUFF
 		bleed,
 		blight,
 		stun,
@@ -53,13 +53,18 @@ private:
 		heartAttack,
 		deathsDoor,
 		deathsDoorRecovery;
-	buff
-		Buff,
+	BUFF
+		buff,
 		guard,
 		riposte,
 		restoration,
 		aegis;
-	
+	ability
+		able1,
+		able2,
+		able3,
+		able4;
+	unsigned short position;//1,2,3,4
 
 		
 

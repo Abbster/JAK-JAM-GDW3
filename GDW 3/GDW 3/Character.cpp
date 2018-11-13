@@ -2,22 +2,35 @@
 
 
 //some test stuff
-template<class type>
-void character<type>::setGeneric(type thisvalue, type newval)
+
+character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue accMod, dataValue critt, dataValue dmgmin,dataValue dmgmax)//not sure about min/max damage, still working out the function for that
 {
-	thisvalue = newval;
+	srand(time(0));
+
+	
+	this->maxHP = hp;
+	this->dodge = Dodge;
+	this->protection = protecc;
+	this->speed = spd;
+	this->accuracyMod = accMod;
+	this->crit = critt;
+	this->damageMin = dmgmin;
+	this->damageMax = dmgmax;
+	this->maxHP = this->currentHP;
 }
 
-template<class type>
-type character<type>::getGeneric(type thisvalue)
+
+void character::attack(unsigned short targetpos,character enemy, ability abl)//this is um...please help my mind is breaking
 {
-	return thisvalue;
+	
+	
+}
+void character::setAbility1(ability abl)//pretty simple sheit
+{
+	this->able1 = abl;
 }
 
-
-
-
-
-
-
-
+void character::setPosition(unsigned short pos)//just a base setter for the gazillion that need to be done
+{
+	this->position = pos;
+}
