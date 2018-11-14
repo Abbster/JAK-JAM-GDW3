@@ -3,10 +3,8 @@
 
 //some test stuff
 
-character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue accMod, dataValue critt, dataValue dmgmin,dataValue dmgmax)//not sure about min/max damage, still working out the function for that
+character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue accMod, dataValue critt, dataValue dmgmin)//not sure about min/max damage, still working out the function for that
 {
-	srand(time(0));
-
 	
 	this->maxHP = hp;
 	this->dodge = Dodge;
@@ -15,19 +13,24 @@ character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue
 	this->accuracyMod = accMod;
 	this->crit = critt;
 	this->damageMin = dmgmin;
-	this->damageMax = dmgmax;
-	this->maxHP = this->currentHP;
+	this->currentHP = this->maxHP;
 }
 
 
-void character::attack(unsigned short targetpos,character enemy, ability abl)//this is um...please help my mind is breaking
+void character::attack(ability abl,character enemy)//this is um...please help my mind is breaking
 {
-	
-	
+	abl.setTarget(enemy);
+	doDamage(enemy);
 }
-void character::setAbility1(ability abl)//pretty simple sheit
+void character::doDamage(character enemy) {
+	srand(time(0));
+	int dmg = rand() % ((int)this->damageMin + 1) + (int)this->damageMin;
+	enemy.currentHP - dmg;
+
+}
+void character::setAbility(ability abl,unsigned int abilityNumber)//pretty simple sheit
 {
-	this->able1 = abl;
+	this->abiles[abilityNumber];
 }
 
 void character::setPosition(unsigned short pos)//just a base setter for the gazillion that need to be done

@@ -2,7 +2,9 @@
 #include <string>
 #include <cstdlib>
 #include<ctime>
+#include <vector>
 #include "ability.h"
+
 class character {
 
 public:
@@ -13,9 +15,10 @@ public:
 	
 
 	//takes in base values
-	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue accMod, dataValue critt, dataValue dmgmin, dataValue dmgmax);
-	void attack(unsigned short target,character enemy,ability abl);
-	void setAbility1(ability abl);
+	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue accMod, dataValue critt, dataValue dmgmin);
+	void doDamage(character enemy);
+	void attack(ability abl, character enemy);
+	void setAbility(ability abl,unsigned int abilityNumber);
 	void setPosition(unsigned short pos);
 	//data members...a lot of which are going to be cut (yikes)
 private:
@@ -30,14 +33,6 @@ private:
 		damageMin,
 		damageMax;
 		int inBetweenDamage;//this will be the random number between damagemin and damage max
-	resistance
-		stun_resist,
-		poison_resist,
-		bleed_resist,
-		debuff_resist,
-		move_resist,
-		disease_resist,
-		trap_resist;
 	passive
 		corpseClear,
 		preventAmbush,
@@ -53,21 +48,17 @@ private:
 		heartAttack,
 		deathsDoor,
 		deathsDoorRecovery;
-	BUFF
+	BUFF//maybe cut
 		buff,
 		guard,
 		riposte,
 		restoration,
 		aegis;
-	ability
-		able1,
-		able2,
-		able3,
-		able4;
+	std::vector<ability> abiles;
+	bool corpse;
 	unsigned short position;//1,2,3,4
 
 		
-
 
 };
 
