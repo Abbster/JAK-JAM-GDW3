@@ -11,15 +11,22 @@ public:
 	
 	//test functions with templates for literally anything
 	typedef double dataValue,resistance;
-	typedef bool passive, DEBUFF,BUFF,abilities;
+	typedef bool passive, DEBUFF,BUFF;
 	
 
 	//takes in base values
-	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue accMod, dataValue critt, dataValue dmgmin);
-	void doDamage(character enemy);
-	void attack(ability abl, character enemy);
+	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME);
+	void attack(ability abl, character &enemy);
 	void setAbility(ability abl,unsigned int abilityNumber);
 	void setPosition(unsigned short pos);
+	bool didDodge();
+	bool didCrit();
+	void setStress(dataValue AH);
+	
+	std::string getName() { return this->name; }
+	dataValue getATTACC();
+	dataValue getCurrentHP();
+
 	//data members...a lot of which are going to be cut (yikes)
 private:
 	dataValue
@@ -27,11 +34,10 @@ private:
 		currentHP,
 		dodge,
 		speed,
-		accuracyMod,
-		protection,
+		PROTECC,
 		crit,
-		damageMin,
-		damageMax;
+		ATTACC,
+		stress;
 		int inBetweenDamage;//this will be the random number between damagemin and damage max
 	passive
 		corpseClear,
@@ -40,7 +46,7 @@ private:
 	DEBUFF
 		bleed,
 		blight,
-		stun,
+		stunned,
 		debuff,
 		mark,
 		move,
@@ -54,7 +60,12 @@ private:
 		riposte,
 		restoration,
 		aegis;
-	std::vector<ability> abiles;
+	ability
+		able1,
+		able2,
+		able3,
+		able4;
+	std::string name;
 	bool corpse;
 	unsigned short position;//1,2,3,4
 

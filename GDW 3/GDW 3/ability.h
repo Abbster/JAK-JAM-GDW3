@@ -1,15 +1,19 @@
 #pragma once
-#include "Character.h"
+#include <string>
 class ability {
-	//each ability has an animation...? maybe
-	//maybe the following:
+	
 public:
 
-
-	ability(bool rngd, unsigned short pos, unsigned short targrang, float dmgmodpc, float abilityacc);
+	ability(bool rngd, unsigned short pos, unsigned short targrang, float dmgmodpc,std::string NAME);
 	ability() {}
-	character setTarget(character c) { return c; }
+	bool hasStun();
+	bool giveEffect(std::string eff);
+	float getModifier();
+	std::string getName() { return this->name; }
 private:
+	std::string name;
+	bool hasEffect;
+	bool Stun;
 	bool Ranged;
 	unsigned short position;//can be 1,2,3,4
 	unsigned short targetRange;//can be 1,2,3,4

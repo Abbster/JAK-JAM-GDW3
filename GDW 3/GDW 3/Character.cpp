@@ -1,39 +1,113 @@
 #include "Character.h"
-
-
+#include <iostream>
+typedef double dataValue, resistance;
+typedef bool passive, DEBUFF, BUFF;
 //some test stuff
 
-character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue accMod, dataValue critt, dataValue dmgmin)//not sure about min/max damage, still working out the function for that
+character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc,std::string NAME)//not sure about min/max damage, still working out the function for that
 {
 	
 	this->maxHP = hp;
 	this->dodge = Dodge;
-	this->protection = protecc;
+	this->PROTECC = protecc;
 	this->speed = spd;
-	this->accuracyMod = accMod;
 	this->crit = critt;
-	this->damageMin = dmgmin;
+	this->ATTACC = attacc;
 	this->currentHP = this->maxHP;
+	this->name = NAME;
 }
 
 
-void character::attack(ability abl,character enemy)//this is um...please help my mind is breaking
+void character::attack(ability abl,character &enemy)//this is um...please help my mind is breaking
 {
-	abl.setTarget(enemy);
-	doDamage(enemy);
-}
-void character::doDamage(character enemy) {
+	
 	srand(time(0));
-	int dmg = rand() % ((int)this->damageMin + 1) + (int)this->damageMin;
-	enemy.currentHP - dmg;
-
+	std::cout << this->name<<" used "<<abl.getName() <<std::endl;
+	if (enemy.didDodge()) {
+		std::cout << enemy.name << " dodged!\n";
+		return;
+	
+	}
+	double atcc = this->ATTACC;
+	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);
+	atcc *= abl.getModifier();//getting new dmg value by multiplying by a percent amount
+	if (this->didCrit()) {
+		std::cout << "CRIT!!" << std::endl;
+		atcc *= 2;
+	}
+	enemy.currentHP -= atcc;//does damage based on character damage values
+	if (abl.hasStun())//checks if the ability has stun
+		enemy.stunned = true;//returns true if true
+	
+	
 }
+
 void character::setAbility(ability abl,unsigned int abilityNumber)//pretty simple sheit
 {
-	this->abiles[abilityNumber];
+	switch (abilityNumber) {
+	case '1':
+		this->able1 = abl;
+		break;
+	case '2':
+		this->able2 = abl;
+		break;
+	case '3':
+		this->able3 = abl;
+		break;
+	case '4':
+		this->able4 = abl;
+		break;
+	}
 }
 
 void character::setPosition(unsigned short pos)//just a base setter for the gazillion that need to be done
 {
 	this->position = pos;
+}
+
+
+bool character::didDodge()
+{
+	srand(time(0));
+	float dodgeTemp = rand() % 100 + 1;
+	if (this->position == 2)
+		this->dodge += .05;
+	if (this->position == 3)
+		this->dodge += .10;
+	if (this->position == 4)
+		this->dodge += .15;
+	
+	float dodgeUPSCALED = this->dodge * 100;
+	if (dodgeTemp <= dodgeUPSCALED)
+		return true;
+
+	return false;
+	
+}
+
+bool character::didCrit()
+{
+	srand(time(0));
+	float critTemp = rand() % 100 + 1;
+	
+	float critUPSCALED = this->crit * 100;
+	if (critTemp <= critUPSCALED)
+		return true;
+
+	return false;
+}
+
+void character::setStress(dataValue AH)
+{
+	this->stress = AH;
+}
+
+dataValue character::getATTACC()
+{
+	return this->ATTACC;
+}
+
+dataValue character::getCurrentHP()
+{
+	return this->currentHP;
 }
