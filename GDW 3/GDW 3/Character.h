@@ -18,10 +18,14 @@ public:
 	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME);
 	void attack(ability abl, character &enemy);
 	void setAbility(ability abl,unsigned int abilityNumber);
+	ability getAbility(unsigned int abilitynumber);
+	std::string getAbilityName(unsigned int abilitynumber);
+	ability selectAbility(unsigned int abilityNumber);
 	void setPosition(unsigned short pos);
 	bool didDodge();
 	bool didCrit();
 	void setStress(dataValue AH);
+	bool isSlowerThan(character &enemy);
 	
 	std::string getName() { return this->name; }
 	dataValue getATTACC();

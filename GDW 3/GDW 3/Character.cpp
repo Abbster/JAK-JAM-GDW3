@@ -36,6 +36,7 @@ void character::attack(ability abl,character &enemy)//this is um...please help m
 		atcc *= 2;
 	}
 	enemy.currentHP -= atcc;//does damage based on character damage values
+	std::cout << enemy.getName() << " took " << atcc << " damage!\n";
 	if (abl.hasStun())//checks if the ability has stun
 		enemy.stunned = true;//returns true if true
 	
@@ -59,6 +60,50 @@ void character::setAbility(ability abl,unsigned int abilityNumber)//pretty simpl
 		break;
 	}
 }
+
+ability character::getAbility(unsigned int abilitynumber)
+{
+	switch (abilitynumber) {
+	case '1':
+		return this->able1;
+	case '2':
+		return this->able2;
+	case '3':
+		return this->able3;
+	case '4':
+		return this->able4;
+	}
+}
+
+std::string character::getAbilityName(unsigned int abilitynumber)
+{
+	switch (abilitynumber) {
+	case '1':
+		return this->able1.getName();
+	case '2':
+		return this->able2.getName();
+	case '3':
+		return this->able3.getName();
+	case '4':
+		return this->able4.getName();
+	}
+}
+
+ability character::selectAbility(unsigned int abilityNumber)
+{
+	switch (abilityNumber) {
+	case '1':
+		return this->able1;
+	case '2':
+		return this->able2;
+	case '3':
+		return this->able3;
+	case '4':
+		return this->able4;
+	}
+}
+
+
 
 void character::setPosition(unsigned short pos)//just a base setter for the gazillion that need to be done
 {
@@ -101,6 +146,18 @@ void character::setStress(dataValue AH)
 {
 	this->stress = AH;
 }
+
+bool character::isSlowerThan(character & enemy)
+{
+	if (this->speed == enemy.speed)
+		return true;
+	if (this->speed < enemy.speed)
+		return true;
+	if (this->speed > enemy.speed)
+		return false;
+}
+
+
 
 dataValue character::getATTACC()
 {
