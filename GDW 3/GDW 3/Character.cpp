@@ -46,16 +46,16 @@ void character::attack(ability abl,character &enemy)//this is um...please help m
 void character::setAbility(ability abl,unsigned int abilityNumber)//pretty simple sheit
 {
 	switch (abilityNumber) {
-	case '1':
+	case 1:
 		this->able1 = abl;
 		break;
-	case '2':
+	case 2:
 		this->able2 = abl;
 		break;
-	case '3':
+	case 3:
 		this->able3 = abl;
 		break;
-	case '4':
+	case 4:
 		this->able4 = abl;
 		break;
 	}
@@ -64,45 +64,34 @@ void character::setAbility(ability abl,unsigned int abilityNumber)//pretty simpl
 ability character::getAbility(unsigned int abilitynumber)
 {
 	switch (abilitynumber) {
-	case '1':
+	case 1:
 		return this->able1;
-	case '2':
+		break;
+	case 2:
 		return this->able2;
-	case '3':
+		break;
+	case 3:
 		return this->able3;
-	case '4':
+		break;
+	case 4:
 		return this->able4;
+		break;
 	}
 }
 
 std::string character::getAbilityName(unsigned int abilitynumber)
 {
 	switch (abilitynumber) {
-	case '1':
+	case 1:
 		return this->able1.getName();
-	case '2':
+	case 2:
 		return this->able2.getName();
-	case '3':
+	case 3:
 		return this->able3.getName();
-	case '4':
+	case 4:
 		return this->able4.getName();
 	}
 }
-
-ability character::selectAbility(unsigned int abilityNumber)
-{
-	switch (abilityNumber) {
-	case '1':
-		return this->able1;
-	case '2':
-		return this->able2;
-	case '3':
-		return this->able3;
-	case '4':
-		return this->able4;
-	}
-}
-
 
 
 void character::setPosition(unsigned short pos)//just a base setter for the gazillion that need to be done
