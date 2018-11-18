@@ -35,8 +35,8 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 		std::cout << "CRIT!!" << std::endl;
 		atcc *= 2;
 	}
-	enemy.currentHP -= atcc;//does damage based on character damage values
-	std::cout << enemy.getName() << " took " << atcc << " damage!\n";
+	enemy.currentHP -= (atcc + 0.05);//does damage based on character damage values
+	std::cout << enemy.getName() << " took " << (int)atcc << " damage!\n";
 	if (abl.getStun()) {//checks if the ability has stun
 		int randomStun = rand() % 2;
 		if (randomStun == 0)
@@ -143,11 +143,10 @@ void character::setStress(dataValue AH)
 
 bool character::isSlowerThan(character & enemy)
 {
-	if (this->speed == enemy.speed)
+	if (this->speed == enemy.speed||this->speed < enemy.speed)
 		return true;
-	if (this->speed < enemy.speed)
-		return true;
-	if (this->speed > enemy.speed)
+	
+	else if (this->speed > enemy.speed)
 		return false;
 }
 

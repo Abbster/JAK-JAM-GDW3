@@ -26,11 +26,13 @@ public:
 	
 	
 	void setPosition(unsigned short pos);
+	unsigned short getPosition() { return this->position; }
 	bool didDodge();
 	bool didCrit();
 	void setStress(dataValue AH);
 	bool isSlowerThan(character &enemy);
 	bool isStunned() { return this->stunned; }
+
 	
 	std::string getName() { return this->name; }
 	void setHealthBar(std::string s) { this->healthBar = s; }
