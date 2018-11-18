@@ -1,29 +1,34 @@
 #include "ability.h"
 
-ability::ability(bool rngd, unsigned short pos, unsigned short targrang, float dmgmodpc,std::string NAME)//ability constructor
+ability::ability(unsigned short pos1, unsigned short pos2, unsigned short pos3, unsigned short pos4, unsigned short targetrange1, unsigned short targetrange2, unsigned short targetrange3, unsigned short targetrange4, float dmgmodpc, std::string NAME)
 {
-	this->Ranged = rngd; this->position = pos; this->targetRange = targrang; this->damageModPercent = dmgmodpc; this->name = NAME;//constructing the ability
-
+	this->position1 = pos1;
+	this->position2 = pos2;
+	this->position3 = pos3;
+	this->position4 = pos4;
+	this->targetRange1 = targetrange1;
+	this->targetRange2 = targetrange2;
+	this->targetRange3 = targetrange3;
+	this->targetRange4 = targetrange4;
+	this->damageModPercent = dmgmodpc;
+	this->name = NAME;
 }
 
-bool ability::hasStun()
+void ability::setStun(bool YN)
 {
-	if (this->Stun)
-		return true;
+	if (YN)
+		this->Stun = true;
 	else
-		return false;
-
+		this->Stun = false;
 }
 
-bool ability::giveEffect(std::string eff)
+void ability::setHitsMulti(bool YN)
 {
-		if (eff == "Stun"){
-			this->Stun = true;
-		this->hasEffect = true;
-		}
-		return true;
+	if (YN)
+		this->hitsMultiple = true;
+	else
+		this->hitsMultiple = false;
 
-	
 }
 
 float ability::getModifier()

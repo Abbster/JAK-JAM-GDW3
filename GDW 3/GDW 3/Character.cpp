@@ -4,9 +4,9 @@ typedef double dataValue, resistance;
 typedef bool passive, DEBUFF, BUFF;
 //some test stuff
 
-character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc,std::string NAME)//not sure about min/max damage, still working out the function for that
+character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME)//not sure about min/max damage, still working out the function for that
 {
-	
+
 	this->maxHP = hp;
 	this->dodge = Dodge;
 	this->PROTECC = protecc;
@@ -18,15 +18,15 @@ character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue
 }
 
 
-void character::attack(ability abl,character &enemy)//this is um...please help my mind is breaking
+void character::attack(ability abl, character &enemy)//this is um...please help my mind is breaking
 {
-	
+
 	srand(time(0));
-	std::cout << this->name<<" used "<<abl.getName() <<std::endl;
+	std::cout << this->name << " used " << abl.getName() << std::endl;
 	if (enemy.didDodge()) {
 		std::cout << enemy.name << " dodged!\n";
 		return;
-	
+
 	}
 	double atcc = this->ATTACC;
 	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);
@@ -37,13 +37,18 @@ void character::attack(ability abl,character &enemy)//this is um...please help m
 	}
 	enemy.currentHP -= atcc;//does damage based on character damage values
 	std::cout << enemy.getName() << " took " << atcc << " damage!\n";
-	if (abl.hasStun())//checks if the ability has stun
-		enemy.stunned = true;//returns true if true
-	
-	
+	if (abl.getStun()) {//checks if the ability has stun
+		int randomStun = rand() % 2;
+		if (randomStun == 0)
+			enemy.stunned = false;
+		if (randomStun == 1)
+			enemy.stunned = true;//returns true if true
+
+	}
+
 }
 
-void character::setAbility(ability abl,unsigned int abilityNumber)//pretty simple sheit
+void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simple sheit
 {
 	switch (abilityNumber) {
 	case 1:
@@ -110,20 +115,20 @@ bool character::didDodge()
 		this->dodge += .10;
 	if (this->position == 4)
 		this->dodge += .15;
-	
+
 	float dodgeUPSCALED = this->dodge * 100;
 	if (dodgeTemp <= dodgeUPSCALED)
 		return true;
 
 	return false;
-	
+
 }
 
 bool character::didCrit()
 {
 	srand(time(0));
 	float critTemp = rand() % 100 + 1;
-	
+
 	float critUPSCALED = this->crit * 100;
 	if (critTemp <= critUPSCALED)
 		return true;

@@ -30,6 +30,7 @@ public:
 	bool didCrit();
 	void setStress(dataValue AH);
 	bool isSlowerThan(character &enemy);
+	bool isStunned() { return this->stunned; }
 	
 	std::string getName() { return this->name; }
 	void setHealthBar(std::string s) { this->healthBar = s; }

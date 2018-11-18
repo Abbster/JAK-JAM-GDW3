@@ -7,25 +7,57 @@
 int main()
 {
 	
-	std::cout << "                    , g" << std::endl << "          gw,,,    ,@@@" << std::endl << "        @@$$@$$@g@" << std::endl << "     ]@@@@$$@@@@P   ]$%[" << std::endl << "     ,,%@@$$Tl@@@wgg@$" << std::endl << "     Bp%$$@$@@$@$@@@@``" << std::endl << "     ]@@@$@@@@@@@@P" << std::endl << "     @@@$$@@@@@@P" << std::endl << "     $$$@$@@@@@@`" << std::endl << "     ```@@B%@&@@" << std::endl << "      ]@@$$$@$@@" << std::endl << "     @@@$@$@@@NC" << std::endl << "    ]@@@$$@@@@@@" << std::endl << "    @@@@@@@@$@@@C" << std::endl << "  ]@$@@@@N@@@$@@@" << std::endl << "  @@@$$@@@@@@%@@@" << std::endl << "g@@@$M$@@@@@M$@@" << std::endl;
+	//std::cout << "                    , g" << std::endl << "          gw,,,    ,@@@" << std::endl << "        @@$$@$$@g@" << std::endl << "     ]@@@@$$@@@@P   ]$%[" << std::endl << "     ,,%@@$$Tl@@@wgg@$" << std::endl << "     Bp%$$@$@@$@$@@@@``" << std::endl << "     ]@@@$@@@@@@@@P" << std::endl << "     @@@$$@@@@@@P" << std::endl << "     $$$@$@@@@@@`" << std::endl << "     ```@@B%@&@@" << std::endl << "      ]@@$$$@$@@" << std::endl << "     @@@$@$@@@NC" << std::endl << "    ]@@@$$@@@@@@" << std::endl << "    @@@@@@@@$@@@C" << std::endl << "  ]@$@@@@N@@@$@@@" << std::endl << "  @@@$$@@@@@@%@@@" << std::endl << "g@@@$M$@@@@@M$@@" << std::endl;
 	//all of this is test stuff, we haven't actually implemented the proper characters yet
 	int userIn = 0;//values for user input
 	int userInTwo = 0;
 	std::vector<character> Heroes;//vector of heroes
 	std::vector<character> Enemies;//vector of enemies
 
-	character Crusader(33, 0, 0, 10, 0, 6, "Crusader");//creating a new character. see constructor for what these numbers mean
-	character Jellyton(14, 0, 0, 12, 0, 7, "One Jelly Boi");
-	ability Smite(false, 1, 2, 1, "Smite");//creating ability. again, see constructor
-	ability ZelousAccusation(true, 1, 2, 1, "Zelous Accusation");//creating ability. again, see constructor
-	ability JellyAttacc(false, 1, 2, 1, "Jelly Attacc");
+
+	//CRUSADER
+	character Crusader(33, 0.05, 1, 0, 0.03, 6, "Crusader");//creating a new character. see constructor for what these numbers mean
+	
+	ability Smite(3, 4, 4, 4, 5, 6, 6, 6, 1, "Smite");
 	Crusader.setAbility(Smite, 1);//sets crusader's first ability to smite
-	Crusader.setAbility(ZelousAccusation, 2);
-	Jellyton.setAbility(JellyAttacc, 1);
-	Crusader.setPosition(1);
-	Jellyton.setPosition(1);
+	
+	ability StunningBlow(3, 4, 4, 4, 5, 6, 6, 6, -0.50, "Stunning Blow");
+	StunningBlow.setStun(true);
+	Crusader.setAbility(StunningBlow, 2);
+
+	ability HolyLance(1, 2, 2, 2, 6, 7, 8, 8, 1, "Holy Lance");
+	Crusader.setAbility(HolyLance, 3);
+
+	Crusader.setPosition(4);
 	Heroes.push_back(Crusader);//pushes crusader onto the list of heroes
-	Enemies.push_back(Jellyton);
+
+	//GRAVE ROBBER
+	character GraveRobber(20,0.10,1,8,0.06,4,"Grave Robber");
+
+	ability PickToTheFace(2, 3, 4, 4, 5, 6, 6, 6, -0.15, "Pick To The Freakin' Face");
+	GraveRobber.setAbility(PickToTheFace, 1);
+
+	ability Lunge(1, 2, 2, 2, 5, 6, 7, 7, 1.40, "Lunge");
+	GraveRobber.setAbility(Lunge, 2);
+
+	ability ThrownDagger(1, 2, 3, 3, 6, 7, 8, 8, -0.10, "Thrown Dagger");
+	GraveRobber.setAbility(ThrownDagger, 3);
+
+	GraveRobber.setPosition(3);
+	Heroes.push_back(GraveRobber);
+
+	character Highwayman(23, .10, 1, 5, 0.05, 5, "Highwayman");
+	Highwayman.setPosition(2);
+
+	ability GrapeshotBlast(2, 3, 3, 3, 5, 6, 7, 7, -0.50, "Grapeshot Blast");
+	GrapeshotBlast.
+
+	character Vestal(24, 0, 1, 4, 0.01, 4, "Vestal");
+	Vestal.setPosition(1);
+
+
+
+
 
 	//for loops for comparing the speed of the heroes to the enemies
 	for (int i = 0; i < Heroes.size(); i++) {
@@ -39,8 +71,8 @@ int main()
 
 				//if the hero is faster than the enemy
 				if (!Heroes[i].isSlowerThan(Enemies[k])) {
-
-				playerTurn://label
+					
+				//playerTurn://label
 
 				//gets the name of the current hero and their current hp and prints it out. Neat!
 					std::cout << Heroes[i].getName() << " HP: " << Heroes[i].getCurrentHP() << std::endl;
@@ -57,17 +89,20 @@ int main()
 					std::cin >> userInTwo;// 1 2 3 4
 
 					Heroes[i].attack(Heroes[i].getAbility(userIn), Enemies.at(userInTwo - 1));//attacking an enemy at index 1,2,3,4
-					goto enemyTurn;
+					//goto enemyTurn;
 
 				}
 				//if the hero is slower than the enemy
 				if (Heroes[i].isSlowerThan(Enemies[k])) {
-				enemyTurn:
+				//enemyTurn:
+					if (Enemies[k].isStunned())
+						continue;
+
 					if (Heroes[i].getCurrentHP() <= 0 || Enemies[k].getCurrentHP() <= 0)
 						break;
 					Enemies[k].attack(Enemies[k].getAbility(1), Heroes[i]);
 
-					goto playerTurn;
+					//goto playerTurn;
 				}
 
 			}
