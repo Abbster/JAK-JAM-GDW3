@@ -18,6 +18,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ability.h" />
+    <ClInclude Include="Character.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ability.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="testCrusader.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A9E9CC79-1D15-4BA2-BA5F-A227D061527E}</ProjectGuid>
@@ -114,9 +123,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
