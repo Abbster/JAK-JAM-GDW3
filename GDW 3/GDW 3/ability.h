@@ -8,16 +8,13 @@ public:
 		unsigned short targetrange1, unsigned short targetrange2, unsigned short targetrange3, unsigned short targetrange4,float dmgmodpc,std::string NAME);
 	ability() {}
 	void setStun(bool YN);
-	void setHeal(bool YN);
 	bool getStun() { return this->Stun; }
-	bool getHeal() { return this->hasHeal; }
 	void setHitsMulti(bool YN);
 	float getModifier();
 	std::string getName() { return this->name; }
 private:
 	std::string name;
 	bool hasEffect;
-	bool hasHeal;
 	bool hitsMultiple;
 	bool Stun;
 	unsigned short position1;//can be 1,2,3,4 - closest position at which an ability can be used. for example, for smite, its 1

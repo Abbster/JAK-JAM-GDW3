@@ -44,7 +44,7 @@ int main()
 	Crusader.setAbility(Smite, 1);//sets crusader's first ability to smite
 
 	ability StunningBlow(3, 4, 4, 4, 5, 6, 6, 6, 0.50, "Stunning Blow");
-	StunningBlow.setStun(true);
+	StunningBlow.setStun(1);
 	Crusader.setAbility(StunningBlow, 2);
 
 	ability HolyLance(1, 2, 2, 2, 6, 7, 8, 8, 1, "Holy Lance");
@@ -88,7 +88,6 @@ int main()
 	character Vestal(24, 0, 1, 4, 0.01, 4, "Vestal");
 	ability Judgement(1, 2, 2, 2, 1, 2, 3, 4, 0.25, "Judgement");
 	Vestal.setAbility(Judgement,1);
-	Judgement.setHeal(true);
 	Vestal.setPosition(1);
 	Heroes.push_back(Vestal);
 
@@ -115,6 +114,8 @@ int main()
 	//sort(Enemies, 1);
 	while (run) {
 		for (int i = 0; i < combatList.size(); i++) {
+			system("cls");
+			sort(combatList, 5);
 			if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber" || combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
 					std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
 					std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
@@ -131,14 +132,15 @@ int main()
 					combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
 
 					if (Enemies[j].getCurrentHP() <= 0)
-						run != run;
+						run = false;
 				}
 				
 			}
 			else {
-				for (int i = 0; i < Heroes.size(); i++) {
-					combatList[i].takeEnemyTurn(Heroes.back());
-				}
+				combatList[i].takeEnemyTurn(Heroes.back());
+				//for (int i = 0; i < Heroes.size(); i++) {
+				//	combatList[i].takeEnemyTurn(Heroes.back());
+				//}
 			}
 		
 		}

@@ -35,20 +35,22 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 		std::cout << "CRIT!!" << std::endl;
 		atcc *= 2;
 	}
-	enemy.currentHP -= (int)atcc;//does damage based on character damage values
-	std::cout << enemy.getName() << " took " << (int)atcc << " damage!\n";
+	int finAttacc = (atcc + 0.5);
+	enemy.currentHP -= finAttacc;//does damage based on character damage values
+	std::cout << enemy.getName() << " took " << finAttacc << " damage!\n";
 	if (abl.getStun()) {//checks if the ability has stun
 		int randomStun = rand() % 2;
 		if (randomStun == 0)
 			enemy.stunned = false;
-		if (randomStun == 1)
+		if (randomStun == 1) {
+			std::cout << "STUNNED!\n";
 			enemy.stunned = true;//returns true if true
-
+		}
 	}
 
 }
 
-void character::heal(ability abl, character & ally)
+void character::heal(ability abl, character & Ally)
 {
 	srand(time(0));
 	std::cout << this->name << " used " << abl.getName() << std::endl;
@@ -60,8 +62,9 @@ void character::heal(ability abl, character & ally)
 		std::cout << "CRIT!!" << std::endl;
 		atcc *= 2;
 	}
-	ally.currentHP += (int)atcc;//does damage based on character damage values
-	std::cout << ally.name << " was healed " << (int)atcc << " health!\n";
+	int finAttacc = (atcc + 0.5);
+	Ally.currentHP += finAttacc;//does damage based on character damage values
+	std::cout << Ally.name << " was healed " << (int)atcc << " health!\n";
 }
 
 void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simple sheit

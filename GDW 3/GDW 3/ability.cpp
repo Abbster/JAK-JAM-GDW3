@@ -16,18 +16,7 @@ ability::ability(unsigned short pos1, unsigned short pos2, unsigned short pos3, 
 
 void ability::setStun(bool YN)
 {
-	if (YN == true)
-		this->Stun = true;
-	else
-		this->Stun = false;
-}
-
-void ability::setHeal(bool YN)
-{
-	if (YN == true)
-		this->hasHeal = true;
-	else
-		this->hasHeal = false;
+	this->Stun = YN;
 }
 
 void ability::setHitsMulti(bool YN)
