@@ -105,9 +105,9 @@ int main()
 
 
 	//int userIn = 0, userInTwo = 0; 
-
+	bool run = true;
 	sort(combatList, 5);
-	while ((Crusader.getCurrentHP() + GraveRobber.getCurrentHP() + Highwayman.getCurrentHP() + Vestal.getCurrentHP()) > 0 && Jelly.getCurrentHP() > 0) {
+	while (run) {
 		for (int i = 0; i < combatList.size(); i++) {
 			if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber" || combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
 					std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
@@ -119,9 +119,15 @@ int main()
 					std::cin >> userIn;//1 2 3 4
 					std::cout << "Select a Target's Position\n";
 					std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
+					if (combatList[i].getName() == "Vestal")
+						combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);
+					else
 					combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
-				}
 
+					if (Enemies[j].getCurrentHP() <= 0)
+						run != run;
+				}
+				
 			}
 			else
 				combatList[i].takeEnemyTurn(Heroes);

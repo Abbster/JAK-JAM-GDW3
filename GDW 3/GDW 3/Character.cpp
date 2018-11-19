@@ -48,6 +48,30 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 
 }
 
+void character::heal(ability abl, character & ally)
+{
+	srand(time(0));
+	std::cout << this->name << " used " << abl.getName() << std::endl;
+
+	double atcc = this->ATTACC;
+	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);
+	atcc *= abl.getModifier();//getting new dmg value by multiplying by a percent amount
+	if (this->didCrit()) {
+		std::cout << "CRIT!!" << std::endl;
+		atcc *= 2;
+	}
+	ally.currentHP += (int)atcc;//does damage based on character damage values
+	std::cout << ally.getName() << " was healed " << (int)atcc << " health!\n";
+	if (abl.getStun()) {//checks if the ability has stun
+		int randomStun = rand() % 2;
+		if (randomStun == 0)
+			ally.stunned = false;
+		if (randomStun == 1)
+			ally.stunned = true;//returns true if true
+
+	}
+}
+
 void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simple sheit
 {
 	switch (abilityNumber) {
@@ -165,6 +189,11 @@ dataValue character::getCurrentHP()
 void character::takeTurn(int userIn,character &Enemy)
 {
 	this->attack(this->getAbility(userIn), Enemy);//attacking an enemy at index 1,2,3,4
+}
+
+void character::takeTurnHeals(int userIn, character & Ally)
+{
+	this->heal(this->getAbility(userIn), Ally);
 }
 
 void character::takeEnemyTurn(std::vector<character> &Heroes)
