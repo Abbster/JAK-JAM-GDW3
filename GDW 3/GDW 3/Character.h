@@ -40,8 +40,8 @@ public:
 	void setHealthBar(std::string s) { this->healthBar = s; }
 	dataValue getATTACC();
 	dataValue getCurrentHP();
-	void takeTurn(int userIn,character Enemy);
-	void takeEnemyTurn(std::vector<character>Heroes);
+	void takeTurn(int userIn,character & Enemy);
+	void takeEnemyTurn(std::vector<character> & Heroes);
 
 	//data members...a lot of which are going to be cut (yikes)
 private:

@@ -35,7 +35,7 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 		std::cout << "CRIT!!" << std::endl;
 		atcc *= 2;
 	}
-	enemy.currentHP -= (atcc + 0.05);//does damage based on character damage values
+	enemy.currentHP -= (int)atcc;//does damage based on character damage values
 	std::cout << enemy.getName() << " took " << (int)atcc << " damage!\n";
 	if (abl.getStun()) {//checks if the ability has stun
 		int randomStun = rand() % 2;
@@ -162,12 +162,12 @@ dataValue character::getCurrentHP()
 	return this->currentHP;
 }
 
-void character::takeTurn(int userIn,character Enemy)
+void character::takeTurn(int userIn,character &Enemy)
 {
 	this->attack(this->getAbility(userIn), Enemy);//attacking an enemy at index 1,2,3,4
 }
 
-void character::takeEnemyTurn(std::vector<character> Heroes)
+void character::takeEnemyTurn(std::vector<character> &Heroes)
 {
 	this->attack(this->getAbility(1), Heroes.at(0));
 }
