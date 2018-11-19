@@ -108,7 +108,7 @@ void character::setPosition(unsigned short pos)//just a base setter for the gazi
 bool character::didDodge()
 {
 	srand(time(0));
-	float dodgeTemp = rand() % 100 + 1;
+	double dodgeTemp = rand() % 100 + 1;
 	if (this->position == 2)
 		this->dodge += .05;
 	if (this->position == 3)
@@ -116,7 +116,7 @@ bool character::didDodge()
 	if (this->position == 4)
 		this->dodge += .15;
 
-	float dodgeUPSCALED = this->dodge * 100;
+	double dodgeUPSCALED = this->dodge * 100;
 	if (dodgeTemp <= dodgeUPSCALED)
 		return true;
 
@@ -127,9 +127,9 @@ bool character::didDodge()
 bool character::didCrit()
 {
 	srand(time(0));
-	float critTemp = rand() % 100 + 1;
+	double critTemp = rand() % 100 + 1;
 
-	float critUPSCALED = this->crit * 100;
+	double critUPSCALED = this->crit * 100;
 	if (critTemp <= critUPSCALED)
 		return true;
 
@@ -161,3 +161,15 @@ dataValue character::getCurrentHP()
 {
 	return this->currentHP;
 }
+
+void character::takeTurn(int userIn,character Enemy)
+{
+	this->attack(this->getAbility(userIn), Enemy);//attacking an enemy at index 1,2,3,4
+}
+
+void character::takeEnemyTurn(std::vector<character> Heroes)
+{
+	this->attack(this->getAbility(1), Heroes.at(0));
+}
+
+

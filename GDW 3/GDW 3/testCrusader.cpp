@@ -2,11 +2,33 @@
 #include <iostream>
 #include <vector>
 
+std::vector<character> sort(std::vector<character> &c, int size) {
 
+	//static int *sortedArray = new int[size];//declaring static dynamic array
+
+	double change = 0;//variable to hold the current element
+
+	for (int i = size - 1; i > 0; i--) {//for loop controlling which elements to loop through first, starting from the last
+
+		for (int j = 0; j < i; j++)//loop that checks each element
+		{
+			if (c[j].getSpeed() < c[j + 1].getSpeed()) {//checks if the current element is greater than the next element
+				std::swap(c[j], c[j + 1]);
+			}
+		}
+
+	}
+
+	for (int i = 0; i < size; i++)
+		std::cout << c[i].getName() << " ";//prints the elements of the array
+	std::cout << std::endl;//ends the line after printing the array
+	return c;//returning the sorted array
+
+}
 
 int main()
 {
-	
+
 	//std::cout << "                    , g" << std::endl << "          gw,,,    ,@@@" << std::endl << "        @@$$@$$@g@" << std::endl << "     ]@@@@$$@@@@P   ]$%[" << std::endl << "     ,,%@@$$Tl@@@wgg@$" << std::endl << "     Bp%$$@$@@$@$@@@@``" << std::endl << "     ]@@@$@@@@@@@@P" << std::endl << "     @@@$$@@@@@@P" << std::endl << "     $$$@$@@@@@@`" << std::endl << "     ```@@B%@&@@" << std::endl << "      ]@@$$$@$@@" << std::endl << "     @@@$@$@@@NC" << std::endl << "    ]@@@$$@@@@@@" << std::endl << "    @@@@@@@@$@@@C" << std::endl << "  ]@$@@@@N@@@$@@@" << std::endl << "  @@@$$@@@@@@%@@@" << std::endl << "g@@@$M$@@@@@M$@@" << std::endl;
 	//all of this is test stuff, we haven't actually implemented the proper characters yet
 	int userIn = 0;//values for user input
@@ -16,11 +38,11 @@ int main()
 
 
 	//CRUSADER
-	character Crusader(33, 0.05, 1, 0, 0.03, 6, "Crusader");//creating a new character. see constructor for what these numbers mean
-	
+	character Crusader(33, 0.05, 1, 1, 0.03, 6, "Crusader");//creating a new character. see constructor for what these numbers mean
+
 	ability Smite(3, 4, 4, 4, 5, 6, 6, 6, 1, "Smite");
 	Crusader.setAbility(Smite, 1);//sets crusader's first ability to smite
-	
+
 	ability StunningBlow(3, 4, 4, 4, 5, 6, 6, 6, 0.50, "Stunning Blow");
 	StunningBlow.setStun(true);
 	Crusader.setAbility(StunningBlow, 2);
@@ -32,7 +54,7 @@ int main()
 	Heroes.push_back(Crusader);//pushes crusader onto the list of heroes
 
 	//GRAVE ROBBER
-	character GraveRobber(20,0.10,1,8,0.06,4,"Grave Robber");
+	character GraveRobber(20, 0.10, 1, 8, 0.06, 4, "Grave Robber");
 
 	ability PickToTheFace(2, 3, 4, 4, 5, 6, 6, 6, 0.15, "Pick To The Freakin' Face");
 	GraveRobber.setAbility(PickToTheFace, 1);
@@ -66,66 +88,102 @@ int main()
 	character Vestal(24, 0, 1, 4, 0.01, 4, "Vestal");
 	Vestal.setPosition(1);
 
-	character Jelly(24, 0, 1, 100, 0.01, 4, "Jelly");
+	character Jelly(24, 0, 1, 4, 0.01, 4, "Jelly");
 	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
 	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
 	Jelly.setPosition(5);
 	Enemies.push_back(Jelly);
 
 
-
-	//for loops for comparing the speed of the heroes to the enemies
-	for (int i = 0; i < Heroes.size(); i++) {
-		//nested for loop
-		for (int k = 0; k < Enemies.size(); k++) {
-
-			//std::cout << "test ";
-			//while no one is dead (i should change this later, maybe do a party HP
-			//if (Heroes[i].isSlowerThan(Enemies[k])) {
-				std::cout << Heroes[i].getName() << " HP: " << (int)Heroes[i].getCurrentHP() << std::endl;
-				std::cout << Enemies[k].getName() << " HP: " << (int)Enemies[k].getCurrentHP() << std::endl;
+	std::cout << "START ENCOUNTER!\n";
+	std::vector<character> combatList;
+	combatList.push_back(Crusader);
+	combatList.push_back(GraveRobber);
+	combatList.push_back(Highwayman);
+	combatList.push_back(Vestal);
+	combatList.push_back(Jelly);
 
 
-				if (Heroes[i].getCurrentHP() <= 0 || Enemies[k].getCurrentHP() <= 0)
-					break;
+	//int userIn = 0, userInTwo = 0; 
 
-				//gets the character's abilities and prints them out. exception thrown here
-				std::cout << "Select an ability: " << Heroes[i].getAbilityName(1) << ", " << Heroes[i].getAbilityName(2) << ", " << Heroes[i].getAbilityName(3) << "\n";
-				std::cin >> userIn;//1 2 3 4
-				std::cout << "Select a Target's Position\n";
-				std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
+	sort(combatList, 5);
+	while ((Crusader.getCurrentHP() + GraveRobber.getCurrentHP() + Highwayman.getCurrentHP() + Vestal.getCurrentHP()) > 0 && Jelly.getCurrentHP() > 0) {
+		for (int i = 0; i < combatList.size(); i++) {
+			if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber" || combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
+					std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
+					std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
 
-				Heroes[i].attack(Heroes[i].getAbility(userIn), Enemies.at(userInTwo - 1));//attacking an enemy at index 1,2,3,4
-				//continue;
-			//}
-			//if (!Heroes[i].isSlowerThan(Enemies[k]))
-			//{
-				//if (Enemies[k].isStunned())
-				//	continue;
-				if (Heroes[i].getCurrentHP() <= 0 || Enemies[k].getCurrentHP() <= 0)
-					break;
-
-				Enemies[k].attack(Enemies[k].getAbility(1), Heroes[i]);
-			//}
-				//if the hero is faster than the enemy
-				//if (!Heroes[i].isSlowerThan(Enemies[k])) {
-					
-				//playerTurn://label
-
-				//gets the name of the current hero and their current hp and prints it out. Neat!
-					//goto enemyTurn;
-
-				//if (Heroes[i].isSlowerThan(Enemies[k])) {
-				//enemyTurn:
-
-					//goto playerTurn;
-				//}
-				//}
-				//if the hero is slower than the enemy
+				for (int j = 0; j < Enemies.size(); j++) {
+					std::cout << Enemies[j].getName() << " HP: " << Enemies[j].getCurrentHP() << std::endl;
+					std::cout << "Select an ability: " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n";
+					std::cin >> userIn;//1 2 3 4
+					std::cout << "Select a Target's Position\n";
+					std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
+					combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
+				}
 
 			}
+			else
+				combatList[i].takeEnemyTurn(Heroes);
 		}
-	
+
+	}
+	//bool run = true;
+	//for loops for comparing the speed of the heroes to the enemies
+	//while (run) {
+	//	for (int i = 0; i < Heroes.size(); i++) {
+	//		//nested for loop
+	//		for (int k = 0; k < Enemies.size(); k++) {
+	//
+	//			std::cout << Heroes[i].getName() << " HP: " << (int)Heroes[i].getCurrentHP() << std::endl;
+	//			std::cout << Enemies[k].getName() << " HP: " << (int)Enemies[k].getCurrentHP() << std::endl;
+	//			//std::cout << "test ";
+	//			//while no one is dead (i should change this later, maybe do a party HP)
+	//			if (!Heroes[i].isSlowerThan(Enemies[k])) {
+	//
+	//
+	//				if (Heroes[i].getCurrentHP() <= 0 || Enemies[k].getCurrentHP() <= 0)
+	//					break;
+	//
+	//				//gets the character's abilities and prints them out. exception thrown here
+	//				std::cout << "Select an ability: " << Heroes[i].getAbilityName(1) << ", " << Heroes[i].getAbilityName(2) << ", " << Heroes[i].getAbilityName(3) << "\n";
+	//				std::cin >> userIn;//1 2 3 4
+	//				std::cout << "Select a Target's Position\n";
+	//				std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
+	//
+	//				if (Heroes[i].getCurrentHP() <= 0 || Enemies[k].getCurrentHP() <= 0)
+	//					run = false;
+	//				Heroes[i].attack(Heroes[i].getAbility(userIn), Enemies.at(userInTwo - 1));//attacking an enemy at index 1,2,3,4
+	//				continue;
+	//			}
+	//			//if (!Heroes[i].isSlowerThan(Enemies[k]))
+	//			//{
+	//				//if (Enemies[k].isStunned())
+	//				//	continue;
+	//			if (Heroes[i].getCurrentHP() <= 0 || Enemies[k].getCurrentHP() <= 0)
+	//				run = false;
+	//
+	//			Enemies[k].attack(Enemies[k].getAbility(1), Heroes[i]);
+	//			//}
+	//				//if the hero is faster than the enemy
+	//				//if (!Heroes[i].isSlowerThan(Enemies[k])) {
+	//
+	//				//playerTurn://label
+	//
+	//				//gets the name of the current hero and their current hp and prints it out. Neat!
+	//					//goto enemyTurn;
+	//
+	//				//if (Heroes[i].isSlowerThan(Enemies[k])) {
+	//				//enemyTurn:
+	//
+	//					//goto playerTurn;
+	//				//}
+	//				//}
+	//				//if the hero is slower than the enemy
+	//		}
+	//	}
+	//}
+
 	system("pause");
 
 
