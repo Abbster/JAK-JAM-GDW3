@@ -22,6 +22,14 @@ void ability::setStun(bool YN)
 		this->Stun = false;
 }
 
+void ability::setHeal(bool YN)
+{
+	if (YN == true)
+		this->hasHeal = true;
+	else
+		this->hasHeal = false;
+}
+
 void ability::setHitsMulti(bool YN)
 {
 	if (YN)

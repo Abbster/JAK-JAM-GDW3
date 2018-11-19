@@ -61,15 +61,7 @@ void character::heal(ability abl, character & ally)
 		atcc *= 2;
 	}
 	ally.currentHP += (int)atcc;//does damage based on character damage values
-	std::cout << ally.getName() << " was healed " << (int)atcc << " health!\n";
-	if (abl.getStun()) {//checks if the ability has stun
-		int randomStun = rand() % 2;
-		if (randomStun == 0)
-			ally.stunned = false;
-		if (randomStun == 1)
-			ally.stunned = true;//returns true if true
-
-	}
+	std::cout << ally.name << " was healed " << (int)atcc << " health!\n";
 }
 
 void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simple sheit
@@ -167,9 +159,9 @@ void character::setStress(dataValue AH)
 
 bool character::isSlowerThan(character & enemy)
 {
-	if (this->speed == enemy.speed||this->speed < enemy.speed)
+	if (this->speed == enemy.speed || this->speed < enemy.speed)
 		return true;
-	
+
 	else if (this->speed > enemy.speed)
 		return false;
 }
@@ -186,19 +178,20 @@ dataValue character::getCurrentHP()
 	return this->currentHP;
 }
 
-void character::takeTurn(int userIn,character &Enemy)
+void character::takeTurn(int userIn, character &Enemy)
 {
 	this->attack(this->getAbility(userIn), Enemy);//attacking an enemy at index 1,2,3,4
 }
 
 void character::takeTurnHeals(int userIn, character & Ally)
 {
+	std::cout << "healy boi\n";
 	this->heal(this->getAbility(userIn), Ally);
 }
 
-void character::takeEnemyTurn(std::vector<character> &Heroes)
+void character::takeEnemyTurn(character &Hero)
 {
-	this->attack(this->getAbility(1), Heroes.at(0));
+	this->attack(this->getAbility(1), Hero);
 }
 
 

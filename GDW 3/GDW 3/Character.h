@@ -43,7 +43,7 @@ public:
 	dataValue getCurrentHP();
 	void takeTurn(int userIn,character & Enemy);
 	void takeTurnHeals(int userIn, character & Ally);
-	void takeEnemyTurn(std::vector<character> & Heroes);
+	void takeEnemyTurn(character & Hero);
 
 	//data members...a lot of which are going to be cut (yikes)
 private:

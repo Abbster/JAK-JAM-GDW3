@@ -86,7 +86,11 @@ int main()
 
 	//VESTAL
 	character Vestal(24, 0, 1, 4, 0.01, 4, "Vestal");
+	ability Judgement(1, 2, 2, 2, 1, 2, 3, 4, 0.25, "Judgement");
+	Vestal.setAbility(Judgement,1);
+	Judgement.setHeal(true);
 	Vestal.setPosition(1);
+	Heroes.push_back(Vestal);
 
 	character Jelly(24, 0, 1, 4, 0.01, 4, "Jelly");
 	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
@@ -107,6 +111,8 @@ int main()
 	//int userIn = 0, userInTwo = 0; 
 	bool run = true;
 	sort(combatList, 5);
+	sort(Heroes, 4);
+	//sort(Enemies, 1);
 	while (run) {
 		for (int i = 0; i < combatList.size(); i++) {
 			if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber" || combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
@@ -119,7 +125,7 @@ int main()
 					std::cin >> userIn;//1 2 3 4
 					std::cout << "Select a Target's Position\n";
 					std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
-					if (combatList[i].getName() == "Vestal")
+					if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)
 						combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);
 					else
 					combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
@@ -129,8 +135,12 @@ int main()
 				}
 				
 			}
-			else
-				combatList[i].takeEnemyTurn(Heroes);
+			else {
+				for (int i = 0; i < Heroes.size(); i++) {
+					combatList[i].takeEnemyTurn(Heroes.back());
+				}
+			}
+		
 		}
 
 	}
