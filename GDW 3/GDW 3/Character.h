@@ -26,16 +26,22 @@ public:
 	
 	
 	void setPosition(unsigned short pos);
+	unsigned short getPosition() { return this->position; }
 	bool didDodge();
 	bool didCrit();
 	void setStress(dataValue AH);
 	bool isSlowerThan(character &enemy);
 	bool isStunned() { return this->stunned; }
+
 	
 	std::string getName() { return this->name; }
+	dataValue getSpeed() { return this->speed; }
+	void setSpeed(dataValue s) { this->speed = s; }
 	void setHealthBar(std::string s) { this->healthBar = s; }
 	dataValue getATTACC();
 	dataValue getCurrentHP();
+	void takeTurn(int userIn,character & Enemy);
+	void takeEnemyTurn(std::vector<character> & Heroes);
 
 	//data members...a lot of which are going to be cut (yikes)
 private:
@@ -77,7 +83,7 @@ private:
 		able4;
 	std::string name;
 	std::string healthBar;
-	bool corpse;
+	bool corpse,didAttacc;
 	unsigned short position;//1,2,3,4
 
 		

@@ -16,7 +16,7 @@ ability::ability(unsigned short pos1, unsigned short pos2, unsigned short pos3, 
 
 void ability::setStun(bool YN)
 {
-	if (YN)
+	if (YN == true)
 		this->Stun = true;
 	else
 		this->Stun = false;
