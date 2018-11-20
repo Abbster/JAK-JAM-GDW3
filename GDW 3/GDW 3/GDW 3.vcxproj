@@ -21,10 +21,12 @@
   <ItemGroup>
     <ClInclude Include="ability.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="drawing.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ability.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="drawing.cpp" />
     <ClCompile Include="testCrusader.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
