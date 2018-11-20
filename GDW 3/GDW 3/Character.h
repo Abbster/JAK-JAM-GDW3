@@ -20,6 +20,7 @@ public:
 	
 	void setAbility(ability abl,unsigned int abilityNumber);
 	void attack(ability abl, character &enemy);
+	void heal(ability abl, character &ally);
 	
 	ability getAbility(unsigned int abilitynumber);
 	std::string getAbilityName(unsigned int abilitynumber);
@@ -41,7 +42,8 @@ public:
 	dataValue getATTACC();
 	dataValue getCurrentHP();
 	void takeTurn(int userIn,character & Enemy);
-	void takeEnemyTurn(std::vector<character> & Heroes);
+	void takeTurnHeals(int userIn, character & Ally);
+	void takeEnemyTurn(character & Hero);
 
 	//data members...a lot of which are going to be cut (yikes)
 private:
@@ -62,7 +64,7 @@ private:
 	DEBUFF
 		bleed,
 		blight,
-		stunned,
+		stunned = false,
 		debuff,
 		mark,
 		move,

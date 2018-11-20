@@ -35,17 +35,38 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 		std::cout << "CRIT!!" << std::endl;
 		atcc *= 2;
 	}
-	enemy.currentHP -= (int)atcc;//does damage based on character damage values
-	std::cout << enemy.getName() << " took " << (int)atcc << " damage!\n";
-	if (abl.getStun()) {//checks if the ability has stun
+	int finAttacc = (atcc + 0.5);
+	enemy.currentHP -= finAttacc;//does damage based on character damage values
+	std::cout << enemy.getName() << " took " << finAttacc << " damage!\n";
+	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP()<<std::endl;
+	if (abl.hasStun()) {//checks if the ability has stun
 		int randomStun = rand() % 2;
 		if (randomStun == 0)
 			enemy.stunned = false;
-		if (randomStun == 1)
+		if (randomStun == 1) {
+			std::cout << "STUNNED!\n";
 			enemy.stunned = true;//returns true if true
-
+		}
 	}
 
+}
+
+void character::heal(ability abl, character & Ally)
+{
+	srand(time(0));
+	std::cout << this->name << " used " << abl.getName() << std::endl;
+
+	double atcc = this->ATTACC;
+	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);
+	atcc *= abl.getModifier();//getting new dmg value by multiplying by a percent amount
+	if (this->didCrit()) {
+		std::cout << "CRIT!!" << std::endl;
+		atcc *= 2;
+	}
+	int finAttacc = (atcc + 0.5);
+	Ally.currentHP += finAttacc;//does damage based on character damage values
+	std::cout << Ally.name << " was healed " << (int)finAttacc << " health!\n";
+	std::cout << Ally.getName() << " HP: " << Ally.getCurrentHP() << std::endl;
 }
 
 void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simple sheit
@@ -143,9 +164,9 @@ void character::setStress(dataValue AH)
 
 bool character::isSlowerThan(character & enemy)
 {
-	if (this->speed == enemy.speed||this->speed < enemy.speed)
+	if (this->speed == enemy.speed || this->speed < enemy.speed)
 		return true;
-	
+
 	else if (this->speed > enemy.speed)
 		return false;
 }
@@ -162,14 +183,19 @@ dataValue character::getCurrentHP()
 	return this->currentHP;
 }
 
-void character::takeTurn(int userIn,character &Enemy)
+void character::takeTurn(int userIn, character &Enemy)
 {
 	this->attack(this->getAbility(userIn), Enemy);//attacking an enemy at index 1,2,3,4
 }
 
-void character::takeEnemyTurn(std::vector<character> &Heroes)
+void character::takeTurnHeals(int userIn, character & Ally)
 {
-	this->attack(this->getAbility(1), Heroes.at(0));
+	this->heal(this->getAbility(userIn), Ally);
+}
+
+void character::takeEnemyTurn(character &Hero)
+{
+	this->attack(this->getAbility(1), Hero);
 }
 
 
