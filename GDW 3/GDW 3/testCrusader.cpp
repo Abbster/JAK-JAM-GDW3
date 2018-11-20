@@ -155,7 +155,7 @@ int main()
 		for (int i = 0; i < combatList.size(); i++) {
 				for (int j = 0; j < Enemies.size(); j++) {
 					system("cls");
-					draw("DemoRoom.txt");
+					draw("DemoRoom2.txt");
 					if (Enemies[j].getCurrentHP() <= 0)
 						run = false;
 					sort(combatList, 5);
