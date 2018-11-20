@@ -65,7 +65,8 @@ void character::heal(ability abl, character & Ally)
 	}
 	int finAttacc = (atcc + 0.5);
 	Ally.currentHP += finAttacc;//does damage based on character damage values
-	std::cout << Ally.name << " was healed " << (int)atcc << " health!\n";
+	std::cout << Ally.name << " was healed " << (int)finAttacc << " health!\n";
+	std::cout << Ally.getName() << " HP: " << Ally.getCurrentHP() << std::endl;
 }
 
 void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simple sheit
@@ -189,7 +190,6 @@ void character::takeTurn(int userIn, character &Enemy)
 
 void character::takeTurnHeals(int userIn, character & Ally)
 {
-	std::cout << "healy boi\n";
 	this->heal(this->getAbility(userIn), Ally);
 }
 

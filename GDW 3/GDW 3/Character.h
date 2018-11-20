@@ -64,7 +64,7 @@ private:
 	DEBUFF
 		bleed,
 		blight,
-		stunned,
+		stunned = false,
 		debuff,
 		mark,
 		move,

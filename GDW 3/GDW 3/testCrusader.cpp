@@ -25,6 +25,29 @@ std::vector<character> sort(std::vector<character> &c, int size) {
 	return c;//returning the sorted array
 
 }
+std::vector<character> sortPosition(std::vector<character> &c, int size) {
+
+	//static int *sortedArray = new int[size];//declaring static dynamic array
+
+	double change = 0;//variable to hold the current element
+
+	for (int i = size - 1; i > 0; i--) {//for loop controlling which elements to loop through first, starting from the last
+
+		for (int j = 0; j < i; j++)//loop that checks each element
+		{
+			if (c[j].getPosition() > c[j + 1].getPosition()) {//checks if the current element is greater than the next element
+				std::swap(c[j], c[j + 1]);
+			}
+		}
+
+	}
+	std::cout << "Position: ";
+	for (int i = 0; i < size; i++)
+		std::cout << c[i].getName() << " ";//prints the elements of the array
+	std::cout << std::endl;//ends the line after printing the array
+	return c;//returning the sorted array
+
+}
 
 int main()
 {
@@ -111,23 +134,22 @@ int main()
 
 	//int userIn = 0, userInTwo = 0; 
 	bool run = true;
+
 	sort(combatList, 5);
-	
 	//sort(Enemies, 1);
 	while (run) {
 		std::cout << "START ENCOUNTER!\n";
 		for (int i = 0; i < combatList.size(); i++) {
 				for (int j = 0; j < Enemies.size(); j++) {
+					system("cls");
 					if (Enemies[j].getCurrentHP() <= 0)
 						run = false;
-					system("cls");
 					sort(combatList, 5);
+					sortPosition(Heroes, 4);//make another sort function with positions
 					if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber"
 						|| combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
-						
-						
-						std::cout << "Its " << Heroes[i].getName() << "'s Turn!\n";
-						std::cout << "HP: " << Heroes[i].getCurrentHP() << std::endl;
+						std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
+						//std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
 
 						std::cout << Enemies[j].getName() << " HP: " << Enemies[j].getCurrentHP() << std::endl;
 						std::cout << "Select an ability: " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n";
@@ -135,18 +157,20 @@ int main()
 						std::cout << "Select a Target's Position\n";
 						std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
 						if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)
-							combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);
+							combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);//TYPE IN THE CHARACTER'S POSITION IN COMBAT LIST
 						else
 							combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
+						
+					if (Enemies[j].getCurrentHP() <= 0)
+						run = false;
 					}
 
 					else {
-						combatList[i].takeEnemyTurn(Heroes[0]);
-						//for (int i = 0; i < Heroes.size(); i++) {
-						//	combatList[i].takeEnemyTurn(Heroes.back());
-						//}
+						
+							combatList[i].takeEnemyTurn(Heroes[3]);
 					}
 				}
+
 				system("pause");
 			
 		}
