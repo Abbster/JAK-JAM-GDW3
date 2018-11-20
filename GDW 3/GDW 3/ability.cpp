@@ -19,6 +19,11 @@ void ability::setStun(bool YN)
 	this->Stun = YN;
 }
 
+bool ability::hasStun()
+{
+	return this->Stun;
+}
+
 void ability::setHitsMulti(bool YN)
 {
 	if (YN)

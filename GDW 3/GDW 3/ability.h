@@ -8,7 +8,7 @@ public:
 		unsigned short targetrange1, unsigned short targetrange2, unsigned short targetrange3, unsigned short targetrange4,float dmgmodpc,std::string NAME);
 	ability() {}
 	void setStun(bool YN);
-	bool getStun() { return this->Stun; }
+	bool hasStun();
 	void setHitsMulti(bool YN);
 	float getModifier();
 	std::string getName() { return this->name; }

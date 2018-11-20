@@ -38,7 +38,8 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 	int finAttacc = (atcc + 0.5);
 	enemy.currentHP -= finAttacc;//does damage based on character damage values
 	std::cout << enemy.getName() << " took " << finAttacc << " damage!\n";
-	if (abl.getStun()) {//checks if the ability has stun
+	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP()<<std::endl;
+	if (abl.hasStun()) {//checks if the ability has stun
 		int randomStun = rand() % 2;
 		if (randomStun == 0)
 			enemy.stunned = false;
