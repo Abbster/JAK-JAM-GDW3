@@ -14,9 +14,14 @@ ability::ability(unsigned short pos1, unsigned short pos2, unsigned short pos3, 
 	this->name = NAME;
 }
 
-void ability::setStun(bool YN)
+void ability::setStun(int YN)
 {
 	this->Stun = YN;
+}
+
+bool ability::hasStun()
+{
+	return this->Stun;
 }
 
 void ability::setHitsMulti(bool YN)

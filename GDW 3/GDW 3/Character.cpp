@@ -38,7 +38,8 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 	int finAttacc = (atcc + 0.5);
 	enemy.currentHP -= finAttacc;//does damage based on character damage values
 	std::cout << enemy.getName() << " took " << finAttacc << " damage!\n";
-	if (abl.getStun()) {//checks if the ability has stun
+	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP()<<std::endl;
+	if (abl.hasStun()) {//checks if the ability has stun
 		int randomStun = rand() % 2;
 		if (randomStun == 0)
 			enemy.stunned = false;
@@ -64,7 +65,8 @@ void character::heal(ability abl, character & Ally)
 	}
 	int finAttacc = (atcc + 0.5);
 	Ally.currentHP += finAttacc;//does damage based on character damage values
-	std::cout << Ally.name << " was healed " << (int)atcc << " health!\n";
+	std::cout << Ally.name << " was healed " << (int)finAttacc << " health!\n";
+	std::cout << Ally.getName() << " HP: " << Ally.getCurrentHP() << std::endl;
 }
 
 void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simple sheit
@@ -188,7 +190,6 @@ void character::takeTurn(int userIn, character &Enemy)
 
 void character::takeTurnHeals(int userIn, character & Ally)
 {
-	std::cout << "healy boi\n";
 	this->heal(this->getAbility(userIn), Ally);
 }
 
