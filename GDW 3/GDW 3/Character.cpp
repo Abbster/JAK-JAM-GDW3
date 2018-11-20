@@ -1,4 +1,5 @@
 #include "Character.h"
+#include "drawing.h"
 #include <iostream>
 typedef double dataValue, resistance;
 typedef bool passive, DEBUFF, BUFF;
@@ -22,8 +23,10 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 {
 
 	srand(time(0));
+	gotoxy(5, 51);
 	std::cout << this->name << " used " << abl.getName() << std::endl;
 	if (enemy.didDodge()) {
+		gotoxy(20, 51);
 		std::cout << enemy.name << " dodged!\n";
 		return;
 
@@ -32,40 +35,47 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);
 	atcc *= abl.getModifier();//getting new dmg value by multiplying by a percent amount
 	if (this->didCrit()) {
+		gotoxy(20, 51);
 		std::cout << "CRIT!!" << std::endl;
 		atcc *= 2;
 	}
 	int finAttacc = (atcc + 0.5);
 	enemy.currentHP -= finAttacc;//does damage based on character damage values
+	gotoxy(5, 59);
 	std::cout << enemy.getName() << " took " << finAttacc << " damage!\n";
+	gotoxy(5, 60);
 	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP()<<std::endl;
-	if (abl.hasStun()) {//checks if the ability has stun
-		int randomStun = rand() % 2;
-		if (randomStun == 0)
-			enemy.stunned = false;
-		if (randomStun == 1) {
-			std::cout << "STUNNED!\n";
-			enemy.stunned = true;//returns true if true
-		}
-	}
+	//if (abl.hasStun()) {//checks if the ability has stun
+	//	int randomStun = rand() % 2;
+	//	if (randomStun == 0)
+	//		enemy.stunned = false;
+	//	if (randomStun == 1) {
+	//		std::cout << "STUNNED!\n";
+	//		enemy.stunned = true;//returns true if true
+	//	}
+	//}
 
 }
 
 void character::heal(ability abl, character & Ally)
 {
 	srand(time(0));
+	gotoxy(5, 55);
 	std::cout << this->name << " used " << abl.getName() << std::endl;
 
 	double atcc = this->ATTACC;
 	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);
 	atcc *= abl.getModifier();//getting new dmg value by multiplying by a percent amount
 	if (this->didCrit()) {
+		gotoxy(20, 55);
 		std::cout << "CRIT!!" << std::endl;
 		atcc *= 2;
 	}
 	int finAttacc = (atcc + 0.5);
 	Ally.currentHP += finAttacc;//does damage based on character damage values
+	gotoxy(5, 59);
 	std::cout << Ally.name << " was healed " << (int)finAttacc << " health!\n";
+	gotoxy(5, 60);
 	std::cout << Ally.getName() << " HP: " << Ally.getCurrentHP() << std::endl;
 }
 

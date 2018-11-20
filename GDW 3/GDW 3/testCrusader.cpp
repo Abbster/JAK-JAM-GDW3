@@ -1,4 +1,5 @@
 #include "Character.h"
+#include "drawing.h"
 #include <iostream>
 #include <vector>
 
@@ -18,6 +19,7 @@ std::vector<character> sort(std::vector<character> &c, int size) {
 		}
 
 	}
+	gotoxy(5, 49);
 	std::cout << "Turn Order: ";
 	for (int i = 0; i < size; i++)
 		std::cout << c[i].getName() << " ";//prints the elements of the array
@@ -41,6 +43,7 @@ std::vector<character> sortPosition(std::vector<character> &c, int size) {
 		}
 
 	}
+	gotoxy(5, 50);
 	std::cout << "Position: ";
 	for (int i = 0; i < size; i++)
 		std::cout << c[i].getName() << " ";//prints the elements of the array
@@ -106,8 +109,13 @@ int main()
 
 	//VESTAL
 	character Vestal(24, 0, 1, 4, 0.01, 4, "Vestal");
-	ability Judgement(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Judgement");
-	Vestal.setAbility(Judgement, 1);
+	ability DivineGrace(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Grace");
+	Vestal.setAbility(DivineGrace, 1);
+	ability Dazzle(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Dazzling Light");
+	Vestal.setAbility(Dazzle, 2);
+	ability DivineComfort(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Comfort");
+	Vestal.setAbility(DivineComfort, 3);
+
 	Vestal.setPosition(1);
 	
 
@@ -132,29 +140,42 @@ int main()
 	combatList.push_back(Jelly);
 
 
+	draw("menu3.4.txt");
+	system("pause");
+	system("CLS");
+
 	//int userIn = 0, userInTwo = 0; 
 	bool run = true;
 
 	sort(combatList, 5);
 	//sort(Enemies, 1);
 	while (run) {
+		gotoxy(2, 2); 
 		std::cout << "START ENCOUNTER!\n";
 		for (int i = 0; i < combatList.size(); i++) {
 				for (int j = 0; j < Enemies.size(); j++) {
 					system("cls");
+					draw("DemoRoom.txt");
 					if (Enemies[j].getCurrentHP() <= 0)
 						run = false;
 					sort(combatList, 5);
 					sortPosition(Heroes, 4);//make another sort function with positions
 					if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber"
 						|| combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
+						gotoxy(5, 51);
 						std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
 						//std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
 
+						gotoxy(5, 52);
 						std::cout << Enemies[j].getName() << " HP: " << Enemies[j].getCurrentHP() << std::endl;
+						gotoxy(5, 53);
 						std::cout << "Select an ability: " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n";
+						gotoxy(5, 54);
 						std::cin >> userIn;//1 2 3 4
+
+						gotoxy(100, 49);
 						std::cout << "Select a Target's Position\n";
+						gotoxy(100, 50);
 						std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
 						if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)
 							combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);//TYPE IN THE CHARACTER'S POSITION IN COMBAT LIST
@@ -166,11 +187,11 @@ int main()
 					}
 
 					else {
-						
-							combatList[i].takeEnemyTurn(Heroes[3]);
+						gotoxy(5, 49);
+						combatList[i].takeEnemyTurn(Heroes[3]);
 					}
 				}
-
+				gotoxy(200, 61);
 				system("pause");
 			
 		}
@@ -230,8 +251,7 @@ int main()
 	//		}
 	//	}
 	//}
-
-	system("pause");
+	
 
 
 	//learn open gl 
