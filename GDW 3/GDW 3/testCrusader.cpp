@@ -62,6 +62,7 @@ int main()
 	std::vector<character> Heroes;//vector of heroes
 	std::vector<character> Enemies;//vector of enemies
 
+	//switch to pointers
 
 	//CRUSADER
 	character Crusader(33, 0.05, 1, 1, 0.03, 6, "Crusader");//creating a new character. see constructor for what these numbers mean
@@ -117,9 +118,9 @@ int main()
 	Vestal.setAbility(DivineComfort, 3);
 
 	Vestal.setPosition(1);
-	
 
-	character Jelly(24, 0, 1, 4, 0.01, 4, "Jelly");
+
+	character Jelly(1, 0, 1, 4, 0.01, 4, "Jelly");
 	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
 	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
 	Jelly.setPosition(5);
@@ -150,50 +151,57 @@ int main()
 	sort(combatList, 5);
 	//sort(Enemies, 1);
 	while (run) {
-		gotoxy(2, 2); 
+		gotoxy(2, 2);
 		std::cout << "START ENCOUNTER!\n";
 		for (int i = 0; i < combatList.size(); i++) {
-				for (int j = 0; j < Enemies.size(); j++) {
-					system("cls");
-					draw("DemoRoom2.txt");
+			for (int j = 0; j < Enemies.size(); j++) {
+				system("cls");
+				draw("DemoRoom2.txt");
+				//if (Enemies[j].getCurrentHP() <= 0)
+				//	run = false;
+
+				sort(combatList, 5);
+				sortPosition(Heroes, 4);//make another sort function with positions
+				if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber"
+					|| combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
+					gotoxy(5, 51);
+					std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
+					//std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
+
+					gotoxy(5, 52);
+					std::cout << Enemies[j].getName() << " HP: " << Enemies[j].getCurrentHP() << std::endl;
+					gotoxy(5, 53);
+					std::cout << "Select an ability: " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n";
+					gotoxy(5, 54);
+					std::cin >> userIn;//1 2 3 4
+
+					gotoxy(100, 49);
+					std::cout << "Select a Target's Position\n";
+					gotoxy(100, 50);
+					std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
+					if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)
+						combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);//TYPE IN THE CHARACTER'S POSITION IN COMBAT LIST
+					else
+						combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
+
 					if (Enemies[j].getCurrentHP() <= 0)
+					{
 						run = false;
-					sort(combatList, 5);
-					sortPosition(Heroes, 4);//make another sort function with positions
-					if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber"
-						|| combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
-						gotoxy(5, 51);
-						std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
-						//std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
-
-						gotoxy(5, 52);
-						std::cout << Enemies[j].getName() << " HP: " << Enemies[j].getCurrentHP() << std::endl;
-						gotoxy(5, 53);
-						std::cout << "Select an ability: " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n";
-						gotoxy(5, 54);
-						std::cin >> userIn;//1 2 3 4
-
-						gotoxy(100, 49);
-						std::cout << "Select a Target's Position\n";
-						gotoxy(100, 50);
-						std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
-						if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)
-							combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);//TYPE IN THE CHARACTER'S POSITION IN COMBAT LIST
-						else
-							combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
-						
-					if (Enemies[j].getCurrentHP() <= 0)
-						run = false;
-					}
-
-					else {
-						gotoxy(5, 49);
-						combatList[i].takeEnemyTurn(Heroes[3]);
+						break;
 					}
 				}
-				gotoxy(200, 61);
-				system("pause");
-			
+
+				else {
+					gotoxy(5, 49);
+					combatList[i].takeEnemyTurn(Heroes[3]);
+				}
+			}
+
+			gotoxy(200, 61);
+			system("pause");
+			if (!run)
+				break;
+
 		}
 	}
 	//bool run = true;
@@ -251,7 +259,7 @@ int main()
 	//		}
 	//	}
 	//}
-	
+
 
 
 	//learn open gl 
