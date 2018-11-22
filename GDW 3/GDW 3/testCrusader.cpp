@@ -120,7 +120,7 @@ int main()
 	Vestal.setPosition(1);
 
 
-	character Jelly(1, 0, 1, 4, 0.01, 4, "Jelly");
+	character Jelly(50, 0, 1, 4, 0.01, 4, "Jelly");
 	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
 	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
 	Jelly.setPosition(5);

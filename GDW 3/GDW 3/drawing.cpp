@@ -12,7 +12,7 @@ void draw(std::string txt)
 	{
 		while (getline(file, line))
 		{
-			std::cout << line << "\n";
+			std::cout << line << "\n";	
 		}
 		file.close();
 	}
