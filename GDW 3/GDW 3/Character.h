@@ -31,6 +31,9 @@ public:
 	bool didDodge();
 	bool didCrit();
 	void setStress(dataValue AH);
+	dataValue getStress() { return this->stress; }
+	void setHeartAttack(bool YN) { this->heartAttack = YN; }
+	DEBUFF getHeartAttack() { return this->heartAttack; }
 	bool isSlowerThan(character &enemy);
 	bool isStunned() { return this->stunned; }
 
@@ -69,7 +72,7 @@ private:
 		mark,
 		move,
 		horror,
-		heartAttack,
+		heartAttack = false,
 		deathsDoor,
 		deathsDoorRecovery;
 	BUFF//maybe cut

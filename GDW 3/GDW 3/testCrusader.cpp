@@ -159,11 +159,17 @@ int main()
 				draw("DemoRoom2.txt");
 				//if (Enemies[j].getCurrentHP() <= 0)
 				//	run = false;
-
+				
 				sort(combatList, 5);
 				sortPosition(Heroes, 4);//make another sort function with positions
 				if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber"
 					|| combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
+					if (combatList[i].getHeartAttack()) {
+						std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
+						combatList.erase(combatList.begin() + i);
+						i--;
+				}
+					
 					gotoxy(5, 51);
 					std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
 					//std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
@@ -192,8 +198,9 @@ int main()
 				}
 
 				else {
+					int randomSelect = rand() % 4;
 					gotoxy(5, 49);
-					combatList[i].takeEnemyTurn(Heroes[3]);
+					combatList[i].takeEnemyTurn(Heroes[randomSelect]);
 				}
 			}
 

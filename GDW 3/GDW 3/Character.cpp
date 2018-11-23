@@ -45,6 +45,13 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 	std::cout << enemy.getName() << " took " << finAttacc << " damage!\n";
 	gotoxy(5, 60);
 	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP()<<std::endl;
+	if (enemy.getStress() >= 10) {
+		std::cout << enemy.getName() << " had a heart attack!\n";
+		enemy.heartAttack = true;
+		enemy.currentHP = 0;
+		std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP() << std::endl;
+
+	}
 	//if (abl.hasStun()) {//checks if the ability has stun
 	//	int randomStun = rand() % 2;
 	//	if (randomStun == 0)
@@ -205,6 +212,7 @@ void character::takeTurnHeals(int userIn, character & Ally)
 
 void character::takeEnemyTurn(character &Hero)
 {
+	Hero.stress += 10;
 	this->attack(this->getAbility(1), Hero);
 }
 
