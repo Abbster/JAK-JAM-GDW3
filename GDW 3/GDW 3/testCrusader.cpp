@@ -289,7 +289,12 @@ int main()
 
 	std::vector<Scene*> scenes;
 	scenes.push_back(new Scene(BACKGROUND_scene1,UI_scene1));
+	scenes.push_back(new Scene(BACKGROUND_scene1, UI_scene1));
 	scenes[0]->play();
+	system("CLS");
+	std::cout << "scene done! loading scene 2...\n";
+	system("pause");
+	scenes[1]->play();
 	//int sceneIndex = 0;
 	//scenes.push_back(new StartScene());
 	//scenes.push_back(new MainScene());

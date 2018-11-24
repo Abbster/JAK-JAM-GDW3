@@ -84,8 +84,12 @@ void Scene::play()
 {
 	//std::cout << "                    , g" << std::endl << "          gw,,,    ,@@@" << std::endl << "        @@$$@$$@g@" << std::endl << "     ]@@@@$$@@@@P   ]$%[" << std::endl << "     ,,%@@$$Tl@@@wgg@$" << std::endl << "     Bp%$$@$@@$@$@@@@``" << std::endl << "     ]@@@$@@@@@@@@P" << std::endl << "     @@@$$@@@@@@P" << std::endl << "     $$$@$@@@@@@`" << std::endl << "     ```@@B%@&@@" << std::endl << "      ]@@$$$@$@@" << std::endl << "     @@@$@$@@@NC" << std::endl << "    ]@@@$$@@@@@@" << std::endl << "    @@@@@@@@$@@@C" << std::endl << "  ]@$@@@@N@@@$@@@" << std::endl << "  @@@$$@@@@@@%@@@" << std::endl << "g@@@$M$@@@@@M$@@" << std::endl;
 	//all of this is test stuff, we haven't actually implemented the proper characters yet
+	
+	srand(time(0));
 	int userIn = 0;//values for user input
 	int userInTwo = 0;
+	
+	
 	static std::vector<character> Enemies;//vector of enemies
 	static std::vector<character> Heroes;//vector of heroes
 
@@ -146,12 +150,28 @@ void Scene::play()
 
 	Vestal.setPosition(1);
 
-
-	character Jelly(502, 0, 1, 4, 0.01, 4, "Jelly");
+	int randomEnemySelect1 = rand() % 4;
+	int randomEnemySelect2 = rand() % 4;
+	int randomEnemySelect3 = rand() % 4;
+	int randomEnemySelect4 = rand() % 4;
+	std::vector<character> potentialEnemies;
+	character Jelly(30, 0, 1, 10, 0.01, 4, "Jelly");
+	character Jelly2(30, 0, 1, 1, 0.01, 4, "Jelly2");
+	character Jelly3(30, 0, 1, 30, 0.01, 4, "Jelly3");
+	character Jelly4(30, 0, 1, 7, 0.01, 4, "Jelly4");
 	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
 	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
-	Jelly.setPosition(5);
-	Enemies.push_back(Jelly);
+	Jelly2.setAbility(jello, 1);
+	Jelly3.setAbility(jello, 1);
+	potentialEnemies.push_back(Jelly);
+	potentialEnemies.push_back(Jelly2);
+	potentialEnemies.push_back(Jelly3);
+	potentialEnemies.push_back(Jelly4);
+	Enemies.push_back(potentialEnemies[randomEnemySelect1]);
+	Enemies.push_back(potentialEnemies[randomEnemySelect2]);
+	Enemies.push_back(potentialEnemies[randomEnemySelect3]);
+	Enemies.push_back(potentialEnemies[randomEnemySelect4]);
+
 
 
 	Heroes.push_back(Crusader);//pushes crusader onto the list of heroes
@@ -166,6 +186,9 @@ void Scene::play()
 	combatList.push_back(Highwayman);
 	combatList.push_back(Vestal);
 	combatList.push_back(Jelly);
+	combatList.push_back(Jelly2);
+	combatList.push_back(Jelly3);
+
 
 
 	this->background->drawme();
@@ -215,7 +238,7 @@ void Scene::play()
 						else
 							combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
 
-						if (Enemies[j].getCurrentHP() <= 0)
+						if ((Enemies[0].getCurrentHP()+ Enemies[1].getCurrentHP() + Enemies[2].getCurrentHP() + Enemies[3].getCurrentHP()) <= 0)
 						{
 							run = false;
 							break;
@@ -243,6 +266,7 @@ void Scene::play()
 						break;
 					}
 				}
+				break;
 			}
 
 			gotoxy(200, 61);
