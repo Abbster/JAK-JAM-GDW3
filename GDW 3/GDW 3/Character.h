@@ -4,6 +4,7 @@
 #include<ctime>
 #include <vector>
 #include "ability.h"
+#include "Sprite.h"
 
 class character {
 
@@ -27,21 +28,22 @@ public:
 	
 	
 	void setPosition(unsigned short pos);
-	unsigned short getPosition() { return this->position; }
+	unsigned short getPosition ();
 	bool didDodge();
 	bool didCrit();
 	void setStress(dataValue AH);
-	dataValue getStress() { return this->stress; }
-	void setHeartAttack(bool YN) { this->heartAttack = YN; }
-	DEBUFF getHeartAttack() { return this->heartAttack; }
+	dataValue getStress();
+	void setHeartAttack(bool YN);
+	DEBUFF getHeartAttack();
 	bool isSlowerThan(character &enemy);
-	bool isStunned() { return this->stunned; }
+	bool isStunned();
+	void setStun(bool YN);
 
 	
-	std::string getName() { return this->name; }
-	dataValue getSpeed() { return this->speed; }
-	void setSpeed(dataValue s) { this->speed = s; }
-	void setHealthBar(std::string s) { this->healthBar = s; }
+	std::string getName();
+	dataValue getSpeed();
+	void setSpeed(dataValue s);
+	void setHealthBar(std::string s);
 	dataValue getATTACC();
 	dataValue getCurrentHP();
 	void takeTurn(int userIn,character & Enemy);
@@ -90,6 +92,10 @@ private:
 	std::string healthBar;
 	bool corpse,didAttacc;
 	unsigned short position;//1,2,3,4
+
+
+	Sprite * actor;
+	//each character should have a sprite
 
 		
 

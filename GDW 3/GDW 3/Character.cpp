@@ -3,9 +3,9 @@
 #include <iostream>
 typedef double dataValue, resistance;
 typedef bool passive, DEBUFF, BUFF;
-//some test stuff
 
-character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME)//not sure about min/max damage, still working out the function for that
+//character constructor
+character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME)
 {
 
 	this->maxHP = hp;
@@ -18,10 +18,9 @@ character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue
 	this->name = NAME;
 }
 
-
-void character::attack(ability abl, character &enemy)//this is um...please help my mind is breaking
+//damage calculation
+void character::attack(ability abl, character &enemy)
 {
-
 	srand(time(0));
 	gotoxy(5, 51);
 	std::cout << this->name << " used " << abl.getName() << std::endl;
@@ -44,23 +43,25 @@ void character::attack(ability abl, character &enemy)//this is um...please help 
 	gotoxy(5, 59);
 	std::cout << enemy.getName() << " took " << finAttacc << " damage!\n";
 	gotoxy(5, 60);
-	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP()<<std::endl;
-	if (enemy.getStress() >= 10) {
+	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP() << std::endl;
+
+
+	if (enemy.stress >= 10) {
 		std::cout << enemy.getName() << " had a heart attack!\n";
 		enemy.heartAttack = true;
 		enemy.currentHP = 0;
 		std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP() << std::endl;
 
 	}
-	//if (abl.hasStun()) {//checks if the ability has stun
-	//	int randomStun = rand() % 2;
-	//	if (randomStun == 0)
-	//		enemy.stunned = false;
-	//	if (randomStun == 1) {
-	//		std::cout << "STUNNED!\n";
-	//		enemy.stunned = true;//returns true if true
-	//	}
-	//}
+	if (abl.hasStun()) {//checks if the ability has stun
+		int randomStun = rand() % 2;
+		//if (randomStun == 0)
+		//	enemy.stunned = false;
+		//if (randomStun == 1) {
+			std::cout << "STUNNED!\n";
+			enemy.stunned = true;//returns true if true
+		//}
+	}
 
 }
 
@@ -86,6 +87,7 @@ void character::heal(ability abl, character & Ally)
 	std::cout << Ally.getName() << " HP: " << Ally.getCurrentHP() << std::endl;
 }
 
+
 void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simple sheit
 {
 	switch (abilityNumber) {
@@ -103,7 +105,28 @@ void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simp
 		break;
 	}
 }
+void character::setPosition(unsigned short pos)//just a base setter for the gazillion that need to be done
+{
+	this->position = pos;
+}
+void character::setStress(dataValue AH)
+{
+	this->stress = AH;
+}
+void character::setHeartAttack(bool YN)
+{
+	this->heartAttack = YN;
+}
 
+void character::setSpeed(dataValue s)
+{
+	this->speed = s;
+}
+
+void character::setHealthBar(std::string s)
+{
+	this->healthBar = s;
+}
 ability character::getAbility(unsigned int abilitynumber)
 {
 	switch (abilitynumber) {
@@ -137,11 +160,41 @@ std::string character::getAbilityName(unsigned int abilitynumber)
 }
 
 
-void character::setPosition(unsigned short pos)//just a base setter for the gazillion that need to be done
+
+unsigned short character::getPosition()
 {
-	this->position = pos;
+	return this->position;
+}
+dataValue character::getStress()
+{
+	return this->stress;
 }
 
+
+
+DEBUFF character::getHeartAttack()
+{
+	return this->heartAttack;
+}
+std::string character::getName()
+{
+	return this->name;
+}
+
+dataValue character::getSpeed()
+{
+	return this->speed;
+}
+
+dataValue character::getATTACC()
+{
+	return this->ATTACC;
+}
+
+dataValue character::getCurrentHP()
+{
+	return this->currentHP;
+}
 
 bool character::didDodge()
 {
@@ -174,10 +227,9 @@ bool character::didCrit()
 	return false;
 }
 
-void character::setStress(dataValue AH)
-{
-	this->stress = AH;
-}
+
+
+
 
 bool character::isSlowerThan(character & enemy)
 {
@@ -188,17 +240,17 @@ bool character::isSlowerThan(character & enemy)
 		return false;
 }
 
-
-
-dataValue character::getATTACC()
+bool character::isStunned()
 {
-	return this->ATTACC;
+	return this->stunned;
 }
 
-dataValue character::getCurrentHP()
+void character::setStun(bool YN)
 {
-	return this->currentHP;
+	this->stunned = YN;
 }
+
+
 
 void character::takeTurn(int userIn, character &Enemy)
 {
@@ -212,7 +264,7 @@ void character::takeTurnHeals(int userIn, character & Ally)
 
 void character::takeEnemyTurn(character &Hero)
 {
-	Hero.stress += 10;
+	Hero.stress = 3;
 	this->attack(this->getAbility(1), Hero);
 }
 

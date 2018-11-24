@@ -1,8 +1,17 @@
 #include "Character.h"
-#include "drawing.h"
+//#include "drawing.h"
 #include <iostream>
 #include <vector>
+#include <Windows.h>
+#include "Scene.h"
 
+
+void gotoxy(int x, int y)
+{
+	COORD pos = { x, y };
+	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(output, pos);
+}
 std::vector<character> sort(std::vector<character> &c, int size) {
 
 	//static int *sortedArray = new int[size];//declaring static dynamic array
@@ -24,6 +33,26 @@ std::vector<character> sort(std::vector<character> &c, int size) {
 	for (int i = 0; i < size; i++)
 		std::cout << c[i].getName() << " ";//prints the elements of the array
 	std::cout << std::endl;//ends the line after printing the array
+	return c;//returning the sorted array
+
+}
+std::vector<character> sortNoText(std::vector<character> &c, int size) {
+
+	//static int *sortedArray = new int[size];//declaring static dynamic array
+
+	double change = 0;//variable to hold the current element
+
+	for (int i = size - 1; i > 0; i--) {//for loop controlling which elements to loop through first, starting from the last
+
+		for (int j = 0; j < i; j++)//loop that checks each element
+		{
+			if (c[j].getSpeed() < c[j + 1].getSpeed()) {//checks if the current element is greater than the next element
+				std::swap(c[j], c[j + 1]);
+			}
+		}
+
+	}
+
 	return c;//returning the sorted array
 
 }
@@ -52,15 +81,13 @@ std::vector<character> sortPosition(std::vector<character> &c, int size) {
 
 }
 
-int main()
-{
-
+void decendIntoMadness() {
 	//std::cout << "                    , g" << std::endl << "          gw,,,    ,@@@" << std::endl << "        @@$$@$$@g@" << std::endl << "     ]@@@@$$@@@@P   ]$%[" << std::endl << "     ,,%@@$$Tl@@@wgg@$" << std::endl << "     Bp%$$@$@@$@$@@@@``" << std::endl << "     ]@@@$@@@@@@@@P" << std::endl << "     @@@$$@@@@@@P" << std::endl << "     $$$@$@@@@@@`" << std::endl << "     ```@@B%@&@@" << std::endl << "      ]@@$$$@$@@" << std::endl << "     @@@$@$@@@NC" << std::endl << "    ]@@@$$@@@@@@" << std::endl << "    @@@@@@@@$@@@C" << std::endl << "  ]@$@@@@N@@@$@@@" << std::endl << "  @@@$$@@@@@@%@@@" << std::endl << "g@@@$M$@@@@@M$@@" << std::endl;
 	//all of this is test stuff, we haven't actually implemented the proper characters yet
 	int userIn = 0;//values for user input
 	int userInTwo = 0;
-	std::vector<character> Heroes;//vector of heroes
-	std::vector<character> Enemies;//vector of enemies
+	static std::vector<character> Enemies;//vector of enemies
+	static std::vector<character> Heroes;//vector of heroes
 
 	//switch to pointers
 
@@ -120,7 +147,7 @@ int main()
 	Vestal.setPosition(1);
 
 
-	character Jelly(50, 0, 1, 4, 0.01, 4, "Jelly");
+	character Jelly(502, 0, 1, 4, 0.01, 4, "Jelly");
 	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
 	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
 	Jelly.setPosition(5);
@@ -155,52 +182,66 @@ int main()
 		std::cout << "START ENCOUNTER!\n";
 		for (int i = 0; i < combatList.size(); i++) {
 			for (int j = 0; j < Enemies.size(); j++) {
-				system("cls");
-				draw("DemoRoom2.txt");
-				//if (Enemies[j].getCurrentHP() <= 0)
-				//	run = false;
-				
-				sort(combatList, 5);
-				sortPosition(Heroes, 4);//make another sort function with positions
-				if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber"
-					|| combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
-					if (combatList[i].getHeartAttack()) {
-						std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
-						combatList.erase(combatList.begin() + i);
-						i--;
-				}
-					
-					gotoxy(5, 51);
-					std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
-					//std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
+				for (int k = 0; k < Heroes.size(); k++) {
+					system("cls");
+					draw("DemoRoom2.txt");
+					//if (Enemies[j].getCurrentHP() <= 0)
+					//	run = false;
 
-					gotoxy(5, 52);
-					std::cout << Enemies[j].getName() << " HP: " << Enemies[j].getCurrentHP() << std::endl;
-					gotoxy(5, 53);
-					std::cout << "Select an ability: " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n";
-					gotoxy(5, 54);
-					std::cin >> userIn;//1 2 3 4
+					sort(combatList, combatList.size());
+					sortNoText(Heroes, Heroes.size());
+					if (combatList[i].getName() == "Crusader" || combatList[i].getName() == "Grave Robber"
+						|| combatList[i].getName() == "Highwayman" || combatList[i].getName() == "Vestal") {
 
-					gotoxy(100, 49);
-					std::cout << "Select a Target's Position\n";
-					gotoxy(100, 50);
-					std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
-					if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)
-						combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);//TYPE IN THE CHARACTER'S POSITION IN COMBAT LIST
-					else
-						combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
 
-					if (Enemies[j].getCurrentHP() <= 0)
-					{
-						run = false;
+						gotoxy(5, 51);
+						std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
+						//std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
+
+						gotoxy(5, 52);
+						std::cout << Heroes[k].getName() << " HP: " << Heroes[k].getCurrentHP() << std::endl;
+						gotoxy(5, 53);
+						std::cout << "Select an ability: " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n";
+						gotoxy(5, 54);
+						std::cin >> userIn;//1 2 3 4
+
+						gotoxy(100, 49);
+						std::cout << "Select a Target's Position\n";
+						gotoxy(100, 50);
+						std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
+						sortPosition(Heroes, Heroes.size());//make another sort function with positions
+						if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)
+							combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);
+						else
+							combatList[i].takeTurn(userIn, Enemies[userInTwo - 1]);
+
+						if (Enemies[j].getCurrentHP() <= 0)
+						{
+							run = false;
+							break;
+						}
 						break;
 					}
-				}
-
-				else {
-					int randomSelect = rand() % 4;
-					gotoxy(5, 49);
-					combatList[i].takeEnemyTurn(Heroes[randomSelect]);
+					else {
+						int randomSelect = rand() % 4;
+						gotoxy(5, 49);
+						if (!Enemies[j].isStunned())
+							combatList[i].takeEnemyTurn(Heroes[randomSelect]);
+						else {
+							std::cout << combatList[i].getName() << " was stunned and can't act!\n";
+							Enemies[j].setStun(false);
+						}
+						if (Heroes[k].getHeartAttack()) {
+							gotoxy(5, 49);
+							std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
+							combatList.erase(combatList.begin() + i);
+							Heroes.erase(Heroes.begin() + k);
+							i--;
+							k--;
+							
+						}
+						break;
+					}
 				}
 			}
 
@@ -301,7 +342,19 @@ int main()
 	//	system("pause");
 	//	//Smite.giveEffect("Stun"); //some test shit
 	//}
+}
+
+int main()
+{
+	
+	Sprite* BACKGROUND;
+	Sprite* UI;
+
+	Scene* scene = new Scene()
+
+	decendIntoMadness();
 
 	return 0;
 }
+
 
