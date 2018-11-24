@@ -6,7 +6,7 @@
 class Sprite {
 public:
 	Sprite(std::string filePath);
-	void drawme(Sprite* sprite );
+	void drawme();
 
 private:
 	std::string PATH;

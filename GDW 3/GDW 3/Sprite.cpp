@@ -5,12 +5,12 @@ Sprite::Sprite(std::string filePath)
 	this->PATH = filePath;
 }
 
-void Sprite::drawme(Sprite * sprite)
+void Sprite::drawme()
 {
 	std::string line;
 	std::ifstream file;
 
-	file.open(sprite->PATH);
+	file.open(this->PATH);
 
 	if (file.is_open())
 	{
