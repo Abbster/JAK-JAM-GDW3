@@ -8,6 +8,103 @@ Sprite *VESTAL_SPRITE = new Sprite("vestal.txt");
 Sprite *SKELETON1_SPRITE = new Sprite("skeleton.txt");
 Sprite *SKELETON2_SPRITE = new Sprite("skeleton2.txt");
 
+static std::vector<character*> Enemies;//vector of enemies
+static std::vector<character*> Heroes;//vector of heroes
+
+//switch to pointers
+
+//CRUSADER
+character *Crusader = new character(33, 0.05, 1, 1, 0.03, 6, "Crusader", CRUSADER_SPRITE);//creating a new character. see constructor for what these numbers mean
+
+ability Smite(3, 4, 4, 4, 5, 6, 6, 6, 1, "Smite");
+Crusader->setAbility(Smite, 1);//sets crusader's first ability to smite
+
+ability *StunningBlow = new ability(3, 4, 4, 4, 5, 6, 6, 6, 0.50, "Stunning Blow");
+StunningBlow->setStun(1);
+Crusader->setAbility(StunningBlow, 2);
+
+ability *HolyLance = new ability(1, 2, 2, 2, 6, 7, 8, 8, 1, "Holy Lance");
+Crusader->setAbility(HolyLance, 3);
+
+Crusader->setPosition(4);
+
+//GRAVE ROBBER
+character *GraveRobber = new character(20, 0.10, 1, 8, 0.06, 4, "Grave Robber", GRAVEROBBER_SPRITE);
+
+ability *PickToTheFace = new ability(2, 3, 4, 4, 5, 6, 6, 6, 0.15, "Pick To The Freakin' Face");
+GraveRobber->setAbility(PickToTheFace, 1);
+
+ability *Lunge = new ability(1, 2, 2, 2, 5, 6, 7, 7, 1.40, "Lunge");
+GraveRobber->setAbility(Lunge, 2);
+
+ability *ThrownDagger = new ability(1, 2, 3, 3, 6, 7, 8, 8, 0.10, "Thrown Dagger");
+GraveRobber->setAbility(ThrownDagger, 3);
+
+GraveRobber->setPosition(3);
+
+//HIGHWAYMAN
+character *Highwayman = new character(23, .10, 1, 5, 0.05, 5, "Highwayman", HIGHWAYMAN_SPRITE);
+
+ability *GrapeshotBlast = new ability(2, 3, 3, 3, 5, 6, 7, 7, 0.50, "Grapeshot Blast");
+GrapeshotBlast->setHitsMulti(true);
+Highwayman->setAbility(GrapeshotBlast, 1);
+
+ability *PointBlankShot = new ability(4, 4, 4, 4, 5, 5, 5, 5, 1.50, "Point Blank Shot");
+Highwayman->setAbility(PointBlankShot, 2);
+
+ability *PistolShot = new ability(1, 2, 3, 3, 6, 7, 8, 8, 0.15, "Pistol Shot");
+Highwayman->setAbility(PistolShot, 3);
+Highwayman->setPosition(2);
+
+//VESTAL
+character *Vestal = new character(24, 0, 1, 4, 0.01, 4, "Vestal", VESTAL_SPRITE);
+ability *DivineGrace = new ability(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Grace");
+Vestal->setAbility(DivineGrace, 1);
+ability *Dazzle = new ability(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Dazzling Light");
+Vestal->setAbility(Dazzle, 2);
+ability *DivineComfort = new ability(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Comfort");
+Vestal->setAbility(DivineComfort, 3);
+
+Vestal->setPosition(1);
+
+int randomEnemySelect1 = rand() % 4;
+int randomEnemySelect2 = rand() % 4;
+int randomEnemySelect3 = rand() % 4;
+int randomEnemySelect4 = rand() % 4;
+std::vector<character> potentialEnemies;
+character *Jelly  = new character(30, 0, 1, 10, 0.01, 4, "Jelly", SKELETON1_SPRITE);
+character *Jelly2 = new character(30, 0, 1, 1, 0.01, 4, "Jelly2", SKELETON2_SPRITE);
+character *Jelly3 = new character(30, 0, 1, 30, 0.01, 4, "Jelly3", SKELETON1_SPRITE);
+character *Jelly4 = new character(30, 0, 1, 7, 0.01, 4, "Jelly4", SKELETON2_SPRITE);
+ability *jello = new ability(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
+Jelly->setAbility(jello, 1);//sets crusader's first ability to smite
+Jelly2->setAbility(jello, 1);
+Jelly3->setAbility(jello, 1);
+potentialEnemies.push_back(Jelly);
+potentialEnemies.push_back(Jelly2);
+potentialEnemies.push_back(Jelly3);
+potentialEnemies.push_back(Jelly4);
+
+Enemies.push_back(potentialEnemies[randomEnemySelect1]);
+Enemies.push_back(potentialEnemies[randomEnemySelect2]);
+Enemies.push_back(potentialEnemies[randomEnemySelect3]);
+Enemies.push_back(potentialEnemies[randomEnemySelect4]);
+
+Heroes.push_back(Crusader);//pushes crusader onto the list of heroes
+Heroes.push_back(GraveRobber);
+Heroes.push_back(Highwayman);
+Heroes.push_back(Vestal);
+
+
+std::vector<character> combatList;
+combatList.push_back(Crusader);
+combatList.push_back(GraveRobber);
+combatList.push_back(Highwayman);
+combatList.push_back(Vestal);
+combatList.push_back(Enemies[0]);
+combatList.push_back(Enemies[1]);
+combatList.push_back(Enemies[2]);
+
 
 Scene::Scene(Sprite * BG, Sprite * UI)
 {
@@ -95,104 +192,7 @@ void Scene::play()
 	int userInTwo = 0;
 	
 	
-	static std::vector<character> Enemies;//vector of enemies
-	static std::vector<character> Heroes;//vector of heroes
-
-	//switch to pointers
-
-	//CRUSADER
-	character Crusader(33, 0.05, 1, 1, 0.03, 6, "Crusader",CRUSADER_SPRITE);//creating a new character. see constructor for what these numbers mean
-
-	ability Smite(3, 4, 4, 4, 5, 6, 6, 6, 1, "Smite");
-	Crusader.setAbility(Smite, 1);//sets crusader's first ability to smite
-
-	ability StunningBlow(3, 4, 4, 4, 5, 6, 6, 6, 0.50, "Stunning Blow");
-	StunningBlow.setStun(1);
-	Crusader.setAbility(StunningBlow, 2);
-
-	ability HolyLance(1, 2, 2, 2, 6, 7, 8, 8, 1, "Holy Lance");
-	Crusader.setAbility(HolyLance, 3);
-
-	Crusader.setPosition(4);
-
-	//GRAVE ROBBER
-	character GraveRobber(20, 0.10, 1, 8, 0.06, 4, "Grave Robber",GRAVEROBBER_SPRITE);
-
-	ability PickToTheFace(2, 3, 4, 4, 5, 6, 6, 6, 0.15, "Pick To The Freakin' Face");
-	GraveRobber.setAbility(PickToTheFace, 1);
-
-	ability Lunge(1, 2, 2, 2, 5, 6, 7, 7, 1.40, "Lunge");
-	GraveRobber.setAbility(Lunge, 2);
-
-	ability ThrownDagger(1, 2, 3, 3, 6, 7, 8, 8, 0.10, "Thrown Dagger");
-	GraveRobber.setAbility(ThrownDagger, 3);
-
-	GraveRobber.setPosition(3);
-
-	//HIGHWAYMAN
-	character Highwayman(23, .10, 1, 5, 0.05, 5, "Highwayman",HIGHWAYMAN_SPRITE);
-
-	ability GrapeshotBlast(2, 3, 3, 3, 5, 6, 7, 7, 0.50, "Grapeshot Blast");
-	GrapeshotBlast.setHitsMulti(true);
-	Highwayman.setAbility(GrapeshotBlast, 1);
-
-	ability PointBlankShot(4, 4, 4, 4, 5, 5, 5, 5, 1.50, "Point Blank Shot");
-	Highwayman.setAbility(PointBlankShot, 2);
-
-	ability PistolShot(1, 2, 3, 3, 6, 7, 8, 8, 0.15, "Pistol Shot");
-	Highwayman.setAbility(PistolShot, 3);
-
-	Highwayman.setPosition(2);
-
-	//VESTAL
-	character Vestal(24, 0, 1, 4, 0.01, 4, "Vestal",VESTAL_SPRITE);
-	ability DivineGrace(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Grace");
-	Vestal.setAbility(DivineGrace, 1);
-	ability Dazzle(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Dazzling Light");
-	Vestal.setAbility(Dazzle, 2);
-	ability DivineComfort(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Comfort");
-	Vestal.setAbility(DivineComfort, 3);
-
-	Vestal.setPosition(1);
-
-	int randomEnemySelect1 = rand() % 4;
-	int randomEnemySelect2 = rand() % 4;
-	int randomEnemySelect3 = rand() % 4;
-	int randomEnemySelect4 = rand() % 4;
-	std::vector<character> potentialEnemies;
-	character Jelly(30, 0, 1, 10, 0.01, 4, "Jelly",SKELETON1_SPRITE);
-	character Jelly2(30, 0, 1, 1, 0.01, 4, "Jelly2",SKELETON2_SPRITE);
-	character Jelly3(30, 0, 1, 30, 0.01, 4, "Jelly3",SKELETON1_SPRITE);
-	character Jelly4(30, 0, 1, 7, 0.01, 4, "Jelly4",SKELETON2_SPRITE);
-	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
-	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
-	Jelly2.setAbility(jello, 1);
-	Jelly3.setAbility(jello, 1);
-	potentialEnemies.push_back(Jelly);
-	potentialEnemies.push_back(Jelly2);
-	potentialEnemies.push_back(Jelly3);
-	potentialEnemies.push_back(Jelly4);
-	Enemies.push_back(potentialEnemies[randomEnemySelect1]);
-	Enemies.push_back(potentialEnemies[randomEnemySelect2]);
-	Enemies.push_back(potentialEnemies[randomEnemySelect3]);
-	Enemies.push_back(potentialEnemies[randomEnemySelect4]);
-
-
-
-	Heroes.push_back(Crusader);//pushes crusader onto the list of heroes
-	Heroes.push_back(GraveRobber);
-	Heroes.push_back(Highwayman);
-	Heroes.push_back(Vestal);
-
-
-	std::vector<character> combatList;
-	combatList.push_back(Crusader);
-	combatList.push_back(GraveRobber);
-	combatList.push_back(Highwayman);
-	combatList.push_back(Vestal);
-	combatList.push_back(Enemies[0]);
-	combatList.push_back(Enemies[1]);
-	combatList.push_back(Enemies[2]);
+	
 
 
 
