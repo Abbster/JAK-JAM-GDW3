@@ -6,6 +6,7 @@ public:
 
 	Scene(Sprite* BG, Sprite* UI);
 	void play();
+	void takeThePeoplesFromTheFourthDimension();
 
 	 ~Scene();//virtual...?
 	
