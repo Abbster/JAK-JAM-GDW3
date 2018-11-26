@@ -196,7 +196,7 @@ void Scene::play()
 
 
 
-	this->background->drawme(0,0);
+	this->background->drawme();
 	system("pause");
 	system("CLS");
 

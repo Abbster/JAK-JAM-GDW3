@@ -22,8 +22,31 @@ void Sprite::drawme(int x, int y)
 	{
 		while (getline(file, line))
 		{
+			gotoxy(x, y);
+			std::cout << line << "\n";
+			y++;
+		}
+		file.close();
+	}
+	else
+	{
+		std::cout << "Error" << std::endl;
+	}
+}
+void Sprite::drawme()
+{
+	std::string line;
+	std::ifstream file;
+
+	file.open(this->PATH);
+
+	if (file.is_open())
+	{
+		while (getline(file, line))
+		{
 			//gotoxy(x, y);
 			std::cout << line << "\n";
+			//y++;
 		}
 		file.close();
 	}

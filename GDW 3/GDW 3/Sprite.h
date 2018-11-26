@@ -8,6 +8,7 @@ class Sprite {
 public:
 	Sprite(std::string filePath);
 	void drawme(int x,int y);
+	void drawme();
 	void setPath(std::string FILEPATH);
 private:
 	std::string PATH;
