@@ -5,7 +5,7 @@ Sprite *GRAVEROBBER_SPRITE = new Sprite("graveRobber.txt");
 Sprite *HIGHWAYMAN_SPRITE = new Sprite("highwayman.txt");
 Sprite *VESTAL_SPRITE = new Sprite("vestal.txt");
 
-Sprite *SKELETON1_SPRITE = new Sprite("skeleton1.txt");
+Sprite *SKELETON1_SPRITE = new Sprite("skeleton.txt");
 Sprite *SKELETON2_SPRITE = new Sprite("skeleton2.txt");
 
 
@@ -190,9 +190,9 @@ void Scene::play()
 	combatList.push_back(GraveRobber);
 	combatList.push_back(Highwayman);
 	combatList.push_back(Vestal);
-	combatList.push_back(Jelly);
-	combatList.push_back(Jelly2);
-	combatList.push_back(Jelly3);
+	combatList.push_back(Enemies[0]);
+	combatList.push_back(Enemies[1]);
+	combatList.push_back(Enemies[2]);
 
 
 
@@ -214,6 +214,15 @@ void Scene::play()
 					this->UI->drawme(2,2);
 					gotoxy(5, 29);
 					Vestal.getActor()->drawme(5,29);
+					Highwayman.getActor()->drawme(25, 29);
+					GraveRobber.getActor()->drawme(45, 29);
+					Crusader.getActor()->drawme(65, 24);//subject to change
+
+					Enemies[0].getActor()->drawme(120, 29);
+					Enemies[1].getActor()->drawme(150, 29); //subject to change
+					Enemies[2].getActor()->drawme(170, 29); //subject to change
+
+					//Vestal.getActor()->drawme(5, 29);
 
 					//if (Enemies[j].getCurrentHP() <= 0)
 					//	run = false;

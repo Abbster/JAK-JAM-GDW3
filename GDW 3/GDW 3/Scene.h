@@ -6,6 +6,7 @@ public:
 
 	Scene(Sprite* BG, Sprite* UI);
 	void play();
+
 	 ~Scene();//virtual...?
 	
 	////Overload these to give different behaviour based on scene ie putting code to draw differently based on the scene like drawing splash screen vs gameloop.
