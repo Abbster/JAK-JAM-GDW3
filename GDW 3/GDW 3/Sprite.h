@@ -3,11 +3,12 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+void gotoxy(int x, int y);
 class Sprite {
 public:
 	Sprite(std::string filePath);
-	void drawme();
-
+	void drawme(int x,int y);
+	void setPath(std::string FILEPATH);
 private:
 	std::string PATH;
 };

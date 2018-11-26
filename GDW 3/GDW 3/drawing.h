@@ -4,5 +4,5 @@
 #include <fstream>
 
 void draw(std::string txt);
-void gotoxy(int x, int y);
+//void gotoxy(int x, int y);
 

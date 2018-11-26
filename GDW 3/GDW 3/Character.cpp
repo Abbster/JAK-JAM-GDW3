@@ -5,7 +5,7 @@ typedef double dataValue, resistance;
 typedef bool passive, DEBUFF, BUFF;
 
 //character constructor
-character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME)
+character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE)
 {
 
 	this->maxHP = hp;
@@ -16,6 +16,7 @@ character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue
 	this->ATTACC = attacc;
 	this->currentHP = this->maxHP;
 	this->name = NAME;
+	this->actor = SPRITE;
 }
 
 //damage calculation
@@ -132,16 +133,12 @@ ability character::getAbility(unsigned int abilitynumber)
 	switch (abilitynumber) {
 	case 1:
 		return this->able1;
-		break;
 	case 2:
 		return this->able2;
-		break;
 	case 3:
 		return this->able3;
-		break;
 	case 4:
 		return this->able4;
-		break;
 	}
 }
 
@@ -157,6 +154,11 @@ std::string character::getAbilityName(unsigned int abilitynumber)
 	case 4:
 		return this->able4.getName();
 	}
+}
+
+Sprite * character::getActor()
+{
+	return this->actor;
 }
 
 

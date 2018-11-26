@@ -1,11 +1,17 @@
 #include "Sprite.h"
 
+void gotoxy(int x, int y)
+{
+	COORD pos = { x, y };
+	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(output, pos);
+}
 Sprite::Sprite(std::string filePath)
 {
 	this->PATH = filePath;
 }
 
-void Sprite::drawme()
+void Sprite::drawme(int x, int y)
 {
 	std::string line;
 	std::ifstream file;
@@ -16,6 +22,7 @@ void Sprite::drawme()
 	{
 		while (getline(file, line))
 		{
+			//gotoxy(x, y);
 			std::cout << line << "\n";
 		}
 		file.close();
@@ -24,5 +31,10 @@ void Sprite::drawme()
 	{
 		std::cout << "Error" << std::endl;
 	}
+}
+
+void Sprite::setPath(std::string FILEPATH)
+{
+	this->PATH = FILEPATH;
 }
 

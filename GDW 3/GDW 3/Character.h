@@ -16,7 +16,7 @@ public:
 	
 
 	//takes in base values
-	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME);
+	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE);
 	
 	
 	void setAbility(ability abl,unsigned int abilityNumber);
@@ -25,6 +25,8 @@ public:
 	
 	ability getAbility(unsigned int abilitynumber);
 	std::string getAbilityName(unsigned int abilitynumber);
+
+	Sprite* getActor();
 	
 	
 	void setPosition(unsigned short pos);

@@ -273,19 +273,12 @@
 //	//}
 //}
 
-Scene* createScene(Sprite* BACKGROUND_, Sprite* UI_) {
 
-	Sprite* BACKGROUND = BACKGROUND_;
-	Sprite* UI = UI_;
-
-	Scene* scene = new Scene(BACKGROUND, UI);
-	return scene;
-}
 
 int main()
 {
 	Sprite* BACKGROUND_scene1 = new Sprite("menu3.4.txt");
-	Sprite* UI_scene1 = new Sprite("DemoRoom2.txt");
+	Sprite* UI_scene1 = new Sprite("emptyRoom.txt");
 
 	std::vector<Scene*> scenes;
 	scenes.push_back(new Scene(BACKGROUND_scene1,UI_scene1));

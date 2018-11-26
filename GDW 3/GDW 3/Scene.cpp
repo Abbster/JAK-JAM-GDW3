@@ -1,15 +1,20 @@
 #include "Scene.h"
+
+Sprite *CRUSADER_SPRITE = new Sprite("crusader.txt");
+Sprite *GRAVEROBBER_SPRITE = new Sprite("graveRobber.txt");
+Sprite *HIGHWAYMAN_SPRITE = new Sprite("highwayman.txt");
+Sprite *VESTAL_SPRITE = new Sprite("vestal.txt");
+
+Sprite *SKELETON1_SPRITE = new Sprite("skeleton1.txt");
+Sprite *SKELETON2_SPRITE = new Sprite("skeleton2.txt");
+
+
 Scene::Scene(Sprite * BG, Sprite * UI)
 {
 	this->background = BG;
 	this->UI = UI;
 }
-void gotoxy(int x, int y)
-{
-	COORD pos = { x, y };
-	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(output, pos);
-}
+
 
 
 std::vector<character> sort(std::vector<character> &c, int size) {
@@ -96,7 +101,7 @@ void Scene::play()
 	//switch to pointers
 
 	//CRUSADER
-	character Crusader(33, 0.05, 1, 1, 0.03, 6, "Crusader");//creating a new character. see constructor for what these numbers mean
+	character Crusader(33, 0.05, 1, 1, 0.03, 6, "Crusader",CRUSADER_SPRITE);//creating a new character. see constructor for what these numbers mean
 
 	ability Smite(3, 4, 4, 4, 5, 6, 6, 6, 1, "Smite");
 	Crusader.setAbility(Smite, 1);//sets crusader's first ability to smite
@@ -111,7 +116,7 @@ void Scene::play()
 	Crusader.setPosition(4);
 
 	//GRAVE ROBBER
-	character GraveRobber(20, 0.10, 1, 8, 0.06, 4, "Grave Robber");
+	character GraveRobber(20, 0.10, 1, 8, 0.06, 4, "Grave Robber",GRAVEROBBER_SPRITE);
 
 	ability PickToTheFace(2, 3, 4, 4, 5, 6, 6, 6, 0.15, "Pick To The Freakin' Face");
 	GraveRobber.setAbility(PickToTheFace, 1);
@@ -125,7 +130,7 @@ void Scene::play()
 	GraveRobber.setPosition(3);
 
 	//HIGHWAYMAN
-	character Highwayman(23, .10, 1, 5, 0.05, 5, "Highwayman");
+	character Highwayman(23, .10, 1, 5, 0.05, 5, "Highwayman",HIGHWAYMAN_SPRITE);
 
 	ability GrapeshotBlast(2, 3, 3, 3, 5, 6, 7, 7, 0.50, "Grapeshot Blast");
 	GrapeshotBlast.setHitsMulti(true);
@@ -140,7 +145,7 @@ void Scene::play()
 	Highwayman.setPosition(2);
 
 	//VESTAL
-	character Vestal(24, 0, 1, 4, 0.01, 4, "Vestal");
+	character Vestal(24, 0, 1, 4, 0.01, 4, "Vestal",VESTAL_SPRITE);
 	ability DivineGrace(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Grace");
 	Vestal.setAbility(DivineGrace, 1);
 	ability Dazzle(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Dazzling Light");
@@ -155,10 +160,10 @@ void Scene::play()
 	int randomEnemySelect3 = rand() % 4;
 	int randomEnemySelect4 = rand() % 4;
 	std::vector<character> potentialEnemies;
-	character Jelly(30, 0, 1, 10, 0.01, 4, "Jelly");
-	character Jelly2(30, 0, 1, 1, 0.01, 4, "Jelly2");
-	character Jelly3(30, 0, 1, 30, 0.01, 4, "Jelly3");
-	character Jelly4(30, 0, 1, 7, 0.01, 4, "Jelly4");
+	character Jelly(30, 0, 1, 10, 0.01, 4, "Jelly",SKELETON1_SPRITE);
+	character Jelly2(30, 0, 1, 1, 0.01, 4, "Jelly2",SKELETON2_SPRITE);
+	character Jelly3(30, 0, 1, 30, 0.01, 4, "Jelly3",SKELETON1_SPRITE);
+	character Jelly4(30, 0, 1, 7, 0.01, 4, "Jelly4",SKELETON2_SPRITE);
 	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
 	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
 	Jelly2.setAbility(jello, 1);
@@ -191,7 +196,7 @@ void Scene::play()
 
 
 
-	this->background->drawme();
+	this->background->drawme(0,0);
 	system("pause");
 	system("CLS");
 
@@ -202,12 +207,14 @@ void Scene::play()
 	//sort(Enemies, 1);
 	while (run) {
 		gotoxy(2, 2);
-		std::cout << "START ENCOUNTER!\n";
 		for (int i = 0; i < combatList.size(); i++) {
 			for (int j = 0; j < Enemies.size(); j++) {
 				for (int k = 0; k < Heroes.size(); k++) {
 					system("cls");
-					this->UI->drawme();
+					this->UI->drawme(2,2);
+					gotoxy(5, 29);
+					Vestal.getActor()->drawme(5,29);
+
 					//if (Enemies[j].getCurrentHP() <= 0)
 					//	run = false;
 
