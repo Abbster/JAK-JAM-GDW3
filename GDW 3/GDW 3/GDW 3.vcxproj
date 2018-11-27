@@ -19,15 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\GPCsession1z\Events.h" />
-    <ClInclude Include="..\..\..\..\GPCsession1z\Input.h" />
     <ClInclude Include="ability.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\GPCsession1z\Input.cpp" />
     <ClCompile Include="ability.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Scene.cpp" />
