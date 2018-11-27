@@ -44,7 +44,6 @@ void Sprite::drawme()
 	{
 		while (getline(file, line))
 		{
-			//gotoxy(x, y);
 			std::cout << line << "\n";
 			//y++;
 		}

@@ -1,4 +1,6 @@
 #include "Scene.h"
+#include "Input.h"
+#include "Events.h"
 
 Sprite *CRUSADER_SPRITE = new Sprite("crusader.txt");
 Sprite *GRAVEROBBER_SPRITE = new Sprite("graveRobber.txt");
@@ -33,7 +35,7 @@ std::vector<character> sort(std::vector<character> &c, int size) {
 
 	}
 	gotoxy(5, 49);
-	std::cout << "Turn Order: ";
+	std::cout << "Turn Order ";
 	for (int i = 0; i < size; i++)
 		std::cout << c[i].getName() << " ";//prints the elements of the array
 	std::cout << std::endl;//ends the line after printing the array
@@ -92,10 +94,10 @@ void Scene::play()
 	srand(time(0));
 	int userIn = 0;//values for user input
 	int userInTwo = 0;
-	
+
 	static std::vector<character> Enemies;//vector of enemies
 	static std::vector<character> Heroes;//vector of heroes
-	
+
 
 
 	//switch to pointers
@@ -195,11 +197,21 @@ void Scene::play()
 	combatList.push_back(Enemies[2]);
 
 
-
 	this->background->drawme();
-	system("pause");
+	while (true)
+	{
+	POINT cursorPos;
+	GetCursorPos(&cursorPos);
+	ScreenToClient(GetConsoleWindow(), &cursorPos);
+	short mx = 0, my = 0;
+		mx = cursorPos.x;
+		my = cursorPos.y;
+		if (isEvent(Events::Mouse_Left) && mx >= 626 && mx <= 1221 && my >= 631 && my <= 772)
+			break;
+	}
+	//system("pause");
 	system("CLS");
-
+	
 	//int userIn = 0, userInTwo = 0; 
 	bool run = true;
 
