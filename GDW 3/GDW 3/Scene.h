@@ -6,6 +6,7 @@ public:
 
 	Scene(Sprite* BG, Sprite* UI);
 	void play();
+	void initializeTheCrazyPeople();
 
 	 ~Scene();//virtual...?
 	
@@ -21,7 +22,31 @@ public:
 private:
 	Sprite* background;
 	Sprite* UI;
+
+	//character GraveRobber;
+	//ability PickToTheFace;
+	//ability Lunge;
+	//ability ThrownDagger;
+	//
+	//character Crusader(33, 0.05, 1, 1, 0.03, 6, "Crusader", CRUSADER_SPRITE);
+	//ability Smite;
+	//ability StunningBlow;
+	//ability HolyLance;
+	//
+	//
+	//character Highwayman;
+	//ability GrapeshotBlast;
+	//ability PointBlackShot;
+	//ability PistolShot;
+	//
+	//character Vestal;
+	//ability DivineGrace;
+	//ability Dazzle;
+	//ability DivineComfort;
+	
+
+
+	
 	//std::vector<character*> actorList;
 
 };
-

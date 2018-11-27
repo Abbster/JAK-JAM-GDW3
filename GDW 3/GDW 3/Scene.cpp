@@ -16,7 +16,6 @@ Scene::Scene(Sprite * BG, Sprite * UI)
 }
 
 
-
 std::vector<character> sort(std::vector<character> &c, int size) {
 
 	//static int *sortedArray = new int[size];//declaring static dynamic array
@@ -94,9 +93,9 @@ void Scene::play()
 	int userIn = 0;//values for user input
 	int userInTwo = 0;
 	
-	
 	static std::vector<character> Enemies;//vector of enemies
 	static std::vector<character> Heroes;//vector of heroes
+	
 
 	//switch to pointers
 
@@ -293,3 +292,5 @@ void Scene::play()
 		}
 	}
 }
+
+

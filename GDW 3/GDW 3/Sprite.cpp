@@ -61,3 +61,4 @@ void Sprite::setPath(std::string FILEPATH)
 	this->PATH = FILEPATH;
 }
 
+
