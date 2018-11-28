@@ -224,15 +224,15 @@ void Scene::play()
 				for (int k = 0; k < Heroes.size(); k++) {
 					system("cls");
 					this->UI->drawme(2, 2);
-					gotoxy(5, 29);
-					Vestal.getActor()->drawme(5, 29);
-					Highwayman.getActor()->drawme(25, 29);
-					GraveRobber.getActor()->drawme(45, 29);
-					Crusader.getActor()->drawme(65, 24);//subject to change
+					gotoxy(5, 24);
+					Vestal.getActor()->drawme(5, 24);
+					Highwayman.getActor()->drawme(27, 24);
+					GraveRobber.getActor()->drawme(49, 24);
+					Crusader.getActor()->drawme(70, 24);//subject to change
 
-					Enemies[0].getActor()->drawme(120, 29);
-					Enemies[1].getActor()->drawme(150, 29); //subject to change
-					Enemies[2].getActor()->drawme(170, 29); //subject to change
+					Enemies[0].getActor()->drawme(120, 24);
+					Enemies[1].getActor()->drawme(145, 24); //subject to change
+					Enemies[2].getActor()->drawme(170, 24); //subject to change
 
 					//Vestal.getActor()->drawme(5, 29);
 
