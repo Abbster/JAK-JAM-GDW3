@@ -12,6 +12,7 @@ Sprite *SKELETON2_SPRITE = new Sprite("skeleton2.txt");
 Sprite *TORCH_SPRITE = new Sprite("skeleton2.txt");
 
 
+
 Scene::Scene(Sprite * BG, Sprite * UI)
 {
 	this->background = BG;
@@ -217,9 +218,9 @@ void Scene::play()
 	bool run = true;
 
 	sort(combatList, 5);
-	Inventory AdventurersPack;
-	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
-	Item *Torch = new Item("Torch",TORCH_SPRITE);
+	static Inventory AdventurersPack;
+	static Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
+	static Item *Torch = new Item("Torch", TORCH_SPRITE);
 	Adventurers.getInventory().getItems().push_back(Torch);
 	//sort(Enemies, 1);
 	while (run) {

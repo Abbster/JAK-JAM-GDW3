@@ -281,13 +281,21 @@ int main()
 	Sprite* UI_scene1 = new Sprite("emptyRoom.txt");
 
 	std::vector<Scene*> scenes;
-	scenes.push_back(new Scene(BACKGROUND_scene1,UI_scene1));
-	scenes.push_back(new Scene(BACKGROUND_scene1, UI_scene1));
-	scenes[0]->play();
-	system("CLS");
-	std::cout << "scene done! loading scene 2...\n";
-	system("pause");
-	scenes[1]->play();
+
+	for (int i = 0; i < 10000; i++) {
+		scenes.push_back(new Scene(BACKGROUND_scene1, UI_scene1));
+		scenes[i]->play();
+		std::cout << "Fight complete! Press any key to fight again!\n";
+		std::cin.get();
+
+	}
+	//scenes.push_back(new Scene(BACKGROUND_scene1,UI_scene1));
+	//scenes.push_back(new Scene(BACKGROUND_scene1, UI_scene1));
+	//scenes[0]->play();
+	//system("CLS");
+	//std::cout << "scene done! loading scene 2...\n";
+	//system("pause");
+	//scenes[1]->play();
 	//int sceneIndex = 0;
 	//scenes.push_back(new StartScene());
 	//scenes.push_back(new MainScene());
