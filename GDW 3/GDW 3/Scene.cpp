@@ -9,6 +9,7 @@ Sprite *VESTAL_SPRITE = new Sprite("vestal.txt");
 
 Sprite *SKELETON1_SPRITE = new Sprite("skeleton.txt");
 Sprite *SKELETON2_SPRITE = new Sprite("skeleton2.txt");
+Sprite *TORCH_SPRITE = new Sprite("skeleton2.txt");
 
 
 Scene::Scene(Sprite * BG, Sprite * UI)
@@ -198,24 +199,28 @@ void Scene::play()
 
 
 	this->background->drawme();
-	while (true)
-	{
-	POINT cursorPos;
-	GetCursorPos(&cursorPos);
-	ScreenToClient(GetConsoleWindow(), &cursorPos);
-	short mx = 0, my = 0;
-		mx = cursorPos.x;
-		my = cursorPos.y;
-		if (isEvent(Events::Mouse_Left) && mx >= 626 && mx <= 1221 && my >= 631 && my <= 772)
-			break;
-	}
-	//system("pause");
+	//while (true)
+	//{
+	//POINT cursorPos;
+	//GetCursorPos(&cursorPos);
+	//ScreenToClient(GetConsoleWindow(), &cursorPos);
+	//short mx = 0, my = 0;
+	//	mx = cursorPos.x;
+	//	my = cursorPos.y;
+	//	if (isEvent(Events::Mouse_Left) && mx >= 626 && mx <= 1221 && my >= 631 && my <= 772)
+	//		break;
+	//}
+	system("pause");
 	system("CLS");
 	
 	//int userIn = 0, userInTwo = 0; 
 	bool run = true;
 
 	sort(combatList, 5);
+	Inventory AdventurersPack;
+	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
+	Item *Torch = new Item("Torch",TORCH_SPRITE);
+	Adventurers.getInventory().getItems().push_back(Torch);
 	//sort(Enemies, 1);
 	while (run) {
 		gotoxy(2, 2);
@@ -252,9 +257,16 @@ void Scene::play()
 						gotoxy(5, 52);
 						std::cout << Heroes[k].getName() << " HP: " << Heroes[k].getCurrentHP() << std::endl;
 						gotoxy(5, 53);
-						std::cout << "Select an ability: " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n";
+						std::cout << "Select an ability (1,2,3,4): " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n" << ", Use Torch\n";
 						gotoxy(5, 54);
 						std::cin >> userIn;//1 2 3 4
+
+						if (userIn == 4) {
+
+							Adventurers.getInventory().getItems().pop_back();
+							//gotoxy somewhere
+							std::cout << "used a torch!\n";
+						}
 
 						gotoxy(100, 49);
 						std::cout << "Select a Target's Position\n";

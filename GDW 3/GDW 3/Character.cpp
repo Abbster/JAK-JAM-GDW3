@@ -19,6 +19,10 @@ character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue
 	this->actor = SPRITE;
 }
 
+character::character()
+{
+}
+
 //damage calculation
 void character::attack(ability abl, character &enemy)
 {
@@ -270,4 +274,21 @@ void character::takeEnemyTurn(character &Hero)
 	this->attack(this->getAbility(1), Hero);
 }
 
+Party::Party()
+{
 
+}
+
+Party::Party(character FIRST, character SECOND, character THIRD, character FOURTH, Inventory INVENTORY)
+{
+	this->first = FIRST;
+	this->second = SECOND;
+	this->third = THIRD;
+	this->fourth = FOURTH;
+	this->inventory = INVENTORY;
+}
+
+Inventory Party::getInventory()
+{
+	return this->inventory;
+}

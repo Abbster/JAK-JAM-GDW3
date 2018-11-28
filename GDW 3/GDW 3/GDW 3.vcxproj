@@ -23,6 +23,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>
@@ -30,6 +31,7 @@
     <ClCompile Include="ability.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="testCrusader.cpp" />

@@ -5,6 +5,7 @@
 #include <vector>
 #include "ability.h"
 #include "Sprite.h"
+#include "Inventory.h"
 
 class character {
 
@@ -17,7 +18,7 @@ public:
 
 	//takes in base values
 	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE);
-	
+	character();
 	
 	void setAbility(ability abl,unsigned int abilityNumber);
 	void attack(ability abl, character &enemy);
@@ -103,4 +104,18 @@ private:
 
 };
 
+
+class Party : character {
+
+public:
+	Party();
+	Party(character FIRST, character SECOND, character THIRD, character FOURTH, Inventory INVENTORY);
+
+	Inventory getInventory();
+
+private:
+	character first, second, third, fourth;
+	Inventory inventory;
+
+};
 
