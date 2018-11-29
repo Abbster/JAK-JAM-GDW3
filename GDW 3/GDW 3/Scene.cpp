@@ -13,10 +13,12 @@ Sprite *TORCH_SPRITE = new Sprite("skeleton2.txt");
 Inventory AdventurersPack;
 Item *torch = new Item("Torch", TORCH_SPRITE);
 
-void Scene::killCharacter(character c)
+void Scene::killCharacter(character &c)
 {
 	//remove from combat list
-		c.die();
+		//c.die();
+	c.getActor()->setPath("bones.txt");
+
 }
 Scene::~Scene()
 {
@@ -41,8 +43,6 @@ void Scene::initializeTheCrazyPeople()
 {
 
 
-
-
 	//switch to pointers
 
 	//CRUSADER 33
@@ -60,8 +60,8 @@ void Scene::initializeTheCrazyPeople()
 
 	Crusader.setPosition(4);
 
-	//GRAVE ROBBER
-	this->GraveRobber = character(20, 0.10, 1, 8, 0.06, 4, "Grave Robber", GRAVEROBBER_SPRITE);
+	//GRAVE ROBBER 20
+	this->GraveRobber = character(1, 0.10, 1, 8, 0.06, 4, "Grave Robber", GRAVEROBBER_SPRITE);
 
 	ability PickToTheFace(2, 3, 4, 4, 5, 6, 6, 6, 0.15, "Pick To The Freakin' Face");
 	GraveRobber.setAbility(PickToTheFace, 1);
@@ -74,8 +74,8 @@ void Scene::initializeTheCrazyPeople()
 
 	GraveRobber.setPosition(3);
 
-	//HIGHWAYMAN
-	Highwayman = character(23, .10, 1, 5, 0.05, 5, "Highwayman", HIGHWAYMAN_SPRITE);
+	//HIGHWAYMAN 23
+	Highwayman = character(1, .10, 1, 5, 0.05, 5, "Highwayman", HIGHWAYMAN_SPRITE);
 
 	ability GrapeshotBlast(2, 3, 3, 3, 5, 6, 7, 7, 0.50, "Grapeshot Blast");
 	GrapeshotBlast.setHitsMulti(true);
@@ -89,8 +89,8 @@ void Scene::initializeTheCrazyPeople()
 
 	Highwayman.setPosition(2);
 
-	//VESTAL
-	Vestal = character(24, 0, 1, 4, 0.01, 4, "Vestal", VESTAL_SPRITE);
+	//VESTAL 24
+	Vestal = character(1, 0, 1, 4, 0.01, 4, "Vestal", VESTAL_SPRITE);
 	ability DivineGrace(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Grace");
 	Vestal.setAbility(DivineGrace, 1);
 	ability Dazzle(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Dazzling Light");
@@ -113,6 +113,7 @@ void Scene::initializeTheCrazyPeople()
 	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
 	Jelly2.setAbility(jello, 1);
 	Jelly3.setAbility(jello, 1);
+	Jelly4.setAbility(jello, 1);
 	potentialEnemies.push_back(Jelly);
 	potentialEnemies.push_back(Jelly2);
 	potentialEnemies.push_back(Jelly3);
@@ -159,7 +160,7 @@ std::vector<character> sort(std::vector<character> &c, int size) {
 
 	}
 	gotoxy(5, 49);
-	std::cout << "Turn Order ";
+	std::cout << "Turn Order: ";
 	for (int i = 0; i < size; i++)
 		std::cout << c[i].getName() << " ";//prints the elements of the array
 	std::cout << std::endl;//ends the line after printing the array
@@ -207,6 +208,25 @@ std::vector<character> sortPosition(std::vector<character> &c, int size) {
 	for (int i = 0; i < size; i++)
 		std::cout << c[i].getName() << " ";//prints the elements of the array
 	std::cout << std::endl;//ends the line after printing the array
+	return c;//returning the sorted array
+
+}
+std::vector<character> sortPositionNoText(std::vector<character> &c, int size) {
+
+	//static int *sortedArray = new int[size];//declaring static dynamic array
+
+	double change = 0;//variable to hold the current element
+
+	for (int i = size - 1; i > 0; i--) {//for loop controlling which elements to loop through first, starting from the last
+
+		for (int j = 0; j < i; j++)//loop that checks each element
+		{
+			if (c[j].getPosition() > c[j + 1].getPosition()) {//checks if the current element is greater than the next element
+				std::swap(c[j], c[j + 1]);
+			}
+		}
+
+	}
 	return c;//returning the sorted array
 
 }
@@ -312,10 +332,13 @@ void Scene::play()
 							run = false;
 							break;
 						}
-						break;
+						break;	
 					}
 					else {
-						int randomSelect = rand() % 4;
+						sortPosition(Heroes, Heroes.size());
+						int randomSelect = rand() % Heroes.size();
+						//if (Heroes.size() == 1)
+						//	randomSelect = rand() % Heroes.size() + 1;
 						gotoxy(5, 49);
 						if (!Enemies[j].isStunned())
 							combatList[i].takeEnemyTurn(Heroes[randomSelect]);
@@ -323,8 +346,8 @@ void Scene::play()
 							std::cout << combatList[i].getName() << " was stunned and can't act!\n";
 							Enemies[j].setStun(false);
 						}
-						if (Heroes[k].getHeartAttack()) {
-							gotoxy(5, 49);
+						if (Heroes[randomSelect].getHeartAttack()) {
+							gotoxy(5, 50);
 							std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
 							//combatList.erase(combatList.begin() + i);
 							//Heroes.erase(Heroes.begin() + k);
@@ -333,12 +356,36 @@ void Scene::play()
 
 						}
 
-						if (Heroes[k].getCurrentHP() <= 0)
+						if (Heroes[randomSelect].getCurrentHP() <= 0)
 						{
-							killCharacter(Crusader);
-							//combatList.erase;
-						}
 
+							//gotoxy(5, 49);
+							//std::cout << Heroes[randomSelect].getName() << " hath been deaded \n";
+							killCharacter(Heroes[randomSelect]);
+
+
+							for (int q = 0; q < combatList.size(); q++) {
+
+ 								if (combatList[q].getName() == Heroes[randomSelect].getName()) {
+									combatList.erase(combatList.begin() + q);
+									Heroes.erase(Heroes.begin() + randomSelect);
+									q--;
+								}
+
+							}
+							i--;
+							k--;
+							
+							
+						}
+						Vestal.getActor()->drawme(5, 24);
+						Highwayman.getActor()->drawme(27, 24);
+						GraveRobber.getActor()->drawme(49, 24);
+						Crusader.getActor()->drawme(70, 24);//subject to change
+
+						Enemies[0].getActor()->drawme(120, 24);
+						Enemies[1].getActor()->drawme(145, 24); //subject to change
+						Enemies[2].getActor()->drawme(170, 24); //subject to change
 						break;
 					}
 				}

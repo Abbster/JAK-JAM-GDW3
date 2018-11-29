@@ -8,7 +8,7 @@ public:
 	void play();
 	void initializeTheCrazyPeople();
 
-	void killCharacter(character c);
+	void killCharacter(character &c);
 
 	 ~Scene();
 	
