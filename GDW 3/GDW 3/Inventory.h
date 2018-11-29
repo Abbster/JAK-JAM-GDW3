@@ -8,6 +8,7 @@ class Item {
 public:
 	Item(std::string NAME, Sprite* THUMBNAIL);
 	Item();
+	
 
 	void useTorch();
 
@@ -21,7 +22,8 @@ class Inventory {
 
 public:
 	Inventory();
-	std::vector<Item*> getItems();
+	std::vector<Item*>& getItems();
+	void addItem(Item *item);
 
 
 private:

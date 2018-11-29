@@ -286,7 +286,8 @@ int main()
 		scenes.push_back(new Scene(BACKGROUND_scene1, UI_scene1));
 		scenes[i]->play();
 		std::cout << "Fight complete! Press any key to fight again!\n";
-		std::cin.get();
+		scenes[i]->~Scene();
+		system("pause");
 
 	}
 	//scenes.push_back(new Scene(BACKGROUND_scene1,UI_scene1));

@@ -288,7 +288,7 @@ Party::Party(character FIRST, character SECOND, character THIRD, character FOURT
 	this->inventory = INVENTORY;
 }
 
-Inventory Party::getInventory()
+Inventory& Party::getInventory()
 {
 	return this->inventory;
 }

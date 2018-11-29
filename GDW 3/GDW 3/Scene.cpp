@@ -10,9 +10,24 @@ Sprite *VESTAL_SPRITE = new Sprite("vestal.txt");
 Sprite *SKELETON1_SPRITE = new Sprite("skeleton.txt");
 Sprite *SKELETON2_SPRITE = new Sprite("skeleton2.txt");
 Sprite *TORCH_SPRITE = new Sprite("skeleton2.txt");
+Inventory AdventurersPack;
+Item *torch = new Item("Torch", TORCH_SPRITE);
 
 
+Scene::~Scene()
+{
+	//delete this;
+	//delete CRUSADER_SPRITE;
+	//delete GRAVEROBBER_SPRITE;
+	//delete HIGHWAYMAN_SPRITE;
+	//delete VESTAL_SPRITE;
+	//delete SKELETON1_SPRITE;
+	//delete SKELETON2_SPRITE;
+	//delete TORCH_SPRITE;
+	//delete torch;
 
+
+}
 Scene::Scene(Sprite * BG, Sprite * UI)
 {
 	this->background = BG;
@@ -217,17 +232,16 @@ void Scene::play()
 	//int userIn = 0, userInTwo = 0; 
 	bool run = true;
 
+	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
 	sort(combatList, 5);
-	static Inventory AdventurersPack;
-	static Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
-	static Item *Torch = new Item("Torch", TORCH_SPRITE);
-	Adventurers.getInventory().getItems().push_back(Torch);
+	Adventurers.getInventory().addItem(torch);
 	//sort(Enemies, 1);
 	while (run) {
 		gotoxy(2, 2);
 		for (int i = 0; i < combatList.size(); i++) {
 			for (int j = 0; j < Enemies.size(); j++) {
 				for (int k = 0; k < Heroes.size(); k++) {
+					turn:
 					system("cls");
 					this->UI->drawme(2, 2);
 					gotoxy(5, 24);
@@ -258,15 +272,21 @@ void Scene::play()
 						gotoxy(5, 52);
 						std::cout << Heroes[k].getName() << " HP: " << Heroes[k].getCurrentHP() << std::endl;
 						gotoxy(5, 53);
-						std::cout << "Select an ability (1,2,3,4): " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << "\n" << ", Use Torch\n";
+						std::cout << "Select an ability (1,2,3,4): " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << ", Use Torch\n";
 						gotoxy(5, 54);
 						std::cin >> userIn;//1 2 3 4
 
 						if (userIn == 4) {
-
-							Adventurers.getInventory().getItems().pop_back();
-							//gotoxy somewhere
-							std::cout << "used a torch!\n";
+							if (!Adventurers.getInventory().getItems().empty()) {
+								Adventurers.getInventory().getItems().pop_back();
+								//gotoxy somewhere
+								gotoxy(5, 55);
+								std::cout << "used a torch!\n";
+							}
+							else {
+								gotoxy(5, 55);
+								std::cout << "No torches!\n";
+							}goto turn;
 						}
 
 						gotoxy(100, 49);
@@ -318,5 +338,7 @@ void Scene::play()
 		}
 	}
 }
+
+
 
 

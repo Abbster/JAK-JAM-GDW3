@@ -111,7 +111,7 @@ public:
 	Party();
 	Party(character FIRST, character SECOND, character THIRD, character FOURTH, Inventory INVENTORY);
 
-	Inventory getInventory();
+	Inventory& getInventory();
 
 private:
 	character first, second, third, fourth;
