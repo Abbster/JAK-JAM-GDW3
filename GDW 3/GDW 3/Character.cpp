@@ -4,6 +4,19 @@
 typedef double dataValue, resistance;
 typedef bool passive, DEBUFF, BUFF;
 
+
+
+
+
+void character::die()
+{
+
+	//replacing sprite
+	this->actor->setPath("bones.txt");
+
+
+}
+
 //character constructor
 character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE)
 {
@@ -270,7 +283,7 @@ void character::takeTurnHeals(int userIn, character & Ally)
 
 void character::takeEnemyTurn(character &Hero)
 {
-	Hero.stress = 3;
+	Hero.stress += 3;
 	this->attack(this->getAbility(1), Hero);
 }
 

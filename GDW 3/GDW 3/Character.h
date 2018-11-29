@@ -15,6 +15,8 @@ public:
 	typedef double dataValue,resistance;
 	typedef bool passive, DEBUFF,BUFF;
 	
+	void die();
+
 
 	//takes in base values
 	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE);
@@ -95,6 +97,7 @@ private:
 	std::string healthBar;
 	bool corpse,didAttacc;
 	unsigned short position;//1,2,3,4
+	bool isDead = false;
 
 
 	Sprite * actor;
