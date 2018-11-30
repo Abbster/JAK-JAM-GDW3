@@ -209,6 +209,10 @@ std::string character::getName()
 {
 	return this->name;
 }
+std::string& character::getNameREFERENCE()
+{
+	return this->name;
+}
 
 dataValue character::getSpeed()
 {

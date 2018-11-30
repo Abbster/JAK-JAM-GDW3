@@ -51,6 +51,8 @@ public:
 
 	
 	std::string getName();
+	std::string& getNameREFERENCE();
+
 	dataValue getSpeed();
 	void setSpeed(dataValue s);
 	void setHealthBar(std::string s);
