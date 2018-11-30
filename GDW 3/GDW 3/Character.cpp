@@ -17,6 +17,11 @@ void character::die()
 
 }
 
+void character::drawUserInterface()
+{
+	this->USER_INTERFACE.getSprite().drawme(0, 64);
+}
+
 //character constructor
 character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE)
 {
@@ -34,6 +39,11 @@ character::character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue
 
 character::character()
 {
+}
+
+void character::setUI(UserInterface userInterface)
+{
+	this->USER_INTERFACE = userInterface;
 }
 
 //damage calculation
@@ -217,6 +227,8 @@ dataValue character::getCurrentHP()
 
 bool character::didDodge()
 {
+
+	
 	srand(time(0));
 	double dodgeTemp = rand() % 100 + 1;
 	if (this->position == 2)

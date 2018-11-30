@@ -5,6 +5,7 @@
 #include <vector>
 #include "ability.h"
 #include "Sprite.h"
+#include "UserInterface.h"
 #include "Inventory.h"
 
 class character {
@@ -16,12 +17,16 @@ public:
 	typedef bool passive, DEBUFF,BUFF;
 	
 	void die();
-
+	//wrapper function
+	void drawUserInterface();
 
 	//takes in base values
 	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE);
 	character();
 	
+	void setUI(UserInterface userInterface);
+	UserInterface getUserInterface();
+
 	void setAbility(ability abl,unsigned int abilityNumber);
 	void attack(ability abl, character &enemy);
 	void heal(ability abl, character &ally);
@@ -101,6 +106,7 @@ private:
 
 
 	Sprite * actor;
+	UserInterface USER_INTERFACE;
 	//each character should have a sprite
 
 		

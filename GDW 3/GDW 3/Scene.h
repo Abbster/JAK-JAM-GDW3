@@ -10,7 +10,9 @@ public:
 	void initializeTheCrazyPeople();
 
 	void killCharacter(character &c);
+	void checkTorchSprite(Sprite &t);
 
+	
 	 ~Scene();
 	
 	
@@ -18,6 +20,7 @@ public:
 private:
 	Sprite* background;
 	Sprite* UI;
+	Sprite* topTorch;
 	//unsigned int lightLevel = 10; might be a bit hard to manage
 	std::vector<character> Enemies;//vector of enemies
 	std::vector<character> Heroes;//vector of heroes
@@ -30,6 +33,9 @@ private:
 	character Squatyman;
 	character Jelly3;
 	character Squatyman2;
+
+	//pseudo shit
+	int lightLevel = 10;
 	
 	//std::vector<character*> actorList;
 

@@ -6,7 +6,9 @@
 void gotoxy(int x, int y);
 class Sprite {
 public:
+	Sprite(){}
 	Sprite(std::string filePath);
+	void checkTorchSprite(int lightlevel);
 	void drawme(int x,int y);
 	void drawme();
 	void setPath(std::string FILEPATH);
