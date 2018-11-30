@@ -5,6 +5,7 @@ class Scene {
 public:
 
 	Scene(Sprite* BG, Sprite* UI);
+	Scene() {}
 	void play();
 	void initializeTheCrazyPeople();
 
@@ -26,9 +27,9 @@ private:
 	character Highwayman;
 	character Vestal;
 	character Jelly	;
-	character Jelly2;
+	character Squatyman;
 	character Jelly3;
-	character Jelly4;
+	character Squatyman2;
 	
 	//std::vector<character*> actorList;
 

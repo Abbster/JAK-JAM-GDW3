@@ -285,7 +285,7 @@ int main()
 	for (int i = 0; i < 10000; i++) {
 		scenes.push_back(new Scene(BACKGROUND_scene1, UI_scene1));
 		scenes[i]->play();
-		std::cout << "Fight complete! Press any key to fight again!\n";
+		std::cout << "Fight complete! Press any key to continue into the depths of madness! \n";
 		scenes[i]->~Scene();
 		system("pause");
 

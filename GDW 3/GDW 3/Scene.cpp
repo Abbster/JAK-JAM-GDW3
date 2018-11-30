@@ -105,19 +105,19 @@ void Scene::initializeTheCrazyPeople()
 	int randomEnemySelect3 = rand() % 4;
 	int randomEnemySelect4 = rand() % 4;
 	std::vector<character> potentialEnemies;
-	Jelly = character(30, 0, 1, 10, 0.01, 4, "Jelly", SKELETON1_SPRITE);
-	Jelly2 = character(30, 0, 1, 1, 0.01, 4, "Jelly2", SKELETON2_SPRITE);
-	Jelly3 = character(30, 0, 1, 30, 0.01, 4, "Jelly3", SKELETON1_SPRITE);
-	Jelly4 = character(30, 0, 1, 7, 0.01, 4, "Jelly4", SKELETON2_SPRITE);
-	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Jello");
+	Jelly = character(30, 0, 1, 10, 0.01, 4, "StickBoi", SKELETON1_SPRITE);
+	Squatyman = character(30, 0, 1, 1, 0.01, 4, "Squattyboi", SKELETON2_SPRITE);
+	Jelly3 = character(30, 0, 1, 30, 0.01, 4, "StickBoi2", SKELETON1_SPRITE);
+	Squatyman2 = character(30, 0, 1, 7, 0.01, 4, "Skelebro", SKELETON2_SPRITE);
+	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Heck");
 	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
-	Jelly2.setAbility(jello, 1);
+	Squatyman.setAbility(jello, 1);
 	Jelly3.setAbility(jello, 1);
-	Jelly4.setAbility(jello, 1);
+	Squatyman2.setAbility(jello, 1);
 	potentialEnemies.push_back(Jelly);
-	potentialEnemies.push_back(Jelly2);
+	potentialEnemies.push_back(Squatyman);
 	potentialEnemies.push_back(Jelly3);
-	potentialEnemies.push_back(Jelly4);
+	potentialEnemies.push_back(Squatyman2);
 	Enemies.push_back(potentialEnemies[randomEnemySelect1]);
 	Enemies.push_back(potentialEnemies[randomEnemySelect2]);
 	Enemies.push_back(potentialEnemies[randomEnemySelect3]);
@@ -239,7 +239,7 @@ void Scene::play()
 	int userIn = 0;//values for user input
 	int userInTwo = 0;
 
-	
+
 
 	this->background->drawme();
 	//while (true)
@@ -256,7 +256,7 @@ void Scene::play()
 	initializeTheCrazyPeople();
 	system("pause");
 	system("CLS");
-	
+
 	//int userIn = 0, userInTwo = 0; 
 	bool run = true;
 
@@ -269,7 +269,7 @@ void Scene::play()
 		for (int i = 0; i < combatList.size(); i++) {
 			for (int j = 0; j < Enemies.size(); j++) {
 				for (int k = 0; k < Heroes.size(); k++) {
-					turn:
+				turn:
 					system("cls");
 					this->UI->drawme(2, 2);
 					gotoxy(5, 24);
@@ -332,13 +332,13 @@ void Scene::play()
 							run = false;
 							break;
 						}
-						break;	
+						break;
 					}
 					else {
 						sortPosition(Heroes, Heroes.size());
 						int randomSelect = rand() % Heroes.size();
-						//if (Heroes.size() == 1)
-						//	randomSelect = rand() % Heroes.size() + 1;
+						if (Heroes.size() == 1)
+							randomSelect = 0;
 						gotoxy(5, 49);
 						if (!Enemies[j].isStunned())
 							combatList[i].takeEnemyTurn(Heroes[randomSelect]);
@@ -359,47 +359,68 @@ void Scene::play()
 						if (Heroes[randomSelect].getCurrentHP() <= 0)
 						{
 
-							//gotoxy(5, 49);
+							//gotoxy(5, 50);
 							//std::cout << Heroes[randomSelect].getName() << " hath been deaded \n";
 							killCharacter(Heroes[randomSelect]);
 
 
-							for (int q = 0; q < combatList.size(); q++) {
-
- 								if (!Heroes.empty() && combatList[q].getName() == Heroes[randomSelect].getName()) {
-									combatList.erase(combatList.begin() + q);
-									Heroes.erase(Heroes.begin() + randomSelect);
-									q--;
+							//for (auto itr = combatList.begin(); itr != combatList.end(); itr++) {
+							//try {
+								for (int q = 0; q < combatList.size(); q++) {
+									if (!Heroes.empty()) {
+										if(randomSelect < Heroes.size())
+										if (combatList[q].getName() == Heroes[randomSelect].getName()) {
+											combatList.erase(combatList.begin() + q);
+											Heroes.erase(Heroes.begin() + randomSelect);
+											q--;
+											i--;
+											k--;
+											
+										}
+									}
 								}
+							//}
+							//catch (const std::out_of_range& oor) {
+							//	//Handle any generic exception in here:
+							//	printf("%s\n", oor.what());
+							//}
+
+								
+								//	if (!Heroes.empty()) {
+								//		if (itr->getName() == Heroes[randomSelect].getName()) {
+								//			combatList.erase(itr);
+								//			Heroes.erase(Heroes.begin() + randomSelect);
+								//		}
+								//	}
+								//}
+
+
 
 							}
-							i--;
-							k--;
-							
-							
+							Vestal.getActor()->drawme(5, 24);
+							Highwayman.getActor()->drawme(27, 24);
+							GraveRobber.getActor()->drawme(49, 24);
+							Crusader.getActor()->drawme(70, 24);//subject to change
+
+							Enemies[0].getActor()->drawme(120, 24);
+							Enemies[1].getActor()->drawme(145, 24); //subject to change
+							Enemies[2].getActor()->drawme(170, 24); //subject to change
+							break;
 						}
-						Vestal.getActor()->drawme(5, 24);
-						Highwayman.getActor()->drawme(27, 24);
-						GraveRobber.getActor()->drawme(49, 24);
-						Crusader.getActor()->drawme(70, 24);//subject to change
-
-						Enemies[0].getActor()->drawme(120, 24);
-						Enemies[1].getActor()->drawme(145, 24); //subject to change
-						Enemies[2].getActor()->drawme(170, 24); //subject to change
-						break;
 					}
+					break;
 				}
-				break;
+
+				gotoxy(200, 61);
+				if (Heroes.empty())
+					run = !run;
+				system("pause");
+				if (!run)
+					break;
+
 			}
-
-			gotoxy(200, 61);
-			system("pause");
-			if (!run)
-				break;
-
 		}
 	}
-}
 
 
 
