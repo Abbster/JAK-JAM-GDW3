@@ -366,7 +366,7 @@ void Scene::play()
 
 							for (int q = 0; q < combatList.size(); q++) {
 
- 								if (combatList[q].getName() == Heroes[randomSelect].getName()) {
+ 								if (!Heroes.empty() && combatList[q].getName() == Heroes[randomSelect].getName()) {
 									combatList.erase(combatList.begin() + q);
 									Heroes.erase(Heroes.begin() + randomSelect);
 									q--;
