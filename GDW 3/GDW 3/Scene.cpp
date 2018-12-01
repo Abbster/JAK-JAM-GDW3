@@ -313,7 +313,7 @@ void Scene::play()
 	bool run = true;
 
 	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
-	sort(combatList, 5);
+	sort(combatList, combatList.size());
 	Adventurers.getInventory().addItem(torch);
 	//sort(Enemies, 1);
 	while (run) {
@@ -394,7 +394,7 @@ void Scene::play()
 								if (!Enemies.empty()) {
 										if (combatList[q].getName() == Enemies[userInTwo - 1].getName()) {
 											combatList.erase(combatList.begin() + q);
-											Heroes.erase(Heroes.begin() + (userInTwo - 1));
+											Enemies.erase(Enemies.begin() + (userInTwo - 1));
 											q--;
 											i--;
 											j--;
@@ -465,21 +465,6 @@ void Scene::play()
 										}
 									}
 								}
-							//}
-							//catch (const std::out_of_range& oor) {
-							//	//Handle any generic exception in here:
-							//	printf("%s\n", oor.what());
-							//}
-
-								
-								//	if (!Heroes.empty()) {
-								//		if (itr->getName() == Heroes[randomSelect].getName()) {
-								//			combatList.erase(itr);
-								//			Heroes.erase(Heroes.begin() + randomSelect);
-								//		}
-								//	}
-								//}
-
 
 
 							}

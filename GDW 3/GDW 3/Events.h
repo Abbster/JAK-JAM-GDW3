@@ -1,7 +1,9 @@
 #pragma once
-namespace Events {
-	enum : unsigned char {
-		Mouse_Left = 0x01,
+
+//code from game programming club
+namespace Events {//namespace used to hold things that have common proporties. In this case it just holds an enum
+	enum : unsigned char {//an enum is just a way of making a word mean a number (in this case it means an unsigned char)
+		Mouse_Left = 0x01,//codes that pertain to their respecive key values
 		Mouse_Right = 0x02,
 		Backspace = 0x08,
 		Tab = 0x09,
