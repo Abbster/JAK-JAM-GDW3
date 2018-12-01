@@ -53,6 +53,8 @@ public:
 	std::string getName();
 	std::string& getNameREFERENCE();
 
+	void makeDead(int YN);
+	bool amDead();
 	dataValue getSpeed();
 	void setSpeed(dataValue s);
 	void setHealthBar(std::string s);

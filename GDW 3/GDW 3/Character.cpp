@@ -214,6 +214,18 @@ std::string& character::getNameREFERENCE()
 	return this->name;
 }
 
+void character::makeDead(int YN)
+{
+	this->isDead = YN;
+}
+
+bool character::amDead()
+{
+	if (this->isDead)
+		return true;
+	return false;
+}
+
 dataValue character::getSpeed()
 {
 	return this->speed;

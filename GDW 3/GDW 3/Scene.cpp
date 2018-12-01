@@ -311,7 +311,28 @@ void Scene::play()
 
 	//int userIn = 0, userInTwo = 0; 
 	bool run = true;
-
+	bool didMove = false;
+	Vestal.getActor()->drawme(5, 22);
+	Highwayman.getActor()->drawme(27, 22);
+	GraveRobber.getActor()->drawme(49, 22);
+	Crusader.getActor()->drawme(70, 22);//subject to change
+	while (true) {
+	int randEncounterChange = rand() % 2;
+		if (isEvent(Events::D)) {
+			for (int u = 0; u < 100; u++) {
+				Vestal.getActor()->drawme(u + 5, 22);
+				Highwayman.getActor()->drawme(u + 27, 22);
+				GraveRobber.getActor()->drawme(u + 49, 22);
+				Crusader.getActor()->drawme(u + 70, 22);//subject to change
+				didMove = true;
+				if (u >= 99)
+					break;
+			}
+			if(randEncounterChange == 1)
+			break;
+		system("CLS");
+		}
+	}
 	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
 	sort(combatList, combatList.size());
 	Adventurers.getInventory().addItem(torch);
@@ -322,23 +343,24 @@ void Scene::play()
 				for (int k = 0; k < Heroes.size(); k++) {
 				turn:
 					system("cls");
-
+					int shift = 0;
+					Vestal.getActor()->drawme(5, 22);
+					Highwayman.getActor()->drawme(27, 22);
+					GraveRobber.getActor()->drawme(49, 22);
+					Crusader.getActor()->drawme(70, 22);//subject to change
 					//this->UI->drawme(0, 0);
 					//checkTorchSprite(this->topTorch);
 					//this->topTorch->drawme(42, 2);
 
 					//gotoxy(5, 24);
 					checkForSameName(Enemies,Enemies.size());
+					for (int e = 0; e < Enemies.size(); e++) {
+						Enemies[e].getActor()->drawme(120 + shift, 22);
+						shift += 25;
+					}
+
 					
 
-					Vestal.getActor()->drawme(5, 22);
-					Highwayman.getActor()->drawme(27, 22);
-					GraveRobber.getActor()->drawme(49, 22);
-					Crusader.getActor()->drawme(70, 24);//subject to change
-
-					Enemies[0].getActor()->drawme(120, 22);
-					Enemies[1].getActor()->drawme(145, 22); //subject to change
-					Enemies[2].getActor()->drawme(170, 22); //subject to change
 
 					//Vestal.getActor()->drawme(5, 29);
 
@@ -394,7 +416,11 @@ void Scene::play()
 								if (!Enemies.empty()) {
 										if (combatList[q].getName() == Enemies[userInTwo - 1].getName()) {
 											combatList.erase(combatList.begin() + q);
-											Enemies.erase(Enemies.begin() + (userInTwo - 1));
+											Enemies.erase(Enemies.begin() + j);
+											if (Enemies.empty()) {
+												run = !run;
+												break;
+											}	
 											q--;
 											i--;
 											j--;
@@ -402,23 +428,23 @@ void Scene::play()
 
 										}
 								}
+								
 							}
 
 						}
 
-						//if ((Enemies[0].getCurrentHP() + Enemies[1].getCurrentHP() + Enemies[2].getCurrentHP() + Enemies[3].getCurrentHP()) <= 0)
-						//{
-						//	run = false;
-						//	break;
-						//}
+						
+						
 						Vestal.getActor()->drawme(5, 24);
 						Highwayman.getActor()->drawme(27, 24);
 						GraveRobber.getActor()->drawme(49, 24);
 						Crusader.getActor()->drawme(70, 24);//subject to change
 
-						Enemies[0].getActor()->drawme(120, 24);
-						Enemies[1].getActor()->drawme(145, 24); //subject to change
-						Enemies[2].getActor()->drawme(170, 24); //subject to change
+						for (int e = 0; e < Enemies.size(); e++) {
+							int shift = 0;
+							Enemies[e].getActor()->drawme(120 + shift, 22);
+							shift += 25;
+						}
 						break;
 					}
 					else {
@@ -473,9 +499,11 @@ void Scene::play()
 							GraveRobber.getActor()->drawme(49, 24);
 							Crusader.getActor()->drawme(70, 24);//subject to change
 
-							Enemies[0].getActor()->drawme(120, 24);
-							Enemies[1].getActor()->drawme(145, 24); //subject to change
-							Enemies[2].getActor()->drawme(170, 24); //subject to change
+							for (int e = 0; e < Enemies.size(); e++) {
+								int shift = 0;
+								Enemies[e].getActor()->drawme(120 + shift, 22);
+								shift += 25;
+							}
 							break;
 						}
 					}
