@@ -8,6 +8,8 @@
 #include "UserInterface.h"
 #include "Inventory.h"
 
+#include "PositionVector.h"
+
 class character {
 
 public:
@@ -24,6 +26,8 @@ public:
 	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE);
 	character();
 	
+	
+
 	void setUI(UserInterface userInterface);
 	UserInterface getUserInterface();
 
@@ -122,7 +126,9 @@ class Party : character {
 
 public:
 	Party();
-	Party(character FIRST, character SECOND, character THIRD, character FOURTH, Inventory INVENTORY);
+	Party(character FIRST, character SECOND, character THIRD, character FOURTH, Inventory INVENTORY); 
+
+	void moveParty();
 
 	Inventory& getInventory();
 

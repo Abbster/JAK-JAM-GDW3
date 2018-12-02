@@ -1,6 +1,5 @@
 #include "Scene.h"
-#include "Input.h"
-#include "Events.h"
+
 
 Sprite *CRUSADER_SPRITE = new Sprite("crusader.txt");
 Sprite *GRAVEROBBER_SPRITE = new Sprite("graveRobber.txt");
@@ -71,11 +70,12 @@ void Scene::initializeTheCrazyPeople()
 	//switch to pointers
 
 	//CRUSADER 33
-	this->Crusader = character(133, 0.05, 1, 1, 0.03, 6, "Crusader", CRUSADER_SPRITE);//creating a new character. see constructor for what these numbers mean
+	this->Crusader = character(1, 0.05, 1, 1, 0.03, 6, "Crusader", CRUSADER_SPRITE);//creating a new character. see constructor for what these numbers mean
 
 	Crusader.setUI(CrusaderUI);
 	ability Smite(3, 4, 4, 4, 5, 6, 6, 6, 1, "Smite");
 	Crusader.setAbility(Smite, 1);//sets crusader's first ability to smite
+	Crusader.getActor()->setDefaultPosition(70, 22);
 
 	ability StunningBlow(3, 4, 4, 4, 5, 6, 6, 6, 0.50, "Stunning Blow");
 	StunningBlow.setStun(1);
@@ -87,7 +87,7 @@ void Scene::initializeTheCrazyPeople()
 	Crusader.setPosition(4);
 
 	//GRAVE ROBBER 20
-	this->GraveRobber = character(3331, 0.10, 1, 8, 0.06, 4, "Grave Robber", GRAVEROBBER_SPRITE);
+	this->GraveRobber = character(1, 0.10, 1, 8, 0.06, 4, "Grave Robber", GRAVEROBBER_SPRITE);
 
 	GraveRobber.setUI(GraveRobberUI);
 	ability PickToTheFace(2, 3, 4, 4, 5, 6, 6, 6, 0.15, "Pick To The Freakin' Face");
@@ -102,7 +102,7 @@ void Scene::initializeTheCrazyPeople()
 	GraveRobber.setPosition(3);
 
 	//HIGHWAYMAN 23
-	Highwayman = character(3333, .10, 1, 5, 0.05, 5, "Highwayman", HIGHWAYMAN_SPRITE);
+	Highwayman = character(1, .10, 1, 5, 0.05, 5, "Highwayman", HIGHWAYMAN_SPRITE);
 
 	Highwayman.setUI(HighwaymanUI);
 	ability GrapeshotBlast(2, 3, 3, 3, 5, 6, 7, 7, 0.50, "Grapeshot Blast");
@@ -118,7 +118,7 @@ void Scene::initializeTheCrazyPeople()
 	Highwayman.setPosition(2);
 
 	//VESTAL 24
-	Vestal = character(3331, 0, 1, 4, 0.01, 4, "Vestal", VESTAL_SPRITE);
+	Vestal = character(1, 0, 1, 4, 0.01, 4, "Vestal", VESTAL_SPRITE);
 
 	Vestal.setUI(VestalUI);
 	ability DivineGrace(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Grace");
@@ -316,24 +316,14 @@ void Scene::play()
 	Highwayman.getActor()->drawme(27, 22);
 	GraveRobber.getActor()->drawme(49, 22);
 	Crusader.getActor()->drawme(70, 22);//subject to change
+	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
 	while (true) {
 	int randEncounterChange = rand() % 2;
 		if (isEvent(Events::D)) {
-			for (int u = 0; u < 100; u++) {
-				Vestal.getActor()->drawme(u + 5, 22);
-				Highwayman.getActor()->drawme(u + 27, 22);
-				GraveRobber.getActor()->drawme(u + 49, 22);
-				Crusader.getActor()->drawme(u + 70, 22);//subject to change
-				didMove = true;
-				if (u >= 99)
-					break;
-			}
-			if(randEncounterChange == 1)
-			break;
-		system("CLS");
+			Crusader.getActor()->move();
+			
 		}
 	}
-	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
 	sort(combatList, combatList.size());
 	Adventurers.getInventory().addItem(torch);
 	sortPosition(Enemies, Enemies.size());
@@ -359,13 +349,6 @@ void Scene::play()
 						shift += 25;
 					}
 
-					
-
-
-					//Vestal.getActor()->drawme(5, 29);
-
-					//if (Enemies[j].getCurrentHP() <= 0)
-					//	run = false;
 
 					sort(combatList, combatList.size());
 					sortNoText(Heroes, Heroes.size());

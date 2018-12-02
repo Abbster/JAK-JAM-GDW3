@@ -41,6 +41,7 @@ character::character()
 {
 }
 
+
 void character::setUI(UserInterface userInterface)
 {
 	this->USER_INTERFACE = userInterface;
@@ -86,9 +87,9 @@ void character::attack(ability abl, character &enemy)
 		//if (randomStun == 0)
 		//	enemy.stunned = false;
 		//if (randomStun == 1) {
-			std::cout << "STUNNED!\n";
-			enemy.stunned = true;//returns true if true
-		//}
+		std::cout << "STUNNED!\n";
+		enemy.stunned = true;//returns true if true
+	//}
 	}
 
 }
@@ -244,7 +245,7 @@ dataValue character::getCurrentHP()
 bool character::didDodge()
 {
 
-	
+
 	srand(time(0));
 	double dodgeTemp = rand() % 100 + 1;
 	if (this->position == 2)
@@ -273,10 +274,6 @@ bool character::didCrit()
 
 	return false;
 }
-
-
-
-
 
 bool character::isSlowerThan(character & enemy)
 {
@@ -327,6 +324,11 @@ Party::Party(character FIRST, character SECOND, character THIRD, character FOURT
 	this->third = THIRD;
 	this->fourth = FOURTH;
 	this->inventory = INVENTORY;
+}
+
+void Party::moveParty()
+{
+	
 }
 
 Inventory& Party::getInventory()

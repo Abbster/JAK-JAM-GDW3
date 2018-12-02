@@ -3,6 +3,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "PositionVector.h"
+#include "Input.h"
+#include "Events.h"
+
 void gotoxy(int x, int y);
 class Sprite {
 public:
@@ -12,8 +16,13 @@ public:
 	void drawme(int x,int y);
 	void drawme();
 	void setPath(std::string FILEPATH);
+	void setDefaultPosition(int X, int Y);
+	void move();
+	PositionVector getDefaultPosition();
 private:
 	std::string PATH;
+	PositionVector defaultPosition;
+
 };
 
 
