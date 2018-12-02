@@ -255,11 +255,11 @@ std::vector<character> sortPosition(std::vector<character> &c, int size) {
 		}
 
 	}
-	gotoxy(80, 43);
-	std::cout << "Position: ";
-	for (int i = 0; i < size; i++)
-		std::cout << c[i].getName() << " ";//prints the elements of the array
-	std::cout << std::endl;//ends the line after printing the array
+	//gotoxy(80, 43);
+	//std::cout << "Position: ";
+	//for (int i = 0; i < size; i++)
+	//	std::cout << c[i].getName() << " ";//prints the elements of the array
+	//std::cout << std::endl;//ends the line after printing the array
 	return c;//returning the sorted array
 
 }
@@ -336,7 +336,7 @@ void Scene::play()
 	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
 	sort(combatList, combatList.size());
 	Adventurers.getInventory().addItem(torch);
-	//sort(Enemies, 1);
+	sortPosition(Enemies, Enemies.size());
 	while (run) {
 		for (int i = 0; i < combatList.size(); i++) {
 			for (int j = 0; j < Enemies.size(); j++) {
@@ -353,7 +353,7 @@ void Scene::play()
 					//this->topTorch->drawme(42, 2);
 
 					//gotoxy(5, 24);
-					checkForSameName(Enemies,Enemies.size());
+					//checkForSameName(Enemies,Enemies.size());
 					for (int e = 0; e < Enemies.size(); e++) {
 						Enemies[e].getActor()->drawme(120 + shift, 22);
 						shift += 25;
@@ -499,10 +499,10 @@ void Scene::play()
 							GraveRobber.getActor()->drawme(49, 24);
 							Crusader.getActor()->drawme(70, 24);//subject to change
 
+							int shift2 = 0;
 							for (int e = 0; e < Enemies.size(); e++) {
-								int shift = 0;
-								Enemies[e].getActor()->drawme(120 + shift, 22);
-								shift += 25;
+								Enemies[e].getActor()->drawme(120 + shift2, 22);
+								shift2 += 25;
 							}
 							break;
 						}
