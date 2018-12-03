@@ -30,10 +30,10 @@ private:
 	character GraveRobber;
 	character Highwayman;
 	character Vestal;
-	character Jelly	;
-	character Squatyman;
-	character Jelly3;
-	character Squatyman2;
+	character SkeletonWitch;
+	character Defender;
+	character Skeleton;
+	character Brawler;
 
 	//pseudo shit
 	int lightLevel = 10;
