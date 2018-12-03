@@ -15,13 +15,11 @@ public:
 	void checkTorchSprite(int lightlevel);
 	void drawme(int x,int y);
 	void drawme();
+	std::string getPath();
 	void setPath(std::string FILEPATH);
-	void setDefaultPosition(int X, int Y);
 	void move();
-	PositionVector getDefaultPosition();
 private:
 	std::string PATH;
-	PositionVector defaultPosition;
 
 };
 

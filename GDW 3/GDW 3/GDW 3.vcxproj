@@ -24,7 +24,6 @@
     <ClInclude Include="Events.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Inventory.h" />
-    <ClInclude Include="PositionVector.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="UserInterface.h" />
@@ -34,7 +33,6 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Inventory.cpp" />
-    <ClCompile Include="PositionVector.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="testCrusader.cpp" />

@@ -17,6 +17,7 @@ public:
 	
 	
 
+	static int stress1, stress2, stress3, stress4;
 private:
 	Sprite* background;
 	Sprite* UI;

@@ -13,11 +13,11 @@
 class character {
 
 public:
-	
+
 	//test functions with templates for literally anything
-	typedef double dataValue,resistance;
-	typedef bool passive, DEBUFF,BUFF;
-	
+	typedef double dataValue, resistance;
+	typedef bool passive, DEBUFF, BUFF;
+
 	void die();
 	//wrapper function
 	void drawUserInterface();
@@ -25,35 +25,33 @@ public:
 	//takes in base values
 	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE);
 	character();
-	
-	
+
+
 
 	void setUI(UserInterface userInterface);
 	UserInterface getUserInterface();
 
-	void setAbility(ability abl,unsigned int abilityNumber);
+	void setAbility(ability abl, unsigned int abilityNumber);
 	void attack(ability abl, character &enemy);
 	void heal(ability abl, character &ally);
-	
+
 	ability getAbility(unsigned int abilitynumber);
 	std::string getAbilityName(unsigned int abilitynumber);
 
 	Sprite* getActor();
-	
-	
+
+
 	void setPosition(unsigned short pos);
-	unsigned short getPosition ();
+	unsigned short getPosition();
 	bool didDodge();
 	bool didCrit();
-	void setStress(dataValue AH);
-	dataValue getStress();
 	void setHeartAttack(bool YN);
 	DEBUFF getHeartAttack();
 	bool isSlowerThan(character &enemy);
 	bool isStunned();
 	void setStun(bool YN);
 
-	
+
 	std::string getName();
 	std::string& getNameREFERENCE();
 
@@ -64,7 +62,7 @@ public:
 	void setHealthBar(std::string s);
 	dataValue getATTACC();
 	dataValue getCurrentHP();
-	void takeTurn(int userIn,character & Enemy);
+	void takeTurn(int userIn, character & Enemy);
 	void takeTurnHeals(int userIn, character & Ally);
 	void takeEnemyTurn(character & Hero);
 
@@ -77,9 +75,8 @@ private:
 		speed,
 		PROTECC,
 		crit,
-		ATTACC,
-		stress;
-		int inBetweenDamage;//this will be the random number between damagemin and damage max
+		ATTACC;
+	int inBetweenDamage;//this will be the random number between damagemin and damage max
 	passive
 		corpseClear,
 		preventAmbush,
@@ -108,7 +105,7 @@ private:
 		able4;
 	std::string name;
 	std::string healthBar;
-	bool corpse,didAttacc;
+	bool corpse, didAttacc;
 	unsigned short position;//1,2,3,4
 	bool isDead = false;
 
@@ -117,7 +114,7 @@ private:
 	UserInterface USER_INTERFACE;
 	//each character should have a sprite
 
-		
+
 
 };
 
@@ -126,7 +123,7 @@ class Party : character {
 
 public:
 	Party();
-	Party(character FIRST, character SECOND, character THIRD, character FOURTH, Inventory INVENTORY); 
+	Party(character FIRST, character SECOND, character THIRD, character FOURTH, Inventory INVENTORY);
 
 	void moveParty();
 

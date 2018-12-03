@@ -19,7 +19,7 @@ void character::die()
 
 void character::drawUserInterface()
 {
-	this->USER_INTERFACE.getSprite().drawme(0, 64);
+	this->USER_INTERFACE.getSprite().drawme(0, 44);
 }
 
 //character constructor
@@ -75,21 +75,21 @@ void character::attack(ability abl, character &enemy)
 	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP() << std::endl;
 
 
-	if (enemy.stress >= 10) {
-		std::cout << enemy.getName() << " had a heart attack!\n";
-		enemy.heartAttack = true;
-		enemy.currentHP = 0;
-		std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP() << std::endl;
-
-	}
+	//if (enemy.stress >= 10) {
+	//	std::cout << enemy.getName() << " had a heart attack!\n";
+	//	enemy.heartAttack = true;
+	//	//enemy.currentHP = 0;
+	//	//std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP() << std::endl;
+	//
+	//}
 	if (abl.hasStun()) {//checks if the ability has stun
 		int randomStun = rand() % 2;
-		//if (randomStun == 0)
-		//	enemy.stunned = false;
-		//if (randomStun == 1) {
+		if (randomStun == 0)
+			enemy.stunned = false;
+		if (randomStun == 1) {
 		std::cout << "STUNNED!\n";
 		enemy.stunned = true;//returns true if true
-	//}
+	}
 	}
 
 }
@@ -97,22 +97,22 @@ void character::attack(ability abl, character &enemy)
 void character::heal(ability abl, character & Ally)
 {
 	srand(time(0));
-	gotoxy(5, 55);
+	gotoxy(85, 51);
 	std::cout << this->name << " used " << abl.getName() << std::endl;
 
 	double atcc = this->ATTACC;
 	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);
 	atcc *= abl.getModifier();//getting new dmg value by multiplying by a percent amount
 	if (this->didCrit()) {
-		gotoxy(20, 55);
+		gotoxy(85, 52);
 		std::cout << "CRIT!!" << std::endl;
 		atcc *= 2;
 	}
 	int finAttacc = (atcc + 0.5);
 	Ally.currentHP += finAttacc;//does damage based on character damage values
-	gotoxy(5, 59);
+	gotoxy(85, 54);
 	std::cout << Ally.name << " was healed " << (int)finAttacc << " health!\n";
-	gotoxy(5, 60);
+	gotoxy(85, 55);
 	std::cout << Ally.getName() << " HP: " << Ally.getCurrentHP() << std::endl;
 }
 
@@ -138,10 +138,10 @@ void character::setPosition(unsigned short pos)//just a base setter for the gazi
 {
 	this->position = pos;
 }
-void character::setStress(dataValue AH)
-{
-	this->stress = AH;
-}
+//void character::setStress(dataValue AH)
+//{
+//	this->stress += AH;
+//}
 void character::setHeartAttack(bool YN)
 {
 	this->heartAttack = YN;
@@ -195,10 +195,10 @@ unsigned short character::getPosition()
 {
 	return this->position;
 }
-dataValue character::getStress()
-{
-	return this->stress;
-}
+//dataValue character::getStress()
+//{
+//	return this->stress;
+//}
 
 
 
@@ -308,7 +308,6 @@ void character::takeTurnHeals(int userIn, character & Ally)
 
 void character::takeEnemyTurn(character &Hero)
 {
-	Hero.stress += 3;
 	this->attack(this->getAbility(1), Hero);
 }
 

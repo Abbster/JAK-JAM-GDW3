@@ -52,11 +52,16 @@ Scene::~Scene()
 
 
 }
+	int Scene::stress1 = 0;
+	int Scene::stress2 = 0;
+	int Scene::stress3 = 0;
+	int Scene::stress4 = 0;
 Scene::Scene(Sprite * BG, Sprite * UI)
 {
 	this->background = BG;
 	this->UI = UI;
 	Sprite *topTorch = new Sprite("Light10.txt");
+
 
 }
 void Scene::initializeTheCrazyPeople()
@@ -66,16 +71,16 @@ void Scene::initializeTheCrazyPeople()
 	UserInterface GraveRobberUI("graveRobberui.txt");
 	UserInterface HighwaymanUI("highwaymanui.txt");
 	UserInterface VestalUI("vestalui.txt");
+	UserInterface EnemyUI("emptyRoom.txt");
 
 	//switch to pointers
 
 	//CRUSADER 33
-	this->Crusader = character(1, 0.05, 1, 1, 0.03, 6, "Crusader", CRUSADER_SPRITE);//creating a new character. see constructor for what these numbers mean
+	this->Crusader = character(33, 0.05, 1, 1, 0.03, 6, "Crusader", CRUSADER_SPRITE);//creating a new character. see constructor for what these numbers mean
 
 	Crusader.setUI(CrusaderUI);
 	ability Smite(3, 4, 4, 4, 5, 6, 6, 6, 1, "Smite");
 	Crusader.setAbility(Smite, 1);//sets crusader's first ability to smite
-	Crusader.getActor()->setDefaultPosition(70, 22);
 
 	ability StunningBlow(3, 4, 4, 4, 5, 6, 6, 6, 0.50, "Stunning Blow");
 	StunningBlow.setStun(1);
@@ -87,7 +92,7 @@ void Scene::initializeTheCrazyPeople()
 	Crusader.setPosition(4);
 
 	//GRAVE ROBBER 20
-	this->GraveRobber = character(1, 0.10, 1, 8, 0.06, 4, "Grave Robber", GRAVEROBBER_SPRITE);
+	this->GraveRobber = character(20, 0.10, 1, 8, 0.06, 4, "Grave Robber", GRAVEROBBER_SPRITE);
 
 	GraveRobber.setUI(GraveRobberUI);
 	ability PickToTheFace(2, 3, 4, 4, 5, 6, 6, 6, 0.15, "Pick To The Freakin' Face");
@@ -102,7 +107,7 @@ void Scene::initializeTheCrazyPeople()
 	GraveRobber.setPosition(3);
 
 	//HIGHWAYMAN 23
-	Highwayman = character(1, .10, 1, 5, 0.05, 5, "Highwayman", HIGHWAYMAN_SPRITE);
+	Highwayman = character(23, .10, 1, 5, 0.05, 5, "Highwayman", HIGHWAYMAN_SPRITE);
 
 	Highwayman.setUI(HighwaymanUI);
 	ability GrapeshotBlast(2, 3, 3, 3, 5, 6, 7, 7, 0.50, "Grapeshot Blast");
@@ -118,7 +123,7 @@ void Scene::initializeTheCrazyPeople()
 	Highwayman.setPosition(2);
 
 	//VESTAL 24
-	Vestal = character(1, 0, 1, 4, 0.01, 4, "Vestal", VESTAL_SPRITE);
+	Vestal = character(24, 0, 1, 4, 0.01, 4, "Vestal", VESTAL_SPRITE);
 
 	Vestal.setUI(VestalUI);
 	ability DivineGrace(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Grace");
@@ -136,12 +141,13 @@ void Scene::initializeTheCrazyPeople()
 	int randomEnemySelect4 = rand() % 4;
 	std::vector<character> potentialEnemies;
 	//all of these have 30 ish hp..which we will change after anyways
-	Jelly = character(1, 0, 1, 10, 0.01, 4, "StickBoi", SKELETON1_SPRITE);
-	Squatyman = character(1, 0, 1, 1, 0.01, 4, "Squattyboi", SKELETON2_SPRITE);
-	Jelly3 = character(1, 0, 1, 30, 0.01, 4, "StickBoi2", BRAWLER_SPRITE);
-	Squatyman2 = character(1, 0, 1, 7, 0.01, 4, "Skelebro", DEFENDER_SPRITE);
-	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Heck");
-	Jelly.setAbility(jello, 1);//sets crusader's first ability to smite
+	Jelly = character(1, 0, 1, 10, 0.01, 4, "Skeleton Witch", SKELETON1_SPRITE);
+	Jelly.setUI(EnemyUI);
+	Squatyman = character(1, 0, 1, 1, 0.01, 4, "Skeleton", SKELETON2_SPRITE);
+	Jelly3 = character(1, 0, 1, 30, 0.01, 4, "Brawler", BRAWLER_SPRITE);
+	Squatyman2 = character(1, 0, 1, 7, 0.01, 4, "Defender", DEFENDER_SPRITE);
+	ability jello(5, 6, 6, 6, 4, 3, 3, 3, 1, "Bash");
+	Jelly.setAbility(jello, 1);
 	Squatyman.setAbility(jello, 1);
 	Jelly3.setAbility(jello, 1);
 	Squatyman2.setAbility(jello, 1);
@@ -170,6 +176,7 @@ void Scene::initializeTheCrazyPeople()
 	combatList.push_back(Enemies[0]);
 	combatList.push_back(Enemies[1]);
 	combatList.push_back(Enemies[2]);
+	combatList.push_back(Enemies[3]);
 
 }
 
@@ -210,12 +217,12 @@ std::vector<character> checkForSameName(std::vector<character> &c, int size) {
 		{
 			if (c[j].getName() == c[j + 1].getName()) {//checks if the current element is greater than the next element
 				//std::swap(c[j], c[j + 1]);
-				c[j + 1].getNameREFERENCE().append("de",2);
+				c[j + 1].getNameREFERENCE().append("de", 2);
 			}
 		}
 
 	}
-	
+
 	return c;//returning the sorted array
 
 }
@@ -249,9 +256,9 @@ std::vector<character> sortPosition(std::vector<character> &c, int size) {
 
 		for (int j = 0; j < i; j++)//loop that checks each element
 		{
-		if (c[j].getPosition() > c[j + 1].getPosition()) {//checks if the current element is greater than the next element
-			std::swap(c[j], c[j + 1]);
-		}
+			if (c[j].getPosition() > c[j + 1].getPosition()) {//checks if the current element is greater than the next element
+				std::swap(c[j], c[j + 1]);
+			}
 		}
 
 	}
@@ -291,8 +298,6 @@ void Scene::play()
 	int userIn = 0;//values for user input
 	int userInTwo = 0;
 
-
-
 	this->background->drawme();
 	//while (true)
 	//{
@@ -306,6 +311,10 @@ void Scene::play()
 	//		break;
 	//}
 	initializeTheCrazyPeople();
+	if (Crusader.getActor()->getPath() == "bones.txt" && GraveRobber.getActor()->getPath() == "bones.txt"
+		&& Highwayman.getActor()->getPath() == "bones.txt" && Vestal.getActor()->getPath() == "bones.txt")
+		return;
+
 	system("pause");
 	system("CLS");
 
@@ -318,12 +327,27 @@ void Scene::play()
 	Crusader.getActor()->drawme(70, 22);//subject to change
 	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
 	while (true) {
-	int randEncounterChange = rand() % 2;
 		if (isEvent(Events::D)) {
-			Crusader.getActor()->move();
-			
+			for (int u = 0; u < 100; u++) {
+				Vestal.getActor()->drawme(5 + u, 22);
+				Highwayman.getActor()->drawme(27 + u, 22);
+				GraveRobber.getActor()->drawme(49 + u, 22);
+				Crusader.getActor()->drawme(70 + u, 22);//subject to change
+			}
+			int randEncounterChange = rand() % 2;
+			if (randEncounterChange == 0) {
+				system("pause");
+				system("cls");
+			}
+			else if (randEncounterChange == 1)
+				break;
+
 		}
+
+
+
 	}
+
 	sort(combatList, combatList.size());
 	Adventurers.getInventory().addItem(torch);
 	sortPosition(Enemies, Enemies.size());
@@ -332,12 +356,17 @@ void Scene::play()
 			for (int j = 0; j < Enemies.size(); j++) {
 				for (int k = 0; k < Heroes.size(); k++) {
 				turn:
+
 					system("cls");
+					std::cout << Crusader.getName() << "'s stress level: " << stress1 << std::endl;
+					std::cout << GraveRobber.getName() << "'s stress level: " << stress2 << std::endl;
+					std::cout << Highwayman.getName() << "'s stress level: " << stress3 << std::endl;
+					std::cout << Vestal.getName() << "'s stress level: " << stress4 << std::endl;
 					int shift = 0;
-					Vestal.getActor()->drawme(5, 22);
-					Highwayman.getActor()->drawme(27, 22);
-					GraveRobber.getActor()->drawme(49, 22);
-					Crusader.getActor()->drawme(70, 22);//subject to change
+					Vestal.getActor()->drawme(5, 21);
+					Highwayman.getActor()->drawme(27, 21);
+					GraveRobber.getActor()->drawme(49, 21);
+					Crusader.getActor()->drawme(70, 21);//subject to change
 					//this->UI->drawme(0, 0);
 					//checkTorchSprite(this->topTorch);
 					//this->topTorch->drawme(42, 2);
@@ -345,7 +374,7 @@ void Scene::play()
 					//gotoxy(5, 24);
 					//checkForSameName(Enemies,Enemies.size());
 					for (int e = 0; e < Enemies.size(); e++) {
-						Enemies[e].getActor()->drawme(120 + shift, 22);
+						Enemies[e].getActor()->drawme(120 + shift, 21);
 						shift += 25;
 					}
 
@@ -357,7 +386,7 @@ void Scene::play()
 
 
 						combatList[i].drawUserInterface();
-						
+
 						gotoxy(5, 46);
 						std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
 						//std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
@@ -367,7 +396,13 @@ void Scene::play()
 						//gotoxy(5, 53);
 						//std::cout << "Select an ability (1,2,3,4): " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << ", Use Torch\n";
 						gotoxy(85, 51);
-						std::cin >> userIn;//1 2 3 4
+						while (!(std::cin >> userIn)) {
+							std::cin.clear();
+							std::cin.ignore(100, '\n');
+							gotoxy(85, 48);
+							std::cout << "Select an ability (1,2,3,4):\n";
+
+						}//1 2 3 4
 
 						if (userIn == 4) {
 							if (!Adventurers.getInventory().getItems().empty()) {
@@ -397,54 +432,65 @@ void Scene::play()
 							killCharacter(Enemies[userInTwo - 1]);
 							for (int q = 0; q < combatList.size(); q++) {
 								if (!Enemies.empty()) {
-										if (combatList[q].getName() == Enemies[userInTwo - 1].getName()) {
-											combatList.erase(combatList.begin() + q);
-											Enemies.erase(Enemies.begin() + j);
-											if (Enemies.empty()) {
-												run = !run;
-												break;
-											}	
-											q--;
-											i--;
-											j--;
+									if (combatList[q].getName() == Enemies[userInTwo - 1].getName()) {
+										combatList.erase(combatList.begin() + q);
+										Enemies.erase(Enemies.begin() + j);
+										if (Enemies.empty()) {
+											run = !run;
 											break;
-
 										}
+										q--;
+										i--;
+										j--;
+										break;
+
+									}
 								}
-								
+
 							}
 
 						}
 
-						
-						
-						Vestal.getActor()->drawme(5, 24);
-						Highwayman.getActor()->drawme(27, 24);
-						GraveRobber.getActor()->drawme(49, 24);
-						Crusader.getActor()->drawme(70, 24);//subject to change
 
+
+						Vestal.getActor()->drawme(5, 21);
+						Highwayman.getActor()->drawme(27, 21);
+						GraveRobber.getActor()->drawme(49, 21);
+						Crusader.getActor()->drawme(70, 21);//subject to change
+
+						int shift3 = 0;
 						for (int e = 0; e < Enemies.size(); e++) {
-							int shift = 0;
-							Enemies[e].getActor()->drawme(120 + shift, 22);
-							shift += 25;
+							Enemies[e].getActor()->drawme(120 + shift3, 21);
+							shift3 += 25;
 						}
 						break;
 					}
 					else {
+						Jelly.drawUserInterface();
 						sortPosition(Heroes, Heroes.size());
 						int randomSelect = rand() % Heroes.size();
 						if (Heroes.size() == 1)
 							randomSelect = 0;
 						gotoxy(5, 49);
-						if (!Enemies[j].isStunned())
+						if (!Enemies[j].isStunned()) {
 							combatList[i].takeEnemyTurn(Heroes[randomSelect]);
+							if (Heroes[randomSelect].getName() == "Crusader")
+								stress1 += 3;
+							else if (Heroes[randomSelect].getName() == "Grave Robber")
+								stress2 += 3;
+							else if (Heroes[randomSelect].getName() == "Highwayman")
+								stress3 += 3;
+							else if (Heroes[randomSelect].getName() == "Vestal")
+								stress4 += 3;
+						}
 						else {
+							gotoxy(85, 55);
 							std::cout << combatList[i].getName() << " was stunned and can't act!\n";
 							Enemies[j].setStun(false);
 						}
 						if (Heroes[randomSelect].getHeartAttack()) {
 							gotoxy(5, 50);
-							std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n";
+
 							//combatList.erase(combatList.begin() + i);
 							//Heroes.erase(Heroes.begin() + k);
 							//i--;
@@ -452,7 +498,7 @@ void Scene::play()
 
 						}
 
-						if (Heroes[randomSelect].getCurrentHP() <= 0)
+						if (Heroes[randomSelect].getCurrentHP() <= 0 || stress1 == 10|| stress2 == 10 || stress3 == 10 || stress4 == 10)
 						{
 
 							//gotoxy(5, 50);
@@ -462,9 +508,9 @@ void Scene::play()
 
 							//for (auto itr = combatList.begin(); itr != combatList.end(); itr++) {
 							//try {
-								for (int q = 0; q < combatList.size(); q++) {
-									if (!Heroes.empty()) {
-										if(randomSelect < Heroes.size())
+							for (int q = 0; q < combatList.size(); q++) {
+								if (!Heroes.empty()) {
+									if (randomSelect < Heroes.size())
 										if (combatList[q].getName() == Heroes[randomSelect].getName()) {
 											combatList.erase(combatList.begin() + q);
 											Heroes.erase(Heroes.begin() + randomSelect);
@@ -472,37 +518,37 @@ void Scene::play()
 											i--;
 											k--;
 										}
-									}
 								}
-
-
 							}
-							Vestal.getActor()->drawme(5, 24);
-							Highwayman.getActor()->drawme(27, 24);
-							GraveRobber.getActor()->drawme(49, 24);
-							Crusader.getActor()->drawme(70, 24);//subject to change
 
-							int shift2 = 0;
-							for (int e = 0; e < Enemies.size(); e++) {
-								Enemies[e].getActor()->drawme(120 + shift2, 22);
-								shift2 += 25;
-							}
-							break;
+
 						}
+						Vestal.getActor()->drawme(5, 21);
+						Highwayman.getActor()->drawme(27, 21);
+						GraveRobber.getActor()->drawme(49, 21);
+						Crusader.getActor()->drawme(70, 21);//subject to change
+
+						int shift2 = 0;
+						for (int e = 0; e < Enemies.size(); e++) {
+							Enemies[e].getActor()->drawme(120 + shift2, 21);
+							shift2 += 25;
+						}
+						break;
 					}
-					break;
 				}
-
-				gotoxy(200, 61);
-				if (Heroes.empty())
-					run = !run;
-				system("pause");
-				if (!run)
-					break;
-
+				break;
 			}
+
+			gotoxy(200, 61);
+			if (Heroes.empty())
+				run = !run;
+			system("pause");
+			if (!run)
+				break;
+
 		}
 	}
+}
 
 
 
