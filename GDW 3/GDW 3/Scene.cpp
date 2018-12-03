@@ -77,14 +77,14 @@ void Scene::initializeTheCrazyPeople()
 	this->Crusader = character(33, 0.05, 1, 1, 0.03, 6, "Crusader", CRUSADER_SPRITE);//creating a new character. see constructor for what these numbers mean
 
 	Crusader.setUI(CrusaderUI);
-	ability Smite(3, 4, 4, 4, 5, 6, 6, 6, 1, "Smite");
+	ability Smite(1, "Smite");
 	Crusader.setAbility(Smite, 1);//sets crusader's first ability to smite
 
-	ability StunningBlow(3, 4, 4, 4, 5, 6, 6, 6, 0.50, "Stunning Blow");
+	ability StunningBlow(0.50, "Stunning Blow");
 	StunningBlow.setStun(1);
 	Crusader.setAbility(StunningBlow, 2);
 
-	ability HolyLance(1, 2, 2, 2, 6, 7, 8, 8, 1, "Holy Lance");
+	ability HolyLance(1, "Holy Lance");
 	Crusader.setAbility(HolyLance, 3);
 
 	Crusader.setPosition(4);
@@ -93,13 +93,13 @@ void Scene::initializeTheCrazyPeople()
 	this->GraveRobber = character(20, 0.10, 1, 8, 0.06, 4, "Grave Robber", GRAVEROBBER_SPRITE);
 
 	GraveRobber.setUI(GraveRobberUI);
-	ability PickToTheFace(2, 3, 4, 4, 5, 6, 6, 6, 0.15, "Pick To The Freakin' Face");
+	ability PickToTheFace(0.15, "Pick To The Freakin' Face");
 	GraveRobber.setAbility(PickToTheFace, 1);
 
-	ability Lunge(1, 2, 2, 2, 5, 6, 7, 7, 1.40, "Lunge");
+	ability Lunge(1.40, "Lunge");
 	GraveRobber.setAbility(Lunge, 2);
 
-	ability ThrownDagger(1, 2, 3, 3, 6, 7, 8, 8, 0.10, "Thrown Dagger");
+	ability ThrownDagger(0.10, "Thrown Dagger");
 	GraveRobber.setAbility(ThrownDagger, 3);
 
 	GraveRobber.setPosition(3);
@@ -108,14 +108,14 @@ void Scene::initializeTheCrazyPeople()
 	Highwayman = character(23, .10, 1, 5, 0.05, 5, "Highwayman", HIGHWAYMAN_SPRITE);
 
 	Highwayman.setUI(HighwaymanUI);
-	ability GrapeshotBlast(2, 3, 3, 3, 5, 6, 7, 7, 0.50, "Grapeshot Blast");
+	ability GrapeshotBlast( 0.50, "Grapeshot Blast");
 	GrapeshotBlast.setHitsMulti(true);
 	Highwayman.setAbility(GrapeshotBlast, 1);
 
-	ability PointBlankShot(4, 4, 4, 4, 5, 5, 5, 5, 1.50, "Point Blank Shot");
+	ability PointBlankShot(1.50, "Point Blank Shot");
 	Highwayman.setAbility(PointBlankShot, 2);
 
-	ability PistolShot(1, 2, 3, 3, 6, 7, 8, 8, 0.15, "Pistol Shot");
+	ability PistolShot(0.15, "Pistol Shot");
 	Highwayman.setAbility(PistolShot, 3);
 
 	Highwayman.setPosition(2);
@@ -124,11 +124,11 @@ void Scene::initializeTheCrazyPeople()
 	Vestal = character(24, 0, 1, 4, 0.01, 4, "Vestal", VESTAL_SPRITE);
 
 	Vestal.setUI(VestalUI);
-	ability DivineGrace(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Grace");
+	ability DivineGrace(0.75, "Divine Grace");
 	Vestal.setAbility(DivineGrace, 1);
-	ability Dazzle(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Dazzling Light");
+	ability Dazzle(0.75, "Dazzling Light");
 	Vestal.setAbility(Dazzle, 2);
-	ability DivineComfort(1, 2, 2, 2, 1, 2, 3, 4, 0.75, "Divine Comfort");
+	ability DivineComfort(0.75, "Divine Comfort");
 	Vestal.setAbility(DivineComfort, 3);
 
 	Vestal.setPosition(1);
@@ -141,20 +141,40 @@ void Scene::initializeTheCrazyPeople()
 
 	//all of these have 30 ish hp..which we will change after anyways
 	SkeletonWitch = character(20, 0, 1, 10, 0.01, 6, "Skeleton Witch", SKELETON1_SPRITE);
+
+	ability Blast(0.7, "Blast");
+	SkeletonWitch.setAbility(Blast, 1);
+	ability DarkMagic(1.2, "Dank Magic Attack");
+	SkeletonWitch.setAbility(DarkMagic, 2);
+
+
 	Skeleton = character(25, 0, 1, 1, 0.01, 3, "Skeleton", SKELETON2_SPRITE);
+
+	ability Shank(0.7, "Shank");
+	Skeleton.setAbility(Shank, 1);
+	ability Slash(1, "Slash");
+	Skeleton.setAbility(Slash, 2);
+
+
 	Brawler = character(30, 0, 1, 30, 0.01, 4, "Brawler", BRAWLER_SPRITE);
+
+	ability Fist(0.75, "Fist");
+	Brawler.setAbility(Fist, 1);
+	ability Kick(1.1, "Kick");
+	Brawler.setAbility(Kick, 2);
+
+
 	Defender = character(35, 0, 1, 7, 0.01, 2, "Defender", DEFENDER_SPRITE);
+
+	ability ShieldBash(0.5, "Shield Bash");
+	Defender.setAbility(ShieldBash, 1);
+	ability Rush(1, "Rush");
+	Defender.setAbility(Rush, 2);
+	
 	SkeletonWitch.setUI(EnemyUI);
 
-	ability Fist(5, 6, 6, 6, 4, 3, 3, 3, 1, "Fist");
-	ability DarkMagic(5, 6, 6, 6, 4, 3, 3, 3, 1, "Dank Magic Attack");
-	ability ShieldBash(5, 6, 6, 6, 4, 3, 3, 3, 1, "Shield Bash");
-	ability Shank(5, 6, 6, 6, 4, 3, 3, 3, 1, "Shank");
 
-	SkeletonWitch.setAbility(DarkMagic, 1);
-	Skeleton.setAbility(Shank, 1);
-	Brawler.setAbility(Fist, 1);
-	Defender.setAbility(ShieldBash, 1);
+
 
 	potentialEnemies.push_back(SkeletonWitch);
 	potentialEnemies.push_back(Skeleton);
@@ -363,13 +383,13 @@ void Scene::play()
 				turn:
 
 					system("cls");
-					gotoxy(0, 2);
+					gotoxy(214, 51);
 					std::cout << Crusader.getName() << " - " << stress1 << std::endl;
-					gotoxy(0, 3);
+					gotoxy(214, 53);
 					std::cout << GraveRobber.getName() << " - " << stress2 << std::endl;
-					gotoxy(0, 4);
+					gotoxy(214, 55);
 					std::cout << Highwayman.getName() << " - " << stress3 << std::endl;
-					gotoxy(0, 5);
+					gotoxy(214, 57);
 					std::cout << Vestal.getName() << " - " << stress4 << std::endl;
 					int shift = 0;
 					Vestal.getActor()->drawme(5, 21);
@@ -435,6 +455,8 @@ void Scene::play()
 									if (combatList[q].getName() == Enemies[userInTwo - 1].getName()) {
 										combatList.erase(combatList.begin() + q);
 										Enemies.erase(Enemies.begin() + (userInTwo - 1));
+										if(userInTwo < 4)
+										Enemies[userInTwo].getActor()->setPath("cSpace.txt");
 
 										if (Enemies.empty()) {
 											run = !run;

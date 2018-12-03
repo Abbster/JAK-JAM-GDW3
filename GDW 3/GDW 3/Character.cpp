@@ -310,7 +310,8 @@ void character::takeTurnHeals(int userIn, character & Ally)
 
 void character::takeEnemyTurn(character &Hero)
 {
-	this->attack(this->getAbility(1), Hero);
+	int r = rand() % 2 + 1;
+	this->attack(this->getAbility(r), Hero);
 }
 
 Party::Party()
