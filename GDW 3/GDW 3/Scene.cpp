@@ -358,9 +358,13 @@ void Scene::play()
 				turn:
 
 					system("cls");
+					gotoxy(0, 2);
 					std::cout << Crusader.getName() << "'s stress level: " << stress1 << std::endl;
+					gotoxy(0, 3);
 					std::cout << GraveRobber.getName() << "'s stress level: " << stress2 << std::endl;
+					gotoxy(0, 4);
 					std::cout << Highwayman.getName() << "'s stress level: " << stress3 << std::endl;
+					gotoxy(0, 5);
 					std::cout << Vestal.getName() << "'s stress level: " << stress4 << std::endl;
 					int shift = 0;
 					Vestal.getActor()->drawme(5, 21);
@@ -395,7 +399,7 @@ void Scene::play()
 						std::cout << Heroes[k].getName() << " HP: " << Heroes[k].getCurrentHP() << std::endl;
 						//gotoxy(5, 53);
 						//std::cout << "Select an ability (1,2,3,4): " << combatList[i].getAbilityName(1) << ", " << combatList[i].getAbilityName(2) << ", " << combatList[i].getAbilityName(3) << ", Use Torch\n";
-						gotoxy(85, 51);
+						gotoxy(85, 50);
 						while (!(std::cin >> userIn)) {
 							std::cin.clear();
 							std::cin.ignore(100, '\n');
@@ -419,7 +423,7 @@ void Scene::play()
 
 						//gotoxy(100, 49);
 						//std::cout << "Select a Target's Position\n";
-						gotoxy(140, 51);
+						gotoxy(140, 50);
 						std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
 						sortPosition(Heroes, Heroes.size());//make another sort function with positions
 						if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)

@@ -51,11 +51,11 @@ void character::setUI(UserInterface userInterface)
 void character::attack(ability abl, character &enemy)
 {
 	srand(time(0));
-	gotoxy(5, 51);
+	gotoxy(85, 52);
 	std::cout << this->name << " used " << abl.getName() << std::endl;
 	if (enemy.didDodge()) {
-		gotoxy(20, 51);
-		std::cout << enemy.name << " dodged!\n";
+		gotoxy(85, 53);
+		std::cout << enemy.name << " Dodged!\n";
 		return;
 
 	}
@@ -63,15 +63,15 @@ void character::attack(ability abl, character &enemy)
 	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);
 	atcc *= abl.getModifier();//getting new dmg value by multiplying by a percent amount
 	if (this->didCrit()) {
-		gotoxy(20, 51);
-		std::cout << "CRIT!!" << std::endl;
+		gotoxy(85, 53);
+		std::cout << "CRIT!! " << std::endl;
 		atcc *= 2;
 	}
 	int finAttacc = (atcc + 0.5);
 	enemy.currentHP -= finAttacc;//does damage based on character damage values
-	gotoxy(5, 59);
+	gotoxy(85, 54);
 	std::cout << enemy.getName() << " took " << finAttacc << " damage!\n";
-	gotoxy(5, 60);
+	gotoxy(85, 55);
 	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP() << std::endl;
 
 
@@ -86,10 +86,12 @@ void character::attack(ability abl, character &enemy)
 		int randomStun = rand() % 2;
 		if (randomStun == 0)
 			enemy.stunned = false;
-		if (randomStun == 1) {
+		if (randomStun == 1) 
+		{
+		gotoxy(85, 56);
 		std::cout << "STUNNED!\n";
 		enemy.stunned = true;//returns true if true
-	}
+		}
 	}
 
 }
