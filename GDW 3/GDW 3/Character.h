@@ -38,6 +38,7 @@ public:
 	ability getAbility(unsigned int abilitynumber);
 	std::string getAbilityName(unsigned int abilitynumber);
 
+	void setActor(Sprite* s);
 	Sprite* getActor();
 
 

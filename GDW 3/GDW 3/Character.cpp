@@ -186,6 +186,11 @@ std::string character::getAbilityName(unsigned int abilitynumber)
 	}
 }
 
+void character::setActor(Sprite * s)
+{
+	this->actor = s;
+}
+
 Sprite * character::getActor()
 {
 	return this->actor;

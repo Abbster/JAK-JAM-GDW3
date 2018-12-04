@@ -354,10 +354,19 @@ void Scene::play()
 	int highwaymanPos = 27;
 	int graveRobberPos = 49;
 	int crusaderPos = 71;
-	Vestal.getActor()->drawme(5, 22);
-	Highwayman.getActor()->drawme(27, 22);
-	GraveRobber.getActor()->drawme(49, 22);
-	Crusader.getActor()->drawme(71, 22);//subject to change
+
+
+	int heroShift = 0;
+	for (int e = 0; e < Heroes.size(); e++) {
+		Heroes[e].getActor()->drawme(5 + heroShift, 21);
+		heroShift += 22;
+	}
+	//int enemyShift = 0;
+	//for (int e = 0; e < Enemies.size(); e++) {
+	//	Enemies[e].getActor()->drawme(120 + enemyShift, 21);
+	//	enemyShift += 25;
+	//}
+	std::cout << "Press D!\n";
 	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
 	while (true) {
 		if (isEvent(Events::D)) {
@@ -367,12 +376,6 @@ void Scene::play()
 				GraveRobber.getActor()->drawme(49 + u, 22);
 				Crusader.getActor()->drawme(71 + u, 22);//subject to change
 			}
-			int randEncounterChange = rand() % 2;
-			if (randEncounterChange == 0) {
-				system("pause");
-				system("cls");
-			}
-			else if (randEncounterChange == 1)
 				break;
 
 		}
@@ -388,23 +391,17 @@ void Scene::play()
 				turn:
 
 					system("cls");
-					gotoxy(214, 51);
-					std::cout << Crusader.getName() << " - " << stress1 << std::endl;
-					gotoxy(214, 53);
-					std::cout << GraveRobber.getName() << " - " << stress2 << std::endl;
-					gotoxy(214, 55);
-					std::cout << Highwayman.getName() << " - " << stress3 << std::endl;
-					gotoxy(214, 57);
-					std::cout << Vestal.getName() << " - " << stress4 << std::endl;
-					int shift = 0;
-					Vestal.getActor()->drawme(5, 21);
-					Highwayman.getActor()->drawme(27, 21);
-					GraveRobber.getActor()->drawme(49, 21);
-					Crusader.getActor()->drawme(71, 21);//subject to change
+					int heroShift2 = 0;
+					int enemyShift2 = 0;
+					
+					for (int e = 0; e < Heroes.size(); e++) {
+						Heroes[e].getActor()->drawme(5 + heroShift2, 21);
+						heroShift2 += 22;
+					}
 					
 					for (int e = 0; e < Enemies.size(); e++) {
-						Enemies[e].getActor()->drawme(120 + shift, 21);
-						shift += 25;
+						Enemies[e].getActor()->drawme(120 + enemyShift2, 21);
+						enemyShift2 += 25;
 					}
 
 
@@ -415,6 +412,14 @@ void Scene::play()
 
 
 						combatList[i].drawUserInterface();
+					gotoxy(214, 51);
+					std::cout << Crusader.getName() << " - " << stress1 << std::endl;
+					gotoxy(214, 53);
+					std::cout << GraveRobber.getName() << " - " << stress2 << std::endl;
+					gotoxy(214, 55);
+					std::cout << Highwayman.getName() << " - " << stress3 << std::endl;
+					gotoxy(214, 57);
+					std::cout << Vestal.getName() << " - " << stress4 << std::endl;
 
 						gotoxy(5, 46);
 						std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
@@ -484,15 +489,16 @@ void Scene::play()
 
 						}
 
-						Vestal.getActor()->drawme(5, 21);
-						Highwayman.getActor()->drawme(27, 21);
-						GraveRobber.getActor()->drawme(49, 21);
-						Crusader.getActor()->drawme(71, 21);//subject to change
+						int heroShift3 = 0;
+						for (int e = 0; e < Heroes.size(); e++) {
+							Heroes[e].getActor()->drawme(5 + heroShift3, 21);
+							heroShift3 += 22;
+						}
 
-						int shift3 = 0;
+						int enemyShift3 = 0;
 						for (int e = 0; e < Enemies.size(); e++) {
-							Enemies[e].getActor()->drawme(120 + shift3, 21);
-							shift3 += 25;
+							Enemies[e].getActor()->drawme(120 + enemyShift3, 21);
+							enemyShift3 += 25;
 						}
 						break;
 					}
@@ -520,30 +526,35 @@ void Scene::play()
 							Enemies[j].setStun(false);
 						}
 						
-						if (Heroes[randomSelect].getCurrentHP() <= 0 || stress1 == 10|| stress2 == 10 || stress3 == 10 || stress4 == 10)
+						if (Heroes[randomSelect].getCurrentHP() <= 0 || stress1 >= 10|| stress2 >= 10 || stress3 >= 10 || stress4 >= 10)
 						{
 
 							//gotoxy(5, 50);
 							//std::cout << Heroes[randomSelect].getName() << " hath been deaded \n";
 						//	killCharacter(Heroes[randomSelect]);
 
-
+							std::cout<<Heroes[randomSelect].getName() << " died!\n";
 							//for (auto itr = combatList.begin(); itr != combatList.end(); itr++) {
 							//try {
 							for (int q = 0; q < combatList.size(); q++) {
+								int heroShift1z = 0;
+								for (int e = 0; e < Heroes.size(); e++) {
+									Heroes[e].getActor()->drawme(5 + heroShift1z, 21);
+									heroShift1z += 22;
+								}
 								if (!Heroes.empty()) {
 									if (randomSelect < Heroes.size())
 										if (combatList[q].getName() == Heroes[randomSelect].getName()) {
+											//if (Heroes[randomSelect].getName() == "Crusader")
+												Heroes[randomSelect].setActor(CLEAR_SPRITE);
+											//else if (Heroes[randomSelect].getName() == "Grave Robber")
+											//	CLEAR_SPRITE->drawme(graveRobberPos, 21);
+											//else if (Heroes[randomSelect].getName() == "Highwayman")
+											//	CLEAR_SPRITE->drawme(highwaymanPos, 21);
+											//else if (Heroes[randomSelect].getName() == "Vestal")
+											//	CLEAR_SPRITE->drawme(vestalPos, 21);
 											combatList.erase(combatList.begin() + q);
 											Heroes.erase(Heroes.begin() + randomSelect);
-											if (Heroes[randomSelect].getName() == "Crusader")
-												CLEAR_SPRITE->drawme(crusaderPos, 21);
-											else if (Heroes[randomSelect].getName() == "Grave Robber")
-												CLEAR_SPRITE->drawme(graveRobberPos, 21);
-											else if (Heroes[randomSelect].getName() == "Highwayman")
-												CLEAR_SPRITE->drawme(highwaymanPos, 21);
-											else if (Heroes[randomSelect].getName() == "Vestal")
-												CLEAR_SPRITE->drawme(vestalPos, 21);
 
 
 											q--;
@@ -553,15 +564,18 @@ void Scene::play()
 								}
 							}
 						}
-						Vestal.getActor()->drawme(5, 21);
-						Highwayman.getActor()->drawme(27, 21);
-						GraveRobber.getActor()->drawme(49, 21);
-						Crusader.getActor()->drawme(71, 21);//subject to change
+						
 
-						int shift2 = 0;
+						int heroShift4 = 0;
+						for (int e = 0; e < Heroes.size(); e++) {
+							Heroes[e].getActor()->drawme(5 + heroShift4, 21);
+							heroShift4 += 22;
+						}
+
+						int enemyShift4 = 0;
 						for (int e = 0; e < Enemies.size(); e++) {
-							Enemies[e].getActor()->drawme(120 + shift2, 21);
-							shift2 += 25;
+							Enemies[e].getActor()->drawme(120 + enemyShift4, 21);
+							enemyShift4 += 25;
 						}
 						break;
 					}
