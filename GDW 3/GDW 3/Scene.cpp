@@ -9,6 +9,7 @@ Sprite *SKELETON1_SPRITE = new Sprite("skeleton.txt");
 Sprite *SKELETON2_SPRITE = new Sprite("skeleton2.txt");
 Sprite *BRAWLER_SPRITE = new Sprite("brawler.txt");
 Sprite *DEFENDER_SPRITE = new Sprite("defender.txt");
+Sprite *CLEAR_SPRITE = new Sprite("cSpace.txt");
 
 Sprite *LIGHT10 = new Sprite("Light10.txt");
 Sprite *TORCH_SPRITE = new Sprite("Light10.txt");
@@ -140,32 +141,32 @@ void Scene::initializeTheCrazyPeople()
 	std::vector<character> potentialEnemies;
 
 	//all of these have 30 ish hp..which we will change after anyways
-	SkeletonWitch = character(20, 0, 1, 10, 0.01, 6, "Skeleton Witch", SKELETON1_SPRITE);
-
+	SkeletonWitch = character(1, 0, 1, 10, 0.01, 6, "Skeleton Witch", SKELETON1_SPRITE);
+	//20
 	ability Blast(0.7, "Blast");
 	SkeletonWitch.setAbility(Blast, 1);
 	ability DarkMagic(1.2, "Dank Magic Attack");
 	SkeletonWitch.setAbility(DarkMagic, 2);
 
 
-	Skeleton = character(25, 0, 1, 1, 0.01, 3, "Skeleton", SKELETON2_SPRITE);
-
+	Skeleton = character(1, 0, 1, 1, 0.01, 3, "Skeleton", SKELETON2_SPRITE);
+	//25
 	ability Shank(0.7, "Shank");
 	Skeleton.setAbility(Shank, 1);
 	ability Slash(1, "Slash");
 	Skeleton.setAbility(Slash, 2);
 
 
-	Brawler = character(30, 0, 1, 30, 0.01, 4, "Brawler", BRAWLER_SPRITE);
-
-	ability Fist(0.75, "Fist");
+	Brawler = character(1, 0, 1, 30, 0.01, 4, "Brawler", BRAWLER_SPRITE);
+	//30
+	ability Fist(0.75, "Hefty Fist");
 	Brawler.setAbility(Fist, 1);
 	ability Kick(1.1, "Kick");
 	Brawler.setAbility(Kick, 2);
 
 
-	Defender = character(35, 0, 1, 7, 0.01, 2, "Defender", DEFENDER_SPRITE);
-
+	Defender = character(1, 0, 1, 7, 0.01, 2, "Defender", DEFENDER_SPRITE);
+	//35
 	ability ShieldBash(0.5, "Shield Bash");
 	Defender.setAbility(ShieldBash, 1);
 	ability Rush(1, "Rush");
@@ -232,7 +233,7 @@ std::vector<character> sort(std::vector<character> &c, int size) {
 
 }
 
-std::vector<character> checkForSameName(std::vector<character> &c, int size) {
+std::vector<character>& checkForSameName(std::vector<character> &c, int size) {
 
 	//static int *sortedArray = new int[size];//declaring static dynamic array
 
@@ -349,6 +350,10 @@ void Scene::play()
 	//int userIn = 0, userInTwo = 0; 
 	bool run = true;
 	bool didMove = false;
+	int vestalPos = 5;
+	int highwaymanPos = 27;
+	int graveRobberPos = 49;
+	int crusaderPos = 71;
 	Vestal.getActor()->drawme(5, 22);
 	Highwayman.getActor()->drawme(27, 22);
 	GraveRobber.getActor()->drawme(49, 22);
@@ -442,7 +447,12 @@ void Scene::play()
 						//gotoxy(100, 49);
 						//std::cout << "Select a Target's Position\n";
 						gotoxy(140, 50);
-						std::cin >> userInTwo;// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
+						while (!(std::cin >> userInTwo)) {
+							std::cin.clear();
+							std::cin.ignore(100, '\n');
+							gotoxy(85, 48);
+							std::cout << "Select an ability (1,2,3,4(Torch)):\n";
+						}// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
 						sortPosition(Heroes, Heroes.size());//make another sort function with positions
 						if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)
 							combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);
@@ -455,8 +465,7 @@ void Scene::play()
 									if (combatList[q].getName() == Enemies[userInTwo - 1].getName()) {
 										combatList.erase(combatList.begin() + q);
 										Enemies.erase(Enemies.begin() + (userInTwo - 1));
-										if(userInTwo < 4)
-										Enemies[userInTwo].getActor()->setPath("cSpace.txt");
+										
 
 										if (Enemies.empty()) {
 											run = !run;
@@ -470,6 +479,7 @@ void Scene::play()
 									}
 								}
 
+								
 							}
 
 						}
@@ -526,6 +536,16 @@ void Scene::play()
 										if (combatList[q].getName() == Heroes[randomSelect].getName()) {
 											combatList.erase(combatList.begin() + q);
 											Heroes.erase(Heroes.begin() + randomSelect);
+											if (Heroes[randomSelect].getName() == "Crusader")
+												CLEAR_SPRITE->drawme(crusaderPos, 21);
+											else if (Heroes[randomSelect].getName() == "Grave Robber")
+												CLEAR_SPRITE->drawme(graveRobberPos, 21);
+											else if (Heroes[randomSelect].getName() == "Highwayman")
+												CLEAR_SPRITE->drawme(highwaymanPos, 21);
+											else if (Heroes[randomSelect].getName() == "Vestal")
+												CLEAR_SPRITE->drawme(vestalPos, 21);
+
+
 											q--;
 											i--;
 											k--;
