@@ -8,13 +8,12 @@
 #include "UserInterface.h"
 #include "Inventory.h"
 
-#include "PositionVector.h"
-
+//main character class
 class character {
 
 public:
 
-	//test functions with templates for literally anything
+	//typedef to organize values
 	typedef double dataValue, resistance;
 	typedef bool passive, DEBUFF, BUFF;
 
@@ -22,45 +21,60 @@ public:
 	//wrapper function
 	void drawUserInterface();
 
-	//takes in base values
+	//takes in base values to construct a character
 	character(dataValue hp, dataValue Dodge, dataValue protecc, dataValue spd, dataValue critt, dataValue attacc, std::string NAME, Sprite * SPRITE);
-	character();
+	character();//default constructor
 
 
-
+	//sets a character's UI
 	void setUI(UserInterface userInterface);
-	UserInterface getUserInterface();
 
+	//sets an ability to a character
 	void setAbility(ability abl, unsigned int abilityNumber);
+	//attack function, main focus of combat
 	void attack(ability abl, character &enemy);
+	//same as attack function
 	void heal(ability abl, character &ally);
 
+	//getters for ability and the name of an ability
 	ability getAbility(unsigned int abilitynumber);
 	std::string getAbilityName(unsigned int abilitynumber);
 
+	//getter and setter for this character's actor
 	void setActor(Sprite* s);
 	Sprite* getActor();
 
-
+	//getter and setter for position
 	void setPosition(unsigned short pos);
 	unsigned short getPosition();
+	
+	//functions to check if the character dodged or crit
 	bool didDodge();
 	bool didCrit();
+
+	//might not need
 	void setHeartAttack(bool YN);
 	DEBUFF getHeartAttack();
+
+	//function that check if a character is slower than another
 	bool isSlowerThan(character &enemy);
+	//checks if a hero is stunned
 	bool isStunned();
+	//variable to set stun value of a character
 	void setStun(bool YN);
 
-
+	//getters for the name of a character
 	std::string getName();
-	std::string& getNameREFERENCE();
+	std::string& getNameREFERENCE();//might not need
 
+	//might not need
 	void makeDead(int YN);
 	bool amDead();
+	
+	//getter and setter of speed
 	dataValue getSpeed();
 	void setSpeed(dataValue s);
-	void setHealthBar(std::string s);
+	
 	dataValue getATTACC();
 	dataValue getCurrentHP();
 	void takeTurn(int userIn, character & Enemy);
@@ -69,9 +83,9 @@ public:
 
 	
 
-	//data members...a lot of which are going to be cut (yikes)
+	//data members
 private:
-	dataValue
+	dataValue//basic data values
 		maxHP,
 		currentHP,
 		dodge,
@@ -79,28 +93,10 @@ private:
 		PROTECC,
 		crit,
 		ATTACC;
-	int inBetweenDamage;//this will be the random number between damagemin and damage max
-	passive
-		corpseClear,
-		preventAmbush,
-		religious;
+
 	DEBUFF
-		bleed,
-		blight,
 		stunned = false,
-		debuff,
-		mark,
-		move,
-		horror,
-		heartAttack = false,
-		deathsDoor,
-		deathsDoorRecovery;
-	BUFF//maybe cut
-		buff,
-		guard,
-		riposte,
-		restoration,
-		aegis;
+		heartAttack = false;
 	ability
 		able1,
 		able2,
@@ -113,27 +109,28 @@ private:
 	bool isDead = false;
 
 
+	//sprite for the character
 	Sprite * actor;
+	//user interface for each character
 	UserInterface USER_INTERFACE;
-	//each character should have a sprite
 
 
 
 };
 
-
+//Party class
 class Party : character {
 
 public:
 	Party();
 	Party(character FIRST, character SECOND, character THIRD, character FOURTH, Inventory INVENTORY);
 
-	void moveParty();
-
+	//gets an inventory reference
 	Inventory& getInventory();
 
 private:
 	character first, second, third, fourth;
+	//inventory object
 	Inventory inventory;
 
 };

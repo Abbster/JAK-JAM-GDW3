@@ -9,13 +9,13 @@ std::vector<Item*>& Inventory::getItems()
 	return this->items;
 }
 
+//adds an item
 void Inventory::addItem(Item * item)
 {
 	this->items.push_back(item);
-	std::cout << "WORKS";
 }
 
-
+//makes a new item
 Item::Item(std::string NAME, Sprite * THUMBNAIL)
 {
 	this->name = NAME;

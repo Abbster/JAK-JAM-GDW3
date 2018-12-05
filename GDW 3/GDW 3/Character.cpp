@@ -1,13 +1,9 @@
 #include "Character.h"
-#include "drawing.h"
 #include <iostream>
 typedef double dataValue, resistance;
 typedef bool passive, DEBUFF, BUFF;
 
-
-
-
-
+//function used to replace a sprite
 void character::die()
 {
 
@@ -17,6 +13,7 @@ void character::die()
 
 }
 
+//draws the user interface
 void character::drawUserInterface()
 {
 	this->USER_INTERFACE.getSprite().drawme(0, 44);
@@ -41,7 +38,7 @@ character::character()
 {
 }
 
-
+//sets UI
 void character::setUI(UserInterface userInterface)
 {
 	this->USER_INTERFACE = userInterface;
@@ -50,6 +47,7 @@ void character::setUI(UserInterface userInterface)
 //damage calculation
 void character::attack(ability abl, character &enemy)
 {
+	//seeding time
 	srand(time(0));
 	gotoxy(85, 52);
 	std::cout << this->name << " used " << abl.getName() << std::endl;
@@ -74,15 +72,8 @@ void character::attack(ability abl, character &enemy)
 	gotoxy(85, 55);
 	std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP() << std::endl;
 
-
-	//if (enemy.stress >= 10) {
-	//	std::cout << enemy.getName() << " had a heart attack!\n";
-	//	enemy.heartAttack = true;
-	//	//enemy.currentHP = 0;
-	//	//std::cout << enemy.getName() << " HP: " << enemy.getCurrentHP() << std::endl;
-	//
-	//}
 	if (abl.hasStun()) {//checks if the ability has stun
+		//each ability that has stun has a 50/50 chance to stun
 		int randomStun = rand() % 2;
 		if (randomStun == 0)
 			enemy.stunned = false;
@@ -95,22 +86,23 @@ void character::attack(ability abl, character &enemy)
 	}
 
 }
-
+//heal function
 void character::heal(ability abl, character & Ally)
 {
+
 	srand(time(0));
 	gotoxy(85, 51);
 	std::cout << this->name << " used " << abl.getName() << std::endl;
 
 	double atcc = this->ATTACC;
-	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);
+	atcc = (rand() % ((int)this->ATTACC + 1) + this->ATTACC);//gets the base damage and adds a random amount, up to the base damage number
 	atcc *= abl.getModifier();//getting new dmg value by multiplying by a percent amount
-	if (this->didCrit()) {
+	if (this->didCrit()) {//checks if the character crit
 		gotoxy(85, 52);
 		std::cout << "CRIT!!" << std::endl;
-		atcc *= 2;
+		atcc *= 2;//doubles attack
 	}
-	int finAttacc = (atcc + 0.5);
+	int finAttacc = (atcc + 0.5);//adding .5 so that the attack value is rounded appropriatley
 	Ally.currentHP += finAttacc;//does damage based on character damage values
 	gotoxy(85, 54);
 	std::cout << Ally.name << " was healed " << (int)finAttacc << " health!\n";
@@ -119,7 +111,7 @@ void character::heal(ability abl, character & Ally)
 }
 
 
-void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simple sheit
+void character::setAbility(ability abl, unsigned int abilityNumber)//sets an ability
 {
 	switch (abilityNumber) {
 	case 1:
@@ -136,14 +128,12 @@ void character::setAbility(ability abl, unsigned int abilityNumber)//pretty simp
 		break;
 	}
 }
-void character::setPosition(unsigned short pos)//just a base setter for the gazillion that need to be done
+//Sets a characters position
+void character::setPosition(unsigned short pos)
 {
 	this->position = pos;
 }
-//void character::setStress(dataValue AH)
-//{
-//	this->stress += AH;
-//}
+
 void character::setHeartAttack(bool YN)
 {
 	this->heartAttack = YN;
@@ -154,10 +144,8 @@ void character::setSpeed(dataValue s)
 	this->speed = s;
 }
 
-void character::setHealthBar(std::string s)
-{
-	this->healthBar = s;
-}
+
+//gets ability
 ability character::getAbility(unsigned int abilitynumber)
 {
 	switch (abilitynumber) {
@@ -172,6 +160,7 @@ ability character::getAbility(unsigned int abilitynumber)
 	}
 }
 
+//gets ability name
 std::string character::getAbilityName(unsigned int abilitynumber)
 {
 	switch (abilitynumber) {
@@ -186,6 +175,8 @@ std::string character::getAbilityName(unsigned int abilitynumber)
 	}
 }
 
+//setters and getters
+
 void character::setActor(Sprite * s)
 {
 	this->actor = s;
@@ -196,18 +187,10 @@ Sprite * character::getActor()
 	return this->actor;
 }
 
-
-
 unsigned short character::getPosition()
 {
 	return this->position;
 }
-//dataValue character::getStress()
-//{
-//	return this->stress;
-//}
-
-
 
 DEBUFF character::getHeartAttack()
 {
@@ -252,7 +235,7 @@ dataValue character::getCurrentHP()
 bool character::didDodge()
 {
 
-
+	//Dodge chances in lanes
 	srand(time(0));
 	double dodgeTemp = rand() % 100 + 1;
 	if (this->position == 2)
@@ -270,11 +253,13 @@ bool character::didDodge()
 
 }
 
+//crit mod
 bool character::didCrit()
 {
 	srand(time(0));
 	double critTemp = rand() % 100 + 1;
 
+	//doubler
 	double critUPSCALED = this->crit * 100;
 	if (critTemp <= critUPSCALED)
 		return true;
@@ -282,6 +267,7 @@ bool character::didCrit()
 	return false;
 }
 
+//Function for checking if one character is faster than the other
 bool character::isSlowerThan(character & enemy)
 {
 	if (this->speed == enemy.speed || this->speed < enemy.speed)
@@ -291,28 +277,30 @@ bool character::isSlowerThan(character & enemy)
 		return false;
 }
 
+//Checks if the character is stunned
 bool character::isStunned()
 {
 	return this->stunned;
 }
 
+//Applies stun to a character
 void character::setStun(bool YN)
 {
 	this->stunned = YN;
 }
 
 
-
+//Takes the players turn
 void character::takeTurn(int userIn, character &Enemy)
 {
 	this->attack(this->getAbility(userIn), Enemy);//attacking an enemy at index 1,2,3,4
 }
-
+//If the ability heals then this allows you to target allies
 void character::takeTurnHeals(int userIn, character & Ally)
 {
 	this->heal(this->getAbility(userIn), Ally);
 }
-
+//enemys turn
 void character::takeEnemyTurn(character &Hero)
 {
 	int r = rand() % 2 + 1;
@@ -333,10 +321,6 @@ Party::Party(character FIRST, character SECOND, character THIRD, character FOURT
 	this->inventory = INVENTORY;
 }
 
-void Party::moveParty()
-{
-	
-}
 
 Inventory& Party::getInventory()
 {

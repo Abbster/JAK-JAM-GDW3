@@ -1,29 +1,37 @@
 #include "Scene.h"
+#include <cstdlib>
 
+//Initializing hero sprites
 Sprite *CRUSADER_SPRITE = new Sprite("crusader.txt");
 Sprite *GRAVEROBBER_SPRITE = new Sprite("graveRobber.txt");
 Sprite *HIGHWAYMAN_SPRITE = new Sprite("highwayman.txt");
 Sprite *VESTAL_SPRITE = new Sprite("vestal.txt");
 
+//Initializing enemy sprites
 Sprite *SKELETON1_SPRITE = new Sprite("skeleton.txt");
 Sprite *SKELETON2_SPRITE = new Sprite("skeleton2.txt");
 Sprite *BRAWLER_SPRITE = new Sprite("brawler.txt");
 Sprite *DEFENDER_SPRITE = new Sprite("defender.txt");
 Sprite *CLEAR_SPRITE = new Sprite("cSpace.txt");
 
+//Initializing more sprites
 Sprite *LIGHT10 = new Sprite("Light10.txt");
 Sprite *TORCH_SPRITE = new Sprite("Light10.txt");
 
+//Inventory
 Inventory AdventurersPack;
 Item *torch = new Item("Torch", TORCH_SPRITE);
 
+//Function that replaces a characters sprite with bones when they die
 void Scene::killCharacter(character &c)
 {
-	//remove from combat list
+	//Remove from combat list
 		//c.die();
 	c.getActor()->setPath("bones.txt");
 
 }
+
+//Unimplemented light stuff
 void Sprite::checkTorchSprite(int lightlevel)
 {
 	switch (lightlevel) {
@@ -37,24 +45,18 @@ void Sprite::checkTorchSprite(int lightlevel)
 	}
 
 }
+
+
 Scene::~Scene()
 {
-	//delete this;
-	//delete CRUSADER_SPRITE;
-	//delete GRAVEROBBER_SPRITE;
-	//delete HIGHWAYMAN_SPRITE;
-	//delete VESTAL_SPRITE;
-	//delete SKELETON1_SPRITE;
-	//delete SKELETON2_SPRITE;
-	//delete TORCH_SPRITE;
-	//delete torch;
-
-
+	
 }
+//Initializing the stress for all the heroes
 	int Scene::stress1 = 0;
 	int Scene::stress2 = 0;
 	int Scene::stress3 = 0;
 	int Scene::stress4 = 0;
+
 Scene::Scene(Sprite * BG, Sprite * UI)
 {
 	this->background = BG;
@@ -63,23 +65,28 @@ Scene::Scene(Sprite * BG, Sprite * UI)
 
 
 }
+
+//Initializes all the things
 void Scene::initializeTheCrazyPeople()
 {
-	//userInterface list
+	//UserInterface list
 	UserInterface CrusaderUI("crusaderui.txt");
 	UserInterface GraveRobberUI("graveRobberui.txt");
 	UserInterface HighwaymanUI("highwaymanui.txt");
 	UserInterface VestalUI("vestalui.txt");
 	UserInterface EnemyUI("emptyRoom.txt");
 
-	//switch to pointers
+	//Switch to pointers
+	
+	//Setting all the hero stats and abilities
+	//character(health, dodge, defence, speed, crit, attack, name, sprite)
 
-	//CRUSADER 33
+	//CRUSADER 
 	this->Crusader = character(33, 0.05, 1, 1, 0.03, 6, "Crusader", CRUSADER_SPRITE);//creating a new character. see constructor for what these numbers mean
 
 	Crusader.setUI(CrusaderUI);
 	ability Smite(1, "Smite");
-	Crusader.setAbility(Smite, 1);//sets crusader's first ability to smite
+	Crusader.setAbility(Smite, 1);
 
 	ability StunningBlow(0.50, "Stunning Blow");
 	StunningBlow.setStun(1);
@@ -90,7 +97,7 @@ void Scene::initializeTheCrazyPeople()
 
 	Crusader.setPosition(4);
 
-	//GRAVE ROBBER 20
+	//GRAVE ROBBER 
 	this->GraveRobber = character(20, 0.10, 1, 8, 0.06, 4, "Grave Robber", GRAVEROBBER_SPRITE);
 
 	GraveRobber.setUI(GraveRobberUI);
@@ -105,7 +112,7 @@ void Scene::initializeTheCrazyPeople()
 
 	GraveRobber.setPosition(3);
 
-	//HIGHWAYMAN 23
+	//HIGHWAYMAN 
 	Highwayman = character(23, .10, 1, 5, 0.05, 5, "Highwayman", HIGHWAYMAN_SPRITE);
 
 	Highwayman.setUI(HighwaymanUI);
@@ -121,7 +128,7 @@ void Scene::initializeTheCrazyPeople()
 
 	Highwayman.setPosition(2);
 
-	//VESTAL 24
+	//VESTAL 
 	Vestal = character(24, 0, 1, 4, 0.01, 4, "Vestal", VESTAL_SPRITE);
 
 	Vestal.setUI(VestalUI);
@@ -140,33 +147,36 @@ void Scene::initializeTheCrazyPeople()
 	int randomEnemySelect4 = rand() % 4;
 	std::vector<character> potentialEnemies;
 
-	//all of these have 30 ish hp..which we will change after anyways
-	SkeletonWitch = character(1, 0, 1, 10, 0.01, 6, "Skeleton Witch", SKELETON1_SPRITE);
-	//20
-	ability Blast(0.7, "Blast");
+	//All of these have 30 ish hp..which we will change after anyways
+
+	//Setting all enemy stats and abilities
+	//character(health, dodge, defence, speed, crit, attack, name, sprite)
+	SkeletonWitch = character(18, 0, 1, 7, 0.01, 6, "Skeleton Witch", SKELETON1_SPRITE);
+	
+	ability Blast(0.8, "Blast");
 	SkeletonWitch.setAbility(Blast, 1);
 	ability DarkMagic(1.2, "Dank Magic Attack");
 	SkeletonWitch.setAbility(DarkMagic, 2);
 
 
-	Skeleton = character(1, 0, 1, 1, 0.01, 3, "Skeleton", SKELETON2_SPRITE);
-	//25
+	Skeleton = character(20, 0, 1, 2, 0.01, 3, "Skeleton", SKELETON2_SPRITE);
+	
 	ability Shank(0.7, "Shank");
 	Skeleton.setAbility(Shank, 1);
 	ability Slash(1, "Slash");
 	Skeleton.setAbility(Slash, 2);
 
 
-	Brawler = character(1, 0, 1, 30, 0.01, 4, "Brawler", BRAWLER_SPRITE);
-	//30
+	Brawler = character(25, 0, 1, 5, 0.01, 4, "Brawler", BRAWLER_SPRITE);
+
 	ability Fist(0.75, "Hefty Fist");
 	Brawler.setAbility(Fist, 1);
 	ability Kick(1.1, "Kick");
 	Brawler.setAbility(Kick, 2);
 
 
-	Defender = character(1, 0, 1, 7, 0.01, 2, "Defender", DEFENDER_SPRITE);
-	//35
+	Defender = character(30, 0, 1, 7, 0.01, 2, "Defender", DEFENDER_SPRITE);
+	
 	ability ShieldBash(0.5, "Shield Bash");
 	Defender.setAbility(ShieldBash, 1);
 	ability Rush(1, "Rush");
@@ -176,25 +186,26 @@ void Scene::initializeTheCrazyPeople()
 
 
 
-
+	//Sets the enemies as potential enemies 
 	potentialEnemies.push_back(SkeletonWitch);
 	potentialEnemies.push_back(Skeleton);
 	potentialEnemies.push_back(Brawler);
 	potentialEnemies.push_back(Defender);
 
+	//Pushes random potential enemies into the party of enemies
 	Enemies.push_back(potentialEnemies[randomEnemySelect1]);
 	Enemies.push_back(potentialEnemies[randomEnemySelect2]);
 	Enemies.push_back(potentialEnemies[randomEnemySelect3]);
 	Enemies.push_back(potentialEnemies[randomEnemySelect4]);
 
-
-	Heroes.push_back(Crusader);//pushes crusader onto the list of heroes
+	//Pushes all the heroes into the list of heroes
+	Heroes.push_back(Crusader);
 	Heroes.push_back(GraveRobber);
 	Heroes.push_back(Highwayman);
 	Heroes.push_back(Vestal);
 
 
-
+	//Pushes everything into the combatlist
 	combatList.push_back(Crusader);
 	combatList.push_back(GraveRobber);
 	combatList.push_back(Highwayman);
@@ -207,6 +218,7 @@ void Scene::initializeTheCrazyPeople()
 }
 
 
+//Sort function that sorts by speed
 std::vector<character> sort(std::vector<character> &c, int size) {
 
 	//static int *sortedArray = new int[size];//declaring static dynamic array
@@ -224,6 +236,7 @@ std::vector<character> sort(std::vector<character> &c, int size) {
 
 	}
 
+	//Outputs the turn order
 	gotoxy(5, 43);
 	std::cout << "Turn Order: ";
 	for (int i = 0; i < size; i++)
@@ -233,27 +246,7 @@ std::vector<character> sort(std::vector<character> &c, int size) {
 
 }
 
-std::vector<character>& checkForSameName(std::vector<character> &c, int size) {
 
-	//static int *sortedArray = new int[size];//declaring static dynamic array
-
-	double change = 0;//variable to hold the current element
-
-	for (int i = size - 1; i > 0; i--) {//for loop controlling which elements to loop through first, starting from the last
-
-		for (int j = 0; j < i; j++)//loop that checks each element
-		{
-			if (c[j].getName() == c[j + 1].getName()) {//checks if the current element is greater than the next element
-				//std::swap(c[j], c[j + 1]);
-				c[j + 1].getNameREFERENCE().append("de", 2);
-			}
-		}
-
-	}
-
-	return c;//returning the sorted array
-
-}
 
 std::vector<character> sortNoText(std::vector<character> &c, int size) {
 
@@ -275,7 +268,7 @@ std::vector<character> sortNoText(std::vector<character> &c, int size) {
 	return c;//returning the sorted array
 
 }
-
+//A function that sorts the characters by their combat position
 std::vector<character> sortPosition(std::vector<character> &c, int size) {
 
 	//static int *sortedArray = new int[size];//declaring static dynamic array
@@ -301,6 +294,7 @@ std::vector<character> sortPosition(std::vector<character> &c, int size) {
 
 }
 
+//A function that sorts the characters by their combat position without text 
 std::vector<character> sortPositionNoText(std::vector<character> &c, int size) {
 
 	//static int *sortedArray = new int[size];//declaring static dynamic array
@@ -327,18 +321,7 @@ void Scene::play()
 	int userIn = 0;//values for user input
 	int userInTwo = 0;
 
-	this->background->drawme();
-	//while (true)
-	//{
-	//POINT cursorPos;
-	//GetCursorPos(&cursorPos);
-	//ScreenToClient(GetConsoleWindow(), &cursorPos);
-	//short mx = 0, my = 0;
-	//	mx = cursorPos.x;
-	//	my = cursorPos.y;
-	//	if (isEvent(Events::Mouse_Left) && mx >= 626 && mx <= 1221 && my >= 631 && my <= 772)
-	//		break;
-	//}
+	//If the heroes are dead
 	initializeTheCrazyPeople();
 	if (Crusader.getActor()->getPath() == "bones.txt" && GraveRobber.getActor()->getPath() == "bones.txt"
 		&& Highwayman.getActor()->getPath() == "bones.txt" && Vestal.getActor()->getPath() == "bones.txt")
@@ -355,17 +338,14 @@ void Scene::play()
 	int graveRobberPos = 49;
 	int crusaderPos = 71;
 
-
+	//Redraws the enemies
 	int heroShift = 0;
 	for (int e = 0; e < Heroes.size(); e++) {
 		Heroes[e].getActor()->drawme(5 + heroShift, 21);
 		heroShift += 22;
 	}
-	//int enemyShift = 0;
-	//for (int e = 0; e < Enemies.size(); e++) {
-	//	Enemies[e].getActor()->drawme(120 + enemyShift, 21);
-	//	enemyShift += 25;
-	//}
+
+	//Press d to move the heroes
 	std::cout << "Press D!\n";
 	Party Adventurers(Crusader, GraveRobber, Highwayman, Vestal, AdventurersPack);
 	while (true) {
@@ -381,15 +361,22 @@ void Scene::play()
 		}
 	}
 
+	//Sorts the combat list and positions of the enemies
+	sortNoText(Heroes, Heroes.size());
 	sort(combatList, combatList.size());
 	Adventurers.getInventory().addItem(torch);
 	sortPosition(Enemies, Enemies.size());
+
+	//Combat loop
 	while (run) {
+		//Iterates through the combat list
 		for (int i = 0; i < combatList.size(); i++) {
+			//Iterates through the enemies list
 			for (int j = 0; j < Enemies.size(); j++) {
+				//Iterates though the heroes list
 				for (int k = 0; k < Heroes.size(); k++) {
 				turn:
-
+					//start of every turn it clears the screen and redraws everything
 					system("cls");
 					int heroShift2 = 0;
 					int enemyShift2 = 0;
@@ -412,6 +399,7 @@ void Scene::play()
 
 
 						combatList[i].drawUserInterface();
+					//Displays stress
 					gotoxy(214, 51);
 					std::cout << Crusader.getName() << " - " << stress1 << std::endl;
 					gotoxy(214, 53);
@@ -421,14 +409,17 @@ void Scene::play()
 					gotoxy(214, 57);
 					std::cout << Vestal.getName() << " - " << stress4 << std::endl;
 
+					//Tells the player whos turn it is
 						gotoxy(5, 46);
 						std::cout << "Its " << combatList[i].getName() << "'s Turn!\n";
 						//std::cout << "HP: " << combatList[i].getCurrentHP() << std::endl;
 
+						//Displays the heroes current health
 						gotoxy(33, 46);
-						std::cout << Heroes[k].getName() << " HP: " << Heroes[k].getCurrentHP() << std::endl;
+						std::cout << Heroes[k].getCurrentHP() << std::endl;
 						gotoxy(85, 50);
-						while (!(std::cin >> userIn)) {
+						//User input validation
+						while (!(std::cin >> userIn)|| userIn > 4 || userIn <=0) {
 							std::cin.clear();
 							std::cin.ignore(100, '\n');
 							gotoxy(85, 48);
@@ -436,6 +427,7 @@ void Scene::play()
 
 						}//1 2 3 4
 
+						//User input 
 						if (userIn == 4) {
 							if (!Adventurers.getInventory().getItems().empty()) {
 								Adventurers.getInventory().getItems().pop_back();
@@ -448,17 +440,17 @@ void Scene::play()
 								std::cout << "No torches!\n";
 							}goto turn;
 						}
-
-						//gotoxy(100, 49);
-						//std::cout << "Select a Target's Position\n";
+						//User input validation
 						gotoxy(140, 50);
-						while (!(std::cin >> userInTwo)) {
+						while (!(std::cin >> userInTwo) || userInTwo > 4 || userInTwo <= 0) {
 							std::cin.clear();
 							std::cin.ignore(100, '\n');
 							gotoxy(85, 48);
-							std::cout << "Select an ability (1,2,3,4(Torch)):\n";
+							std::cout << "Select a target (1,2,3,4):\n";
 						}// 4 5 6 7 (or 1 2 3 4 if healing...maybe)
-						sortPosition(Heroes, Heroes.size());//make another sort function with positions
+
+						//make another sort function with positions
+						sortPosition(Heroes, Heroes.size());
 						if (combatList[i].getName() == "Vestal" && userIn == 1 || combatList[i].getName() == "Vestal" && userIn == 3)
 							combatList[i].takeTurnHeals(userIn, Heroes[userInTwo - 1]);
 						else
@@ -488,7 +480,7 @@ void Scene::play()
 							}
 
 						}
-
+						//Redraws stuff again
 						int heroShift3 = 0;
 						for (int e = 0; e < Heroes.size(); e++) {
 							Heroes[e].getActor()->drawme(5 + heroShift3, 21);
@@ -502,13 +494,17 @@ void Scene::play()
 						}
 						break;
 					}
+
+
 					else {
+					//redraws user interface
 						SkeletonWitch.drawUserInterface();
 						sortPosition(Heroes, Heroes.size());
 						int randomSelect = rand() % Heroes.size();
 						if (Heroes.size() == 1)
 							randomSelect = 0;
 						gotoxy(5, 49);
+						//Enemies turn (attacks, add stress)
 						if (!Enemies[j].isStunned()) {
 							combatList[i].takeEnemyTurn(Heroes[randomSelect]);
 							if (Heroes[randomSelect].getName() == "Crusader")
@@ -520,39 +516,32 @@ void Scene::play()
 							else if (Heroes[randomSelect].getName() == "Vestal")
 								stress4 += 3;
 						}
+						//if the enemy is stunned
 						else {
 							gotoxy(85, 55);
 							std::cout << combatList[i].getName() << " was stunned and can't act!\n";
-							Enemies[j].setStun(false);
+							combatList[i].setStun(false);
 						}
 						
+						//If the heroes stress is equal to or higher than 10, they will experience cardiac arrest and die
+						//if the hero is at 0 hp, they also die
 						if (Heroes[randomSelect].getCurrentHP() <= 0 || stress1 >= 10|| stress2 >= 10 || stress3 >= 10 || stress4 >= 10)
 						{
 
-							//gotoxy(5, 50);
-							//std::cout << Heroes[randomSelect].getName() << " hath been deaded \n";
-						//	killCharacter(Heroes[randomSelect]);
-
 							std::cout<<Heroes[randomSelect].getName() << " died!\n";
-							//for (auto itr = combatList.begin(); itr != combatList.end(); itr++) {
-							//try {
+							
+							//Redraws heroes
 							for (int q = 0; q < combatList.size(); q++) {
 								int heroShift1z = 0;
 								for (int e = 0; e < Heroes.size(); e++) {
 									Heroes[e].getActor()->drawme(5 + heroShift1z, 21);
 									heroShift1z += 22;
 								}
+								//Clears the heroes sprite if they are dead
 								if (!Heroes.empty()) {
 									if (randomSelect < Heroes.size())
 										if (combatList[q].getName() == Heroes[randomSelect].getName()) {
-											//if (Heroes[randomSelect].getName() == "Crusader")
-												Heroes[randomSelect].setActor(CLEAR_SPRITE);
-											//else if (Heroes[randomSelect].getName() == "Grave Robber")
-											//	CLEAR_SPRITE->drawme(graveRobberPos, 21);
-											//else if (Heroes[randomSelect].getName() == "Highwayman")
-											//	CLEAR_SPRITE->drawme(highwaymanPos, 21);
-											//else if (Heroes[randomSelect].getName() == "Vestal")
-											//	CLEAR_SPRITE->drawme(vestalPos, 21);
+											Heroes[randomSelect].setActor(CLEAR_SPRITE);
 											combatList.erase(combatList.begin() + q);
 											Heroes.erase(Heroes.begin() + randomSelect);
 
@@ -565,7 +554,7 @@ void Scene::play()
 							}
 						}
 						
-
+						//Redraws everything again
 						int heroShift4 = 0;
 						for (int e = 0; e < Heroes.size(); e++) {
 							Heroes[e].getActor()->drawme(5 + heroShift4, 21);
@@ -583,12 +572,15 @@ void Scene::play()
 				break;
 			}
 
+			//Continues program if heroes are alive, ends if they deaded
 			gotoxy(200, 61);
-			if (Heroes.empty())
-				run = !run;
+			//closes the program if you die
+			if (Heroes.empty() || stress1 >= 10 && stress2 >= 10 && stress3 >= 10 && stress4 >= 10) {
+				
+				exit(0);//closes program
+			}
 			system("pause");
-			if (!run)
-				break;
+			
 
 		}
 	}

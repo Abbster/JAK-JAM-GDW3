@@ -12,7 +12,7 @@ int main()
 	Sprite* UI_scene1 = new Sprite("emptyRoom.txt");
 
 	std::vector<Scene*> scenes;
-
+	BACKGROUND_scene1->drawme();
 	for (int i = 0; i < 10000; i++) {
 		scenes.push_back(new Scene(BACKGROUND_scene1, UI_scene1));
 		scenes[i]->play();

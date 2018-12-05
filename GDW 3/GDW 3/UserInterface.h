@@ -8,7 +8,7 @@ public:
 
 	Sprite getSprite();
 private:
-	Sprite charUI;
+	Sprite charUI;//character UI
 
 
 };

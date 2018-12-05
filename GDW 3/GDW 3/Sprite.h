@@ -3,11 +3,13 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "PositionVector.h"
 #include "Input.h"
 #include "Events.h"
 
+
+//Sets draw location
 void gotoxy(int x, int y);
+//Sprite object
 class Sprite {
 public:
 	Sprite(){}

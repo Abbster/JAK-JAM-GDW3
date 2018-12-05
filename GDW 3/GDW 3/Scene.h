@@ -7,6 +7,7 @@ public:
 	Scene(Sprite* BG, Sprite* UI);
 	Scene() {}
 	void play();
+	//function for initializing everything
 	void initializeTheCrazyPeople();
 
 	void killCharacter(character &c);
@@ -16,7 +17,7 @@ public:
 	 ~Scene();
 	
 	
-
+	 //Keeps stress throughout battles
 	static int stress1, stress2, stress3, stress4;
 private:
 	Sprite* background;
