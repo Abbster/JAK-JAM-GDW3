@@ -35,7 +35,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="testCrusader.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

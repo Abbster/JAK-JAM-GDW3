@@ -117,7 +117,6 @@ void Scene::initializeTheCrazyPeople()
 
 	Highwayman.setUI(HighwaymanUI);
 	ability GrapeshotBlast( 0.50, "Grapeshot Blast");
-	GrapeshotBlast.setHitsMulti(true);
 	Highwayman.setAbility(GrapeshotBlast, 1);
 
 	ability PointBlankShot(1.50, "Point Blank Shot");
